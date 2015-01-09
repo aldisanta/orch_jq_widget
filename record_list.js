@@ -18,13 +18,13 @@ $.widget( "orchestrate.record_list", {
 		var opts = this.options;
 		this.record_list = $(this.element);
 			
-			//disable submit on enter
-			this.record_list.keydown(function(event){
-				if( (event.keyCode == 13)) {
-					event.preventDefault();
-					return false;
-				}
-			});
+		//disable submit on enter
+		this.record_list.keydown(function(event){
+			if( (event.keyCode == 13)) {
+				event.preventDefault();
+				return false;
+			}
+		});
 
 		// cache commonly used elements
 		this._cacheElements();
