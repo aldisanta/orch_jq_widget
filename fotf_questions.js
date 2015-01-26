@@ -1,5 +1,5 @@
 
-// the widget definition, where "squareui" is the namespace,
+// the widget definition, where "orchestrate" is the namespace,
 // "fotf_questions" the widget name
 // bind on form containing the record list table
 $.widget( "orchestrate.fotf_questions", {
@@ -7,6 +7,8 @@ $.widget( "orchestrate.fotf_questions", {
 	options: {
 		is_country_state_toggle : false
 		, disabled : false
+		, is_portal : false
+		, is_validate : true
 	},
 
 	/**
@@ -22,9 +24,6 @@ $.widget( "orchestrate.fotf_questions", {
 		// cache commonly used elements
 		this._cacheElements();
 
-		// bind UI actions
-		this._bindUIActions();
-		
 		if (opts.disabled) {
 			// disabled all
 			this._disableAll();
@@ -32,9 +31,15 @@ $.widget( "orchestrate.fotf_questions", {
 			// masking
 			this._inputMasking();
 
+		if (opts.is_validate) {
 			// validates
 			this._validation();
 		}
+
+			// bind UI actions
+			this._bindUIActions();
+		}
+		
 		
 		// refresh
 		this._refresh();
@@ -93,21 +98,91 @@ $.widget( "orchestrate.fotf_questions", {
 
 		var country = cached['table'].find('input[type=hidden].country-toggle');
 		if ( country.val() == 201) {
+			$('#' + country.data('select-state')).addClass('required');
 			$('#' + country.data('select-state')).parent('td').show();
+			$('#' + country.data('select-state'))
+				.closest('tr.required')
+				.find('span.required-asterix')
+				.show();
+			$('#' + country.data('textbox-state')).removeClass('required');
 			$('#' + country.data('textbox-state')).parent('td').hide();
+			
+			$('#' + country.data('select-state'))
+				.closest('tr.required')
+				.next('tr.required')
+				.find('span.required-asterix')
+				.show();
+			$('#' + country.data('select-state'))
+				.closest('tr.required')
+				.next('tr.required')
+				.find('input.mask-zip')
+				.addClass('required');
+
 		} else {
+			$('#' + country.data('select-state')).removeClass('required');
 			$('#' + country.data('select-state')).parent('td').hide();
+			$('#' + country.data('select-state'))
+				.closest('tr.required')
+				.find('span.required-asterix')
+				.hide();
+			$('#' + country.data('textbox-state')).removeClass('required');
 			$('#' + country.data('textbox-state')).parent('td').show();
+			
+			$('#' + country.data('select-state'))
+				.closest('tr.required')
+				.next('tr.required')
+				.find('span.required-asterix')
+				.hide();
+			$('#' + country.data('select-state'))
+				.closest('tr.required')
+				.next('tr.required')
+				.find('input.mask-zip')
+				.removeClass('required');
 		}
 
 		$('select.country-toggle').change(function(event) {
 			country = $('#hd_' + $(this).attr('id'));
+			console.log(country.data('select-state'));
 			if ( country.val() == 201) {
+				$('#' + country.data('select-state')).addClass('required');
 				$('#' + country.data('select-state')).parent('td').show();
+				$('#' + country.data('select-state'))
+					.closest('tr.required')
+					.find('span.required-asterix')
+					.show();
+				$('#' + country.data('textbox-state')).removeClass('required');
 				$('#' + country.data('textbox-state')).parent('td').hide();
+				
+				$('#' + country.data('select-state'))
+					.closest('tr.required')
+					.next('tr.required')
+					.find('span.required-asterix')
+					.show();
+				$('#' + country.data('select-state'))
+					.closest('tr.required')
+					.next('tr.required')
+					.find('input.mask-zip')
+					.addClass('required');
 			} else {
+				$('#' + country.data('select-state')).removeClass('required');
 				$('#' + country.data('select-state')).parent('td').hide();
+				$('#' + country.data('select-state'))
+					.closest('tr.required')
+					.find('span.required-asterix')
+					.hide();
+				$('#' + country.data('textbox-state')).removeClass('required');
 				$('#' + country.data('textbox-state')).parent('td').show();
+				
+				$('#' + country.data('select-state'))
+					.closest('tr.required')
+					.next('tr.required')
+					.find('span.required-asterix')
+					.hide();
+				$('#' + country.data('select-state'))
+					.closest('tr.required')
+					.next('tr.required')
+					.find('input.mask-zip')
+					.removeClass('required');
 			}
 		});
 	}, 
@@ -115,8 +190,10 @@ $.widget( "orchestrate.fotf_questions", {
 	_phoneMasking: function(el) {
 		var cached = this.cached,
 				opts = this.options;
-		this.element.find('input.mask-phone_us').mask('(999) 999-9999? x99999');
-		this.element.find('input.mask-phone_international').mask('+99 99 9999 9999');
+		//this.element.find('input.mask-phone_us').mask('(999) 999-9999? x99999');
+		this.element.find('input.mask-phone_us').mask('999-999-9999');
+		//this.element.find('input.mask-phone_international').mask('+99 99 9999 9999');
+		this.element.find('input.mask-phone_international').unmask('999-999-9999');
 	},
 
 	_validation: function() {
@@ -124,15 +201,32 @@ $.widget( "orchestrate.fotf_questions", {
 				, opts = self.options
 				, cached = self.cached;	
 		
+		
 		/* style */
 		cached['table'].find('label.error').css('color', 'red');
 		cached['.required']
 											.children('td :first-child')
-											.append('<span>&nbsp;<font color=red>*</font></span>');
+											.append('<span class="required-asterix">&nbsp;<font color=red>*</font></span>');
+
 		self.form_elem.validate({
 			errorPlacement: function (er, el) {
 				el.parent('td').append(er);
 			}
+		});
+		
+		if (opts.is_portal) {
+			cached['.portal_input_required'].each(function(index, el) {
+				$(el).rules("add", { 
+				  required:true
+				});
+			});
+		}
+
+		/* common email */
+		cached['.input_common_email'].each(function(index, el) {
+			$(el).rules('add'
+					, {email : true}
+			);
 		});
 		
 		/* email */
@@ -193,13 +287,8 @@ $.widget( "orchestrate.fotf_questions", {
 				);
 			}
 		});
-
-		/*
-		cached['.input_required'].rules("add", { 
-		  required:true
-		});
-		 */
 	},
+	
 	/**
 	 * _bindUIActions : bind UI Event on record_list
 	 */
@@ -228,6 +317,10 @@ $.widget( "orchestrate.fotf_questions", {
 			var id = 'hd_' + $(this).attr('name')
 			$('#' + id).val($(this).val());
 		});
+
+		if (opts.is_portal) {
+			$('select.fotf_dropdown').dropdown();
+		}
 		
 		//us / international textbox and checkbox
 		this._bindPhoneUSInternationalToggle();
@@ -260,9 +353,11 @@ $.widget( "orchestrate.fotf_questions", {
 				, $button_action = $table.find('.button-action')
 				, $required = $table.find('tr.required')
 				, $input_required = $table.find('input.required, select.required')
+				, $portal_input_required = $table.find('input.input_required, select.input_required')
 				, $input_password = $table.find('input.validate-password')
 				, $input_sql_year = $table.find('input.validate-sql_year')
 				, $input_email = $table.find('input.validate-email')
+				, $input_common_email = $table.find('input.validate-common_email')
 				, $fotf_radio = $table.find('.fotf_radio')
 				, $fotf_checkbox = $table.find('.fotf_checkbox')
 				, $fotf_dropdown = $table.find('select.fotf_dropdown')
@@ -276,9 +371,11 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.button_action' : $button_action
 			, '.required' : $required
 			, '.input_required' : $input_required
+			, '.portal_input_required' : $portal_input_required
 			, '.input_password' : $input_password
 			, '.input_sql_year' : $input_sql_year
 			, '.input_email' : $input_email
+			, '.input_common_email' : $input_common_email
 			, '.fotf_radio' : $fotf_radio
 			, '.fotf_checkbox' : $fotf_checkbox
 			, '.fotf_dropdown' : $fotf_dropdown
