@@ -61,6 +61,7 @@ $.widget( "orchestrate.fotf_questions", {
 				opts = this.options;
 		cached['.input_mask_year'].mask('9999',{placeholder:'YYYY'});
 		cached['.input_mask_zip'].mask('99999?');
+		cached['.input_mask_gpa'].mask('9.99');
 	},
 	
 	_bindPhoneUSInternationalToggle: function() {
@@ -229,6 +230,35 @@ $.widget( "orchestrate.fotf_questions", {
 			);
 		});
 		
+		/* file upload */
+		cached['.input_transcript'].each(function(index, el) {
+			$(el).rules('add'
+					, {
+						extension : 'pdf|doc|docx|jpg|jpeg|png'
+						, messages : {
+							extension : 'Valid file format pdf|doc|docx|jpg|jpeg|png'
+						}
+					}
+			);
+		});
+		
+		cached['.input_resume'].each(function(index, el) {
+			$(el).rules('add'
+					, {extension : 'pdf|doc|docx'
+						, messages : {
+							extension : 'Valid file format pdf|doc|docx'
+						}
+					}
+			);
+		});
+		
+		/* gpa */
+		cached['.input_gpa'].each(function(index, el) {
+			$(el).rules('add'
+					, {gpa : true}
+			);
+		});
+
 		/* email */
 		cached['.input_email'].each(function(index, el) {
 			$(el).rules('add'
@@ -358,11 +388,15 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_sql_year = $table.find('input.validate-sql_year')
 				, $input_email = $table.find('input.validate-email')
 				, $input_common_email = $table.find('input.validate-common_email')
+				, $input_gpa = $table.find('input.validate-gpa')
+				, $input_transcript = $table.find('input.validate-transcript')
+				, $input_resume = $table.find('input.validate-resume')
 				, $fotf_radio = $table.find('.fotf_radio')
 				, $fotf_checkbox = $table.find('.fotf_checkbox')
 				, $fotf_dropdown = $table.find('select.fotf_dropdown')
 				, $input_mask_year = $table.find('input.mask-year')
 				, $input_mask_zip = $table.find('input.mask-zip')
+				, $input_mask_gpa = $table.find('input.mask-gpa')
 				, $input_checkbox_phone_international = $table.find('input.checkbox-phone_international');
 		
 		this.cached = {
@@ -376,11 +410,15 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.input_sql_year' : $input_sql_year
 			, '.input_email' : $input_email
 			, '.input_common_email' : $input_common_email
+			, '.input_gpa' : $input_gpa
+			, '.input_transcript' : $input_transcript
+			, '.input_resume' : $input_resume
 			, '.fotf_radio' : $fotf_radio
 			, '.fotf_checkbox' : $fotf_checkbox
 			, '.fotf_dropdown' : $fotf_dropdown
 			, '.input_mask_year' : $input_mask_year
 			, '.input_mask_zip' : $input_mask_zip
+			, '.input_mask_gpa' : $input_mask_gpa
 			, '.input_checkbox_phone_international' : $input_checkbox_phone_international
 		};
 	}
