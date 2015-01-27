@@ -31,14 +31,14 @@ $.widget( "orchestrate.fotf_questions", {
 			// masking
 			this._inputMasking();
 
-		if (opts.is_validate) {
-			// validates
-			this._validation();
+			if (opts.is_validate) {
+				// validates
+				this._validation();
+			}
 		}
-
-			// bind UI actions
-			this._bindUIActions();
-		}
+		
+		// bind UI actions
+		this._bindUIActions();
 		
 		
 		// refresh
