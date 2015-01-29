@@ -16,7 +16,8 @@
 			if (pRequired == "1") {
 				if (trim(pObj.val()) == "") {
 					if (pAction == 1) {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
 						if (pRow.attr('class') != "form-row required") 
@@ -35,7 +36,8 @@
 			} else {
 				if (pObj.val() == "") {
 					if (pAction == 1) {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else {
 						pRow.removeClass("hint")
@@ -79,7 +81,8 @@
 			if (pRequired == "1") {
 				if (trim(pObj.val()) == "") {
 					if (pAction == 1) {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
 						if (pRow.attr('class') != "form-row required") 
@@ -98,7 +101,8 @@
 			} else {
 				if (pObj.val() == "") {
 					if (pAction == 1) {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else {
 						pRow.attr('class', 'form-row');
@@ -129,7 +133,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -150,7 +155,8 @@
 					pRow.attr('class', 'form-row invalid');
 				} else {
 					if (pObj.val() == "") {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else {
 						pRow.attr('class', 'form-row');
@@ -162,7 +168,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -173,7 +180,8 @@
 					pRow.attr('class', 'form-row invalid');
 				} else {
 					if (pObj.val() == "") {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else {
 						pRow.attr('class', 'form-row');
@@ -203,7 +211,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -224,7 +233,8 @@
 					pRow.attr('class', 'form-row invalid');
 				} else {
 					if (pObj.val() == "") {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else {
 						pRow.attr('class', 'form-row');
@@ -236,7 +246,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -247,7 +258,8 @@
 					pRow.attr('class', 'form-row invalid');
 				} else {
 					if (pObj.val() == "") {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else {
 						pRow.attr('class', 'form-row');
@@ -276,7 +288,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -297,7 +310,8 @@
 					pRow.attr('class', 'form-row invalid');
 				} else {
 					if (pObj.val() == "") {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else {
 						pRow.attr('class', 'form-row');
@@ -309,7 +323,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -320,7 +335,8 @@
 					pRow.attr('class', 'form-row invalid');
 				} else {
 					if (pObj.val() == "") {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else {
 						pRow.attr('class', 'form-row');
@@ -347,9 +363,10 @@
 		var pRow	= $("#row-" + pObjName);
 		var bValid = true;
 		if (pRequired == "1") {
-			if (trim(pObj.val()) == "" || trim(pObj.val()) == "0") {
+			if (trim(pObj.val()) == "" || trim(pObj.val()) == "0" || trim(pObj.val()) == "00") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -370,7 +387,8 @@
 					pRow.attr('class', 'form-row invalid');
 				} else {
 					if (pObj.val() == "") {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else {
 						pRow.attr('class', 'form-row');
@@ -378,11 +396,12 @@
 				}
 			}
 		} else {
-			if (pObj.val() == "" || trim(pObj.val()) == "0") {
+			if (trim(pObj.val()) == "" || trim(pObj.val()) == "0" || trim(pObj.val()) == "00") {
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -393,7 +412,8 @@
 					pRow.attr('class', 'form-row invalid');
 				} else {
 					if (pObj.val() == "") {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else {
 						pRow.attr('class', 'form-row');
@@ -423,7 +443,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -451,7 +472,8 @@
 				if (pAction == 4 || pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -491,7 +513,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -553,7 +576,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -624,7 +648,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -659,7 +684,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -703,7 +729,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -732,7 +759,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -770,7 +798,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -799,7 +828,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -836,7 +866,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -864,7 +895,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -900,7 +932,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -940,7 +973,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -988,7 +1022,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -1028,7 +1063,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -1077,7 +1113,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -1117,7 +1154,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -1166,7 +1204,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "" || trim(pObj.val()) == "0") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -1181,7 +1220,8 @@
 				}
 			} else {
 				if (pObj.val() == "") {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else {
 					pRow.attr('class', 'form-row');
@@ -1192,7 +1232,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -1220,7 +1261,8 @@
 			if (pRequired == "1") {
 				if ((trim(pObj.val()) == "") || (trim(pObj.val()) == "0")) {
 					if (pAction == 1) {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
 						if (pRow.attr('class') != "form-row required") 
@@ -1264,7 +1306,8 @@
 			if ((trim(pObjCountry.val()) == "201") || (trim(pObjCountry.val()) == "36")) {
 				if (typeof(pObj.val()) == 'undefined' || (trim(pObj.val()) == "") || (trim(pObj.val()) == "0")) {
 					if (pAction == 1) {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
 						if (pRow.attr('class') != "form-row required") 
@@ -1312,7 +1355,8 @@
 			if ((trim(pObjCountry.val()) == "201") || (trim(pObjCountry.val()) == "36")) {
 				if (trim(pObj.val()) == "" || trim(pObj.val()) == "0") {
 					if (pAction == 1) {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
 						if (pRow.attr('class') != "form-row required") 
@@ -1327,7 +1371,8 @@
 					}
 				} else {
 					if (pObj.val() == "") {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else {
 						pRow.attr('class', 'form-row');
@@ -1335,7 +1380,8 @@
 				}
 			} else {
 				if (pObj2.val() == "") {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else {
 					pRow.attr('class', 'form-row');
@@ -1346,7 +1392,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -1375,7 +1422,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "" || trim(pObj.val()) == "___-___-____") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -1416,7 +1464,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "" || trim(pObj.val()) == "___-___-____") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -1502,7 +1551,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -1557,7 +1607,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -1620,7 +1671,8 @@
 		if (pRequired == "1") {
 			if (pObj.val() == pValue || pObj.val() == ''){
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -1635,7 +1687,8 @@
 				}
 			} else {
 				if (pObj.val() == pValue || pObj.val() == ''){
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else {
 					pRow.attr('class', 'form-row');
@@ -1643,7 +1696,8 @@
 			}
 		} else {
 			if (pObj.val() == pValue || pObj.val() == ''){
-				pRow.addClass("hint")
+				pRow.removeClass("required");
+				pRow.addClass("hint");
 				//pRow.attr('class', 'form-row hint');
 			} else {
 				pRow.attr('class', 'form-row');
@@ -1671,7 +1725,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -1692,7 +1747,8 @@
 					} 
 				} else {
 					if (pObj.val() == "") {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else {
 						pRow.attr('class', 'form-row');
@@ -1708,7 +1764,8 @@
 					} 
 				} else {
 					if (pObj.val() == "") {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else {
 						pRow.attr('class', 'form-row');
@@ -1743,7 +1800,8 @@
 		if (pRequired == "1") {
 			if ($("[name='" + pObjName + "']:checked").length == 0) {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -1761,7 +1819,8 @@
 			}
 		} else {
 			if ($("[name='" + pObjName + "']:checked").length == 0) {
-				pRow.addClass("hint")
+				pRow.removeClass("required");
+				pRow.addClass("hint");
 				//pRow.attr('class', 'form-row hint');
 			} else {
 				pRow.attr('class', 'form-row');
@@ -1787,7 +1846,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "" || trim(pObj.val()) == "--/--/----") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -1824,7 +1884,8 @@
 				}
 			} else {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					pRow.attr('class', 'form-row');
@@ -1854,7 +1915,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") { 
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -1876,7 +1938,8 @@
 				} else {
 					if (trim(pObj2.val()) == '') { 
 						if (pAction == 1) {
-							pRow.addClass("hint")
+							pRow.removeClass("required");
+							pRow.addClass("hint");
 							//pRow.attr('class', 'form-row hint');
 						} else if (pAction == 2) {
 							if (pRow.attr('class') != "form-row required") 
@@ -1920,7 +1983,8 @@
 			if ((trim(pObj.val()) != "") || (trim(pObj2.val()) != "")) { 
 				if (trim(pObj.val()) == "") { 
 					if (pAction == 1) {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
 						if (pRow.attr('class') != "form-row required") 
@@ -1944,7 +2008,8 @@
 					} else {
 						if (trim(pObj2.val()) == '') { 
 							if (pAction == 1) {
-								pRow.addClass("hint")
+								pRow.removeClass("required");
+								pRow.addClass("hint");
 								//pRow.attr('class', 'form-row hint');
 							} else if (pAction == 2) {
 								if (pRow.attr('class') != "form-row required") 
@@ -1985,7 +2050,8 @@
 					} 
 				}
 			} else {
-				pRow.addClass("hint")
+				pRow.removeClass("required");
+				pRow.addClass("hint");
 				//pRow.attr('class', 'form-row hint');
 			}
 		}
@@ -2036,7 +2102,8 @@
 					}
 				} else {
 					if (pAction == 1) {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
 						if (pRow.attr('class') != "form-row required") 
@@ -2101,7 +2168,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -2140,7 +2208,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 				if (pTempContent) pTempContent.html("0");
@@ -2186,7 +2255,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -2238,7 +2308,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -2293,7 +2364,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -2357,7 +2429,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -2412,7 +2485,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -2477,7 +2551,8 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
@@ -2532,7 +2607,8 @@
 				if (pAction == 2) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			} else {
@@ -2596,7 +2672,8 @@
 			if (pRequired == "1") {
 				if ((trim(pObj.val()) == "")) {
 					if (pAction == 1) {
-						pRow.addClass("hint")
+						pRow.removeClass("required");
+						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
 						if (pRow.attr('class') != "form-row required") 
@@ -2651,20 +2728,21 @@
 		if (pRequired == "1") {
 			if (pObj.val() == "") {
 				if (pAction == 1) {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					//pRow.addClass('required')
+					if (pRow.attr('class') != "form-row required") 
+						pRow.attr('class', 'form-row');
 					////p+Row.attr('class', 'form-row required');
-					pRow.attr('class', 'form-row');
 				}  else if (pAction == 3) {
 					pRow.addClass('required')
 					//p+Row.attr('class', 'form-row required');
 					bValid = false;
 				} else if (pAction == 4) {
-					if (pRow.attr('class') != "form-row required") 
-						pRow.removeClass('required')
-						//p+Row.attr('class', 'form-row');
+					pRow.addClass('required')
+					//p+Row.attr('class', 'form-row');
 				} else {
 					pRow.attr('class', 'form-row');
 				}
@@ -2675,6 +2753,13 @@
 						pRow.attr('class', 'form-row invalid');
 						if (pAction == 3) {
 							bValid = false;
+						}
+						else if (pAction == 4) {
+							pRow.addClass('required');
+						} else {
+							pRow.removeClass("required");
+							pRow.addClass("hint");
+							//pRow.attr('class', 'form-row hint');
 						} 
 					} else {
 						pRow.attr('class', 'form-row');
@@ -2692,6 +2777,13 @@
 					pRow.attr('class', 'form-row invalid');
 					if (pAction == 3) {
 						bValid = false;
+					}
+					else if (pAction == 4) {
+						pRow.addClass('required');
+					} else {
+						pRow.removeClass("required");
+						pRow.addClass("hint");
+						//pRow.attr('class', 'form-row hint');
 					} 
 				}
 			}
@@ -2726,7 +2818,8 @@
 				if (pAction == 4) {
 					pRow.attr('class', 'form-row');
 				} else {
-					pRow.addClass("hint")
+					pRow.removeClass("required");
+					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				}
 			}
