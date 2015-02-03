@@ -34,6 +34,9 @@ $.widget( "orchestrate.fotf_questions", {
 			if (opts.is_validate) {
 				// validates
 				this._validation();
+			} else {
+				//remove required class
+				this.cached['.input_required'].removeClass('required');
 			}
 		}
 		
@@ -309,7 +312,7 @@ $.widget( "orchestrate.fotf_questions", {
 				$(el).rules('add'
 									, {
 										minlength : 6,
-										alphanumeric : true,
+										password : true,
 										equalTo : '#txt' + confirm,
 									}
 				);
@@ -319,7 +322,7 @@ $.widget( "orchestrate.fotf_questions", {
 				$(el).rules('add'
 									, {
 										minlength : 6,
-										alphanumeric : true,
+										password : true,
 										equalTo : '#txt' + origin,
 									}
 				);
@@ -390,7 +393,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $field_all = $table.find('input, select, textarea')
 				, $button_action = $table.find('.button-action')
 				, $required = $table.find('tr.required')
-				, $input_required = $table.find('input.required, select.required')
+				, $input_required = $table.find('input.required, select.required, textarea.required')
 				, $portal_input_required = $table.find('input.input_required, select.input_required')
 				, $input_password = $table.find('input.validate-password')
 				, $input_sql_year = $table.find('input.validate-sql_year')
