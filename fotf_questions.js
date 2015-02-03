@@ -37,6 +37,8 @@ $.widget( "orchestrate.fotf_questions", {
 			} else {
 				//remove required class
 				this.cached['.input_required'].removeClass('required');
+				//but retain asterix
+				this._addAsterix();
 			}
 		}
 		
@@ -201,6 +203,16 @@ $.widget( "orchestrate.fotf_questions", {
 		this.element.find('input.mask-phone_international').unmask('999-999-9999');
 	},
 
+	_addAsterix: function() {
+		var self = this
+				, opts = self.options
+				, cached = self.cached;	
+
+		cached['.required']
+											.children('td :first-child')
+											.append('<span class="required-asterix">&nbsp;<font color=red>*</font></span>');
+	},
+
 	_validation: function() {
 		var self = this
 				, opts = self.options
@@ -209,9 +221,8 @@ $.widget( "orchestrate.fotf_questions", {
 		
 		/* style */
 		cached['table'].find('label.error').css('color', 'red');
-		cached['.required']
-											.children('td :first-child')
-											.append('<span class="required-asterix">&nbsp;<font color=red>*</font></span>');
+		
+		self._addAsterix();
 
 		self.form_elem.validate({
 			errorPlacement: function (er, el) {
