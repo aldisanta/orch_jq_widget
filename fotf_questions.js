@@ -36,6 +36,7 @@ $.widget( "orchestrate.fotf_questions", {
 				this._validation();
 			} else {
 				//remove required class
+				//TODO : cached element missing ?
 				this.cached['.input_required'].removeClass('required');
 				//but retain asterix
 				this._addAsterix();
@@ -119,12 +120,14 @@ $.widget( "orchestrate.fotf_questions", {
 				.next('tr.required')
 				.find('span.required-asterix')
 				.show();
-			$('#' + country.data('select-state'))
-				.closest('tr.required')
-				.next('tr.required')
-				.find('input.mask-zip')
-				.addClass('required');
 
+			if (opts.is_validate) {
+				$('#' + country.data('select-state'))
+					.closest('tr.required')
+					.next('tr.required')
+					.find('input.mask-zip')
+					.addClass('required');
+			}
 		} else {
 			$('#' + country.data('select-state')).removeClass('required');
 			$('#' + country.data('select-state')).parent('td').hide();
@@ -140,11 +143,13 @@ $.widget( "orchestrate.fotf_questions", {
 				.next('tr.required')
 				.find('span.required-asterix')
 				.hide();
-			$('#' + country.data('select-state'))
-				.closest('tr.required')
-				.next('tr.required')
-				.find('input.mask-zip')
-				.removeClass('required');
+			if (opts.is_validate) {
+				$('#' + country.data('select-state'))
+					.closest('tr.required')
+					.next('tr.required')
+					.find('input.mask-zip')
+					.removeClass('required');
+			}
 		}
 
 		$('select.country-toggle').change(function(event) {
@@ -165,11 +170,13 @@ $.widget( "orchestrate.fotf_questions", {
 					.next('tr.required')
 					.find('span.required-asterix')
 					.show();
-				$('#' + country.data('select-state'))
-					.closest('tr.required')
-					.next('tr.required')
-					.find('input.mask-zip')
-					.addClass('required');
+				if (opts.is_validate) {
+					$('#' + country.data('select-state'))
+						.closest('tr.required')
+						.next('tr.required')
+						.find('input.mask-zip')
+						.addClass('required');
+				}
 			} else {
 				$('#' + country.data('select-state')).removeClass('required');
 				$('#' + country.data('select-state')).parent('td').hide();
@@ -185,11 +192,13 @@ $.widget( "orchestrate.fotf_questions", {
 					.next('tr.required')
 					.find('span.required-asterix')
 					.hide();
-				$('#' + country.data('select-state'))
-					.closest('tr.required')
-					.next('tr.required')
-					.find('input.mask-zip')
-					.removeClass('required');
+				if (opts.is_validate) {
+					$('#' + country.data('select-state'))
+						.closest('tr.required')
+						.next('tr.required')
+						.find('input.mask-zip')
+						.removeClass('required');
+				}
 			}
 		});
 	}, 
