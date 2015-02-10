@@ -69,6 +69,7 @@ $.widget( "orchestrate.fotf_questions", {
 		cached['.input_mask_zip'].mask('00000-000');
 		cached['.input_mask_gpa'].mask('9.99');
 		cached['.input_mask_numeric'].mask('99');
+		cached['.input_mask_long_numeric'].mask('999999999999');
 	},
 	
 	_bindPhoneUSInternationalToggle: function() {
@@ -289,6 +290,13 @@ $.widget( "orchestrate.fotf_questions", {
 					, {number : true}
 			);
 		});
+		
+		/* long_numeric */
+		cached['.input_long_numeric'].each(function(index, el) {
+			$(el).rules('add'
+					, {number : true}
+			);
+		});
 
 		/* email */
 		cached['.input_email'].each(function(index, el) {
@@ -421,6 +429,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_common_email = $table.find('input.validate-common_email')
 				, $input_gpa = $table.find('input.validate-gpa')
 				, $input_numeric = $table.find('input.validate-numeric')
+				, $input_long_numeric = $table.find('input.validate-long_numeric')
 				, $input_transcript = $table.find('input.validate-transcript')
 				, $input_resume = $table.find('input.validate-resume')
 				, $fotf_radio = $table.find('.fotf_radio')
@@ -430,6 +439,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_mask_zip = $table.find('input.mask-zip')
 				, $input_mask_gpa = $table.find('input.mask-gpa')
 				, $input_mask_numeric = $table.find('input.mask-numeric')
+				, $input_mask_long_numeric = $table.find('input.mask-long_numeric')
 				, $input_checkbox_phone_international = $table.find('input.checkbox-phone_international');
 		
 		this.cached = {
@@ -445,6 +455,7 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.input_common_email' : $input_common_email
 			, '.input_gpa' : $input_gpa
 			, '.input_numeric' : $input_numeric
+			, '.input_long_numeric' : $input_long_numeric
 			, '.input_transcript' : $input_transcript
 			, '.input_resume' : $input_resume
 			, '.fotf_radio' : $fotf_radio
@@ -454,6 +465,7 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.input_mask_zip' : $input_mask_zip
 			, '.input_mask_gpa' : $input_mask_gpa
 			, '.input_mask_numeric' : $input_mask_numeric
+			, '.input_mask_long_numeric' : $input_mask_long_numeric
 			, '.input_checkbox_phone_international' : $input_checkbox_phone_international
 		};
 	}

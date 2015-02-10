@@ -10,7 +10,9 @@ $.widget( "orchestrate.bluebox", {
 		form_id : '',
 		is_upload : false,
 		upload : {},
-		validation : {}
+		validation : {},
+		is_ajax : true,
+		is_using_status : false
 	},
 
 	/**
@@ -300,15 +302,18 @@ $.widget( "orchestrate.bluebox", {
 		});
 		
 		//header column status change
-		this._changeStatusColor();
+		if (opts.is_using_status) {
+			this._changeStatusColor();
+		}
 
 		//action
-		if (opts.form_button != '') {
-			this._on($(opts.form_button), {
-				click: '_formAction',
-			});
+		if (opts.is_ajax) {
+			if (opts.form_button != '') {
+				this._on($(opts.form_button), {
+					click: '_formAction',
+				});
+			}
 		}
-		
 	},
 
 	// _setOptions is called with a hash of all options that are changing
@@ -1047,5 +1052,272 @@ $.widget( "orchestrate.honoree_bluebox", $.orchestrate.bluebox, {
 			'.hidden-status'    : $status,
 			'.bluebox-form_field'    : $form_field
 		};
+	}
+});
+
+$.widget( "orchestrate.in_verification_bluebox", $.orchestrate.bluebox, {
+	
+	/**
+	 * _toggleInVerificationDropdown : toggle in verification dropdown status
+	 */
+	_toggleInVerificationDropdown: function(value) {
+		var cached = this.cached
+				, opts = this.options;
+		var status_form_value = cached['.bluebox-form']
+														.find('.in_verification-status input[type=hidden]');
+		var status_form_combo_opt = cached['.bluebox-form']
+														.find('.in_verification-status td select option');
+		
+		$(status_form_value).val(value);
+		$(status_form_combo_opt).each(function(index, el) {
+				if ($(el).val() == value) {
+					$(el).prop('selected', true);
+				} else {
+					$(el).prop('selected', false);
+				}
+		});
+	},
+	
+	/**
+	 * _toggleInVerificationRadio : toggle in verification radio status
+	 */
+	_toggleInVerificationRadio: function(value, mode) {
+		var cached = this.cached
+				, opts = this.options;
+		var major_form_value = cached['.bluebox-form']
+														.find('.major-radio input[type=hidden]');
+		var major_view_value = cached['.bluebox-view']
+														.find('.answer.major-radio');
+		var major_form_radio = cached['.bluebox-form']
+														.find('.major-radio td input[type=radio]');
+		var transcript_form_value = cached['.bluebox-form']
+														.find('.transcript-radio input[type=hidden]');
+		var transcript_view_value = cached['.bluebox-view']
+														.find('.answer.transcript-radio');
+		var transcript_form_radio = cached['.bluebox-form']
+														.find('.transcript-radio td input[type=radio]');
+		
+		var status = '';
+		if (value == 0) {
+			status = 'Not Verified';
+		} else if (value == 1) {
+			status = 'Not Eligible';
+		} else if (value == 2) {
+			status = 'Eligible';
+		}
+
+		if (mode == 1) {
+			major_form_value.val(value);
+			//major_view_value.html(status);
+			major_form_radio.each(function(index, el) {
+				if ($(el).val() == value) {
+					$(el).prop('checked', true);
+				} else {
+					$(el).prop('checked', false);
+				}
+			});
+		} else if (mode == 2) {
+			transcript_form_value.val(value);
+			//transcript_view_value.html(status);
+			transcript_form_radio.each(function(index, el) {
+				if ($(el).val() == value) {
+					$(el).prop('checked', true);
+				} else {
+					$(el).prop('checked', false);
+				}
+			});
+		} else {
+			major_form_value.val(value);
+			//major_view_value.html(status);
+			major_form_radio.each(function(index, el) {
+				if ($(el).val() == value) {
+					$(el).prop('checked', true);
+				} else {
+					$(el).prop('checked', false);
+				}
+			});
+			
+			transcript_form_value.val(value);
+			//transcript_view_value.html(status);
+			transcript_form_radio.each(function(index, el) {
+				if ($(el).val() == value) {
+					$(el).prop('checked', true);
+				} else {
+					$(el).prop('checked', false);
+				}
+			});
+		}
+	},
+
+	/**
+	 * _inVerificationDropdownStatus : change in status behavior
+	 */
+	_inVerificationDropdownStatus: function(e) {
+		var cached = this.cached
+				, opts = this.options
+				, elem = e.currentTarget;
+		
+		var app_status = cached['.header-application_status'].data('app-status');
+		var major_form_value = cached['.bluebox-form']
+														.find('.major-radio input[type=hidden]');
+		var major = major_form_value.data('old-value');
+		var transcript_form_value = cached['.bluebox-form']
+														.find('.transcript-radio input[type=hidden]');
+		var transcript = transcript_form_value.data('old-value');
+
+		if (app_status == 15) {
+			//change radio value
+			if ($(elem).val() == 19) {
+				this._toggleInVerificationRadio(1, 3);
+			} else if ($(elem).val() == 16) {
+				this._toggleInVerificationRadio(2, 3);
+			} else {
+				//do nothing
+				/**
+				this._toggleInVerificationRadio(major, 1);
+				this._toggleInVerificationRadio(transcript, 2);
+				/**/
+			}
+		} else {
+			//change radio value
+			if ($(elem).val() == 16) {
+				this._toggleInVerificationRadio(2, 3);
+			} else {
+				//do nothing
+				/**
+				this._toggleInVerificationRadio(major, 1);
+				this._toggleInVerificationRadio(transcript, 2);
+				/**/
+			}
+		}
+	},
+
+	_inVerificationRadioStatus: function(e) {
+		var cached = this.cached
+				, opts = this.options
+				, elem = e.currentTarget;
+		
+		var app_status = cached['.header-application_status'].data('app-status');
+		var type = $(elem).closest('tr').attr('class');;
+		var opposite_form_value = 0;
+		if (type == 'major-radio') {
+			opposite_form_value = cached['.bluebox-form']
+														.find('.transcript-radio input[type=hidden]');
+		} else if (type == 'transcript-radio') {
+			opposite_form_value = cached['.bluebox-form']
+														.find('.major-radio input[type=hidden]');
+		}
+
+		if (app_status == 15) {
+			//change dropdown value
+			if (opposite_form_value.val() == $(elem).val()) {
+				if ($(elem).val() == 2) {
+					this._toggleInVerificationDropdown(16);
+				} else if ($(elem).val() == 1) {
+					this._toggleInVerificationDropdown(19);
+				} else {
+					this._toggleInVerificationDropdown(app_status);
+				}
+			} else {
+				//do nothing
+			}
+		} else {
+			//change dropdown value
+			if (opposite_form_value.val() == $(elem).val()) {
+				if ($(elem).val() == 2) {
+					this._toggleInVerificationDropdown(16);
+				} else {
+					//do nothing
+				}
+			} else {
+				//do nothing
+			}
+		}
+
+		/**
+		var major = major_form_value.data('old-value');
+		var transcript_form_value = cached['.bluebox-form']
+														.find('.transcript-radio input[type=hidden]');
+		var transcript = transcript_form_value.data('old-value');
+
+			//change radio value
+			if ($(elem).val() == 19) {
+				this._toggleInVerificationDropdown(1, 3);
+			} else if ($(elem).val() == 16) {
+				this._toggleInVerificationDropdown(2, 3);
+			} else {
+				this._toggleInVerificationDropdown(major, 1);
+				this._toggleInVerificationDropdown(transcript, 2);
+			}
+		} else {
+			//change radio value
+			if ($(elem).val() == 16) {
+				this._toggleInVerificationDropdown(2, 3);
+			} else {
+				this._toggleInVerificationDropdown(major, 1);
+				this._toggleInVerificationDropdown(transcript, 2);
+			}
+		/**/
+	},
+	
+	/**
+	 * _bindUIActions : bind UI Event on bluebox
+	 */
+	_bindUIActions: function() {
+		var cached = this.cached,
+			opts = this.options;
+		// hide select element 
+		// initial show/hide
+		this._hideAll();
+		if (this.options.isShow) {
+			this._showAll();
+		}
+		cached['.header-application_status'].show();
+		cached['.bluebox-toggle_view'].show();
+		cached['.bluebox-toggle_form'].show();
+		cached['.bluebox-toggle_view'].data('open', false);
+		cached['.bluebox-toggle_form'].data('open', false);
+		
+		//show/hide
+		this._on(cached['.bluebox-toggle_view'], {
+			click: '_viewBox'
+		});
+		
+		//view/form
+		this._on(cached['.bluebox-toggle_form'], {
+			click: '_formBox'
+		});
+
+		//dropdown status change
+		var select = this.bluebox.find('.in_verification-status td select');
+		this._on(select, {
+			change: '_inVerificationDropdownStatus'
+		});		
+		
+		//radio change
+		var major_radio = cached['.bluebox-form']
+											.find('.major-radio td input[type=radio]');
+		this._on(major_radio, {
+			click: '_inVerificationRadioStatus'
+		});		
+		var transcript_radio = cached['.bluebox-form']
+														.find('.transcript-radio td input[type=radio]');
+		this._on(transcript_radio, {
+			click: '_inVerificationRadioStatus'
+		});		
+
+		//header column status change
+		if (opts.is_using_status) {
+			this._changeStatusColor();
+		}
+
+		//action
+		if (opts.is_ajax) {
+			if (opts.form_button != '') {
+				this._on($(opts.form_button), {
+					click: '_formAction',
+				});
+			}
+		}
 	}
 });
