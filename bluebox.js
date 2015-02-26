@@ -6,6 +6,7 @@ $.widget( "orchestrate.bluebox", {
 		record_button : '',
 		isShow : false,
 		form_button : '',
+		form_cancel : '',
 		form_target : '',
 		form_id : '',
 		is_upload : false,
@@ -144,6 +145,13 @@ $.widget( "orchestrate.bluebox", {
 		cached['.bluebox-form'].slideToggle();
 	},
 
+	_formCancel: function(e) {
+		var self = this,
+				cached = self.cached,
+				opts = self.options;
+		cached['.bluebox-toggle_form'].trigger('click');
+	},
+	
 	_hideAll: function() {
 		var cached = this.cached;
 		$.each(cached, function(index, val) {
@@ -301,6 +309,11 @@ $.widget( "orchestrate.bluebox", {
 			click: '_formBox'
 		});
 		
+		//additional cancel
+		this._on($('.btn-cancel_action'), {
+			click: '_formCancel',
+		});
+		
 		//header column status change
 		if (opts.is_using_status) {
 			this._changeStatusColor();
@@ -438,13 +451,6 @@ $.widget( "orchestrate.course_bluebox", $.orchestrate.bluebox, {
 		});
 	},
 		
-	_formCancel: function(e) {
-		var self = this,
-				cached = self.cached,
-				opts = self.options;
-		cached['.bluebox-toggle_form'].trigger('click');
-	},
-	
 	_formAction: function(e) {
 		var self = this,
 				cached = this.cached,
@@ -1288,6 +1294,11 @@ $.widget( "orchestrate.in_verification_bluebox", $.orchestrate.bluebox, {
 			click: '_formBox'
 		});
 
+		//additional cancel
+		this._on($('.btn-cancel_action'), {
+			click: '_formCancel',
+		});
+		
 		//dropdown status change
 		var select = this.bluebox.find('.in_verification-status td select');
 		this._on(select, {
