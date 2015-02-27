@@ -2199,18 +2199,23 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
+					pRow.removeClass("invalid");
 					pRow.removeClass("required");
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
-						pRow.removeClass('required')
+						pRow.removeClass("invalid");
+						pRow.removeClass('hint');
+						pRow.removeClass('required');
 						//p+Row.attr('class', 'form-row');
 				} else if (pAction == 3) {
+					pRow.removeClass("invalid");
 					pRow.removeClass('hint');
 					pRow.removeClass('required');
 					//p+Row.attr('class', 'form-row');
 				} else if (pAction == 4) {
+					pRow.removeClass("invalid");
 					pRow.removeClass('hint');
 					pRow.addClass('required');
 					//p+Row.attr('class', 'form-row required');
@@ -2218,16 +2223,21 @@
 				}
 			} else {
 				if (pObj.val() != trim(pValidText)) {
-					pRow.attr('class', 'form-row invalid');
+					pRow.removeClass('hint');
+					pRow.removeClass('required');
+					pRow.addClass('invalid');
+					//pRow.attr('class', 'form-row invalid');
 					if (pAction == 4) {
 						bValid = false;
 					} 
 				} else {
 					if (pObj.val() == "") {
+						pRow.removeClass("invalid");
 						pRow.removeClass("required");
 						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else {
+						pRow.removeClass("invalid");
 						pRow.removeClass('hint');
 						pRow.removeClass('required');
 						//p+Row.attr('class', 'form-row');
@@ -2237,16 +2247,21 @@
 		} else {
 			if (trim(pObj.val()) != "") {
 				if (pObj.val() != trim(pValidText)) {
-					pRow.attr('class', 'form-row invalid');
+					pRow.removeClass('hint');
+					pRow.removeClass('required');
+					pRow.addClass('invalid');
+					//pRow.attr('class', 'form-row invalid');
 					if (pAction == 4) {
 						bValid = false;
 					} 
 				} else {
 					if (pObj.val() == "") {
+						pRow.removeClass("invalid");
 						pRow.removeClass("required");
 						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else {
+						pRow.removeClass("invalid");
 						pRow.removeClass('hint');
 						pRow.removeClass('required');
 						//p+Row.attr('class', 'form-row');
@@ -2334,18 +2349,23 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "" || trim(pObj.val()) == "--/--/----") {
 				if (pAction == 1) {
+					pRow.removeClass("invalid");
 					pRow.removeClass("required");
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
-						pRow.removeClass('required')
+						pRow.removeClass("invalid");
+						pRow.removeClass('hint');
+						pRow.removeClass('required');
 						//p+Row.attr('class', 'form-row');
 				} else if (pAction == 3) {
+					pRow.removeClass("invalid");
 					pRow.removeClass('hint');
 					pRow.removeClass('required');
 					//p+Row.attr('class', 'form-row');
 				} else if (pAction == 4) {
+					pRow.removeClass("invalid");
 					pRow.removeClass('hint');
 					pRow.addClass('required');
 					//p+Row.attr('class', 'form-row required');
@@ -2354,11 +2374,15 @@
 			} else {
 				var pDate = trim(pObj.val());
 				if (!validateUSDate(pDate)) {
-					pRow.attr('class', 'form-row invalid');
+					pRow.removeClass('hint');
+					pRow.removeClass('required');
+					pRow.addClass('invalid');
+					//pRow.attr('class', 'form-row invalid');
 					if (pAction == 4) {
 						bValid = false;
 					}
 				} else {
+					pRow.removeClass("invalid");
 					pRow.removeClass('hint');
 					pRow.removeClass('required');
 					//p+Row.attr('class', 'form-row');
@@ -2368,21 +2392,27 @@
 			if (trim(pObj.val()) != "" && trim(pObj.val()) != "--/--/----") {
 				var pDate = pObj.val();
 				if (!validateUSDate(pDate)) {
-					pRow.attr('class', 'form-row invalid');
+					pRow.removeClass('hint');
+					pRow.removeClass('required');
+					pRow.addClass('invalid');
+					//pRow.attr('class', 'form-row invalid');
 					if (pAction == 4) {
 						bValid = false;
 					}
 				} else {
+					pRow.removeClass("invalid");
 					pRow.removeClass('hint');
 					pRow.removeClass('required');
 					//p+Row.attr('class', 'form-row');
 				}
 			} else {
 				if (pAction == 1) {
+					pRow.removeClass("invalid");
 					pRow.removeClass("required");
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
+					pRow.removeClass("invalid");
 					pRow.removeClass('hint');
 					pRow.removeClass('required');
 					//p+Row.attr('class', 'form-row');
@@ -2412,18 +2442,23 @@
 		if (pRequired == "1") {
 			if (trim(pObj.val()) == "") { 
 				if (pAction == 1) {
+					pRow.removeClass("invalid");
 					pRow.removeClass("required");
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
 					if (pRow.attr('class') != "form-row required") 
-						pRow.removeClass('required')
+						pRow.removeClass("invalid");
+						pRow.removeClass('hint');
+						pRow.removeClass('required');
 						//p+Row.attr('class', 'form-row');
 				} else if (pAction == 3) {
+					pRow.removeClass("invalid");
 					pRow.removeClass('hint');
 					pRow.removeClass('required');
 					//p+Row.attr('class', 'form-row');
 				} else if (pAction == 4) {
+					pRow.removeClass("invalid");
 					pRow.removeClass('hint');
 					pRow.addClass('required');
 					//p+Row.attr('class', 'form-row required');
@@ -2431,13 +2466,17 @@
 				}
 			} else {
 				if (!validateUSDate(trim(pObj.val()))) { 
-					pRow.attr('class', 'form-row invalid');
+					pRow.removeClass('hint');
+					pRow.removeClass('required');
+					pRow.addClass('invalid');
+					//p+Row.attr('class', 'form-row invalid');
 					if (pAction == 4) {
 						bValid = false;
 					}
 				} else {
 					if (trim(pObj2.val()) == '') { 
 						if (pAction == 1) {
+							pRow.removeClass("invalid");
 							pRow.removeClass("required");
 							pRow.addClass("hint");
 							//pRow.attr('class', 'form-row hint');
@@ -2446,11 +2485,13 @@
 								pRow.removeClass('required')
 								//p+Row.attr('class', 'form-row');
 						} else if (pAction == 3) {
+							pRow.removeClass("invalid");
 							pRow.removeClass('hint');
 							pRow.addClass('required');
 							//p+Row.attr('class', 'form-row required');
 						} 
 						if (pAction == 4) {
+							pRow.removeClass("invalid");
 							pRow.removeClass('hint');
 							pRow.addClass('required');
 							//p+Row.attr('class', 'form-row required');
@@ -2458,11 +2499,15 @@
 						}
 					} else {
 						if (!validateUSDate(trim(pObj2.val()))) { 
-							pRow.attr('class', 'form-row invalid');
+							pRow.removeClass('hint');
+							pRow.removeClass('required');
+							pRow.addClass('invalid');
+							//p+Row.attr('class', 'form-row invalid');
 							if (pAction == 4) {
 								bValid = false;
 							}
 						} else { 
+							pRow.removeClass("invalid");
 							pRow.removeClass('hint');
 							pRow.removeClass('required');
 							//p+Row.attr('class', 'form-row');
@@ -2474,12 +2519,16 @@
 				var dAppStart = new Date (trim(pObj.val())); 
 				var dAppVirtual = new Date (trim(pObj2.val())); 									
 				if (dAppVirtual < dAppStart ) { 
-					pRow.attr('class', 'form-row invalid');
+					pRow.removeClass('hint');
+					pRow.removeClass('required');
+					pRow.addClass('invalid');
+					//p+Row.attr('class', 'form-row invalid');
 					if (pAction == 4) {
 						bValid = false;
 					}
 				} 
 				else { 
+					pRow.removeClass("invalid");
 					pRow.removeClass('hint');
 					pRow.removeClass('required');
 					//p+Row.attr('class', 'form-row');
@@ -2489,6 +2538,7 @@
 			if ((trim(pObj.val()) != "") || (trim(pObj2.val()) != "")) { 
 				if (trim(pObj.val()) == "") { 
 					if (pAction == 1) {
+						pRow.removeClass("invalid");
 						pRow.removeClass("required");
 						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
@@ -2497,11 +2547,13 @@
 							pRow.removeClass('required')
 							//p+Row.attr('class', 'form-row');
 					} else if (pAction == 3) {
+						pRow.removeClass("invalid");
 						pRow.removeClass('hint');
 						pRow.addClass('required');
 						//p+Row.attr('class', 'form-row required');
 					} 
 					if (pAction == 4) {
+						pRow.removeClass("invalid");
 						pRow.removeClass('hint');
 						pRow.addClass('required');
 						//p+Row.attr('class', 'form-row required');
@@ -2509,13 +2561,17 @@
 					}
 				} else {
 					if (!validateUSDate(trim(pObj.val()))) { 
-						pRow.attr('class', 'form-row invalid');
+						pRow.removeClass('hint');
+						pRow.removeClass('required');
+						pRow.addClass('invalid');
+						//p+Row.attr('class', 'form-row invalid');
 						if (pAction == 4) {
 							bValid = false;
 						}
 					} else {
 						if (trim(pObj2.val()) == '') { 
 							if (pAction == 1) {
+								pRow.removeClass("invalid");
 								pRow.removeClass("required");
 								pRow.addClass("hint");
 								//pRow.attr('class', 'form-row hint');
@@ -2524,11 +2580,13 @@
 									pRow.removeClass('required')
 									//p+Row.attr('class', 'form-row');
 							} else if (pAction == 3) {
+								pRow.removeClass("invalid");
 								pRow.removeClass('hint');
 								pRow.addClass('required');
 								//p+Row.attr('class', 'form-row required');
 							} 
 							if (pAction == 4) {
+								pRow.removeClass("invalid");
 								pRow.removeClass('hint');
 								pRow.addClass('required');
 								//p+Row.attr('class', 'form-row required');
@@ -2536,11 +2594,15 @@
 							}
 						} else {
 							if (!validateUSDate(trim(pObj2.val()))) { 
-								pRow.attr('class', 'form-row invalid');
+								pRow.removeClass('hint');
+								pRow.removeClass('required');
+								pRow.addClass('invalid');
+								//p+Row.attr('class', 'form-row invalid');
 								if (pAction == 4) {
 									bValid = false;
 								}
 							} else { 
+								pRow.removeClass("invalid");
 								pRow.removeClass('hint');
 								pRow.removeClass('required');
 								//p+Row.attr('class', 'form-row');
@@ -2552,18 +2614,23 @@
 					var dAppStart = new Date (trim(pObj.val())); 
 					var dAppVirtual = new Date (trim(pObj2.val())); 									
 					if (dAppVirtual < dAppStart ) { 
-						pRow.attr('class', 'form-row invalid');
+						pRow.removeClass('hint');
+						pRow.removeClass('required');
+						pRow.addClass('invalid');
+						//p+Row.attr('class', 'form-row invalid');
 						if (pAction == 3) {
 							bValid = false;
 						}
 					} 
 					else { 
+						pRow.removeClass("invalid");
 						pRow.removeClass('hint');
 						pRow.removeClass('required');
 						//p+Row.attr('class', 'form-row');
 					} 
 				}
 			} else {
+				pRow.removeClass("invalid");
 				pRow.removeClass("required");
 				pRow.addClass("hint");
 				//pRow.attr('class', 'form-row hint');
