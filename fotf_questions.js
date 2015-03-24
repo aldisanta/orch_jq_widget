@@ -70,6 +70,7 @@ $.widget( "orchestrate.fotf_questions", {
 		cached['.input_mask_gpa'].mask('9.99');
 		cached['.input_mask_numeric'].mask('99');
 		cached['.input_mask_long_numeric'].mask('999999999999');
+		cached['.input_mask_absolute_phone_us'].mask('999-999-9999');
 	},
 	
 	_bindPhoneUSInternationalToggle: function() {
@@ -155,7 +156,7 @@ $.widget( "orchestrate.fotf_questions", {
 
 		$('select.country-toggle').change(function(event) {
 			country = $('#hd_' + $(this).attr('id'));
-			console.log(country.data('select-state'));
+			//console.log(country.data('select-state'));
 			if ( country.val() == 201) {
 				$('#' + country.data('select-state')).addClass('required');
 				$('#' + country.data('select-state')).parent('td').show();
@@ -340,8 +341,8 @@ $.widget( "orchestrate.fotf_questions", {
 				$(el).rules('add'
 									, {
 										minlength : 6,
-										password : true,
-										equalTo : '#txt' + confirm,
+										orch_password : true,
+										equalTo : '#txt' + confirm
 									}
 				);
 			} else {
@@ -350,8 +351,31 @@ $.widget( "orchestrate.fotf_questions", {
 				$(el).rules('add'
 									, {
 										minlength : 6,
-										password : true,
-										equalTo : '#txt' + origin,
+										orch_password : true,
+										equalTo : '#txt' + origin
+									}
+				);
+			}
+		});
+		
+		/* console password */
+		cached['.input_console_password'].each(function(index, el) {
+			var confirm = $(el).data('match');
+			if (confirm.indexOf('confirm_confirm_') < 0) {
+				//primary
+				$(el).rules('add'
+									, {
+										required : true,
+										equalTo : '#txt' + confirm
+									}
+				);
+			} else {
+				var origin = confirm.replace('confirm_confirm_', '');
+				//secondary
+				$(el).rules('add'
+									, {
+										required : true,
+										equalTo : '#txt' + origin
 									}
 				);
 			}
@@ -368,23 +392,23 @@ $.widget( "orchestrate.fotf_questions", {
 		//radio
 		cached['.fotf_radio'].change(function(event) {
 			var id = 'hd_' + $(this).attr('name')
-			$('#' + id).val($(this).val());
+			$('#' + id).val($(this).val()).trigger('change');;
 		});
 		
 		//checkbox
 		cached['.fotf_checkbox'].change(function(event) {
 			var id = 'hd_' + $(this).attr('name');
 			if ($(this).prop('checked')) {
-				$('#' + id).val(true);
+				$('#' + id).val(true).trigger('change');;
 			} else {
-				$('#' + id).val(false);
+				$('#' + id).val(false).trigger('change');;
 			}
 		});
 		
 		//dropdown
 		cached['.fotf_dropdown'].change(function(event) {
 			var id = 'hd_' + $(this).attr('name')
-			$('#' + id).val($(this).val());
+			$('#' + id).val($(this).val()).trigger('change');
 		});
 
 		if (opts.is_portal) {
@@ -424,6 +448,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_required = $table.find('input.required, select.required, textarea.required')
 				, $portal_input_required = $table.find('input.input_required, select.input_required')
 				, $input_password = $table.find('input.validate-password')
+				, $input_console_password = $table.find('input.validate-console_password')
 				, $input_sql_year = $table.find('input.validate-sql_year')
 				, $input_email = $table.find('input.validate-email')
 				, $input_common_email = $table.find('input.validate-common_email')
@@ -440,16 +465,18 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_mask_gpa = $table.find('input.mask-gpa')
 				, $input_mask_numeric = $table.find('input.mask-numeric')
 				, $input_mask_long_numeric = $table.find('input.mask-long_numeric')
+				, $input_mask_absolute_phone_us = $table.find('input.mask-absolute_phone_us')
 				, $input_checkbox_phone_international = $table.find('input.checkbox-phone_international');
 		
 		this.cached = {
-			'table' : $required
+			'table' : $table
 			, 'field_all' : $field_all
 			, '.button_action' : $button_action
 			, '.required' : $required
 			, '.input_required' : $input_required
 			, '.portal_input_required' : $portal_input_required
 			, '.input_password' : $input_password
+			, '.input_console_password' : $input_console_password
 			, '.input_sql_year' : $input_sql_year
 			, '.input_email' : $input_email
 			, '.input_common_email' : $input_common_email
@@ -466,7 +493,131 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.input_mask_gpa' : $input_mask_gpa
 			, '.input_mask_numeric' : $input_mask_numeric
 			, '.input_mask_long_numeric' : $input_mask_long_numeric
+			, '.input_mask_absolute_phone_us' : $input_mask_absolute_phone_us
 			, '.input_checkbox_phone_international' : $input_checkbox_phone_international
 		};
 	}
+});
+
+$.widget( "orchestrate.fotf_adv_query_questions", $.orchestrate.fotf_questions, {
+	
+	_addCountry: function(pObjName) {
+		popup('/console/include/country_list.asp?objName='+pObjName, 600, 250) 
+	},
+
+	_addState : function(pObjName)
+	{
+		popup('/console/include/state_list.asp?objName='+pObjName, 600, 250) 
+	},
+	
+	_addClassLevels : function(pObjName)
+	{
+		popup('/console/include/classlevels_list.asp?objName='+pObjName, 600, 250) 
+	},
+
+	_removeOptions : function(pObjName)
+	{
+		if (pObjName != '') {
+			var val = $('#' + pObjName).val();
+			if (val) {
+				$.each(val, function(index, val) {
+					$('#' + pObjName + ' option[value=' + val + ']').remove();
+				});
+			} else {
+				//console.log('removeOptions : do nothing');
+			}
+		} else {
+			//console.log('removeOptions : pObjName not found');
+		}
+	},
+
+	_validation: function() {
+		var self = this
+				, opts = self.options
+				, cached = self.cached;	
+		
+		
+		/* style */
+		cached['table'].find('label.error').css('color', 'red');
+		
+		self.form_elem.validate({
+
+		});
+		
+		$('.input_greater_less').rules("add", { 
+			required_on_click:true
+		});
+	},
+
+	/**
+	 * _bindUIActions : bind UI Event on record_list
+	 */
+	_bindUIActions: function() {
+		var self = this,
+				cached = this.cached,
+				opts = this.options;
+		
+		//radio
+		cached['.fotf_radio'].change(function(event) {
+			var id = 'hd_' + $(this).attr('name')
+			$('#' + id).val($(this).val());
+		});
+		
+		//checkbox
+		cached['.fotf_checkbox'].change(function(event) {
+			var id = 'hd_' + $(this).attr('name');
+			if ($(this).prop('checked')) {
+				$('#' + id).val(true);
+			} else {
+				$('#' + id).val(false);
+			}
+		});
+		
+		//dropdown
+		cached['.fotf_dropdown'].change(function(event) {
+			var id = 'hd_' + $(this).attr('name')
+			$('#' + id).val($(this).val());
+		});
+
+		//us / international textbox and checkbox
+		this._bindPhoneUSInternationalToggle();
+		
+		if (opts.is_country_state_toggle) {
+			//country state toggle, there's difference on flat ui, turn this off
+			this._bindCountryStateToggle();
+		}
+
+		//country
+		this.form_elem.find('.btn-add_country').each(function(index, el) {
+			$(el).click(function(event) {
+				event.preventDefault();
+				var elem = $(this).data('object-name');
+				self._addCountry(elem);
+			});
+		});
+
+		//state
+		this.form_elem.find('.btn-add_state').each(function(index, el) {
+			$(el).click(function(event) {
+				var elem = $(this).data('object-name');
+				self._addState(elem);
+			});
+		});
+		
+		//class levels
+		this.form_elem.find('.btn-add_classlevels').each(function(index, el) {
+			$(el).click(function(event) {
+				var elem = $(this).data('object-name');
+				self._addClassLevels(elem);
+			});
+		});
+		
+		//remove
+		this.form_elem.find('.btn-remove').each(function(index, el) {
+			$(el).click(function(event) {
+				var elem = $(this).data('object-name');
+				self._removeOptions(elem);
+			});
+		});
+	},
 });

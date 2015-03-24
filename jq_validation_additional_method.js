@@ -1,3 +1,14 @@
+/*
+Index of Class
+ */
+
+//custom class name
+jQuery.validator.addClassRules({
+	input_greater_less: {
+		required_on_click : true
+	},
+});
+
 $.validator.addMethod(
 	"sql_year",
 	function(value, element) {
@@ -30,15 +41,23 @@ $.validator.addMethod(
 	"Please enter a gpa"
 );
 
-jQuery.validator.addMethod("password", function( value, element ) {
-	return this.optional(element) || value.length >= 6 && /\d/.test(value) && /[a-z]/i.test(value);
+jQuery.validator.addMethod("orch_password", function( value, element ) {
+	return this.optional(element) || value.length >= 6 && /\d/.test(value) 
+	&& /[a-z]/i.test(value);
 }, "at least 6 char and contain at least one number and one character.");
 
 jQuery.validator.addMethod("maxwords150", function(value, element, params) {
 	if (value == "") {
 		return true;
 	} else {
-		var stripText = value.replace(/(<([^>]+)>)/ig,"").replace(/<\/?[^>]+>/g, "").replace(/(\r\n|\n|\r)/gm," ").replace(/(&nbsp;)/g," ").replace(/  +/g, " ").replace("&nbsp;"," ").replace(/^[\s(&nbsp;)]+/g,"").replace(/[\s(&nbsp;)]+$/g,"");
+		var stripText = value.replace(/(<([^>]+)>)/ig,"")
+										.replace(/<\/?[^>]+>/g, "")
+										.replace(/(\r\n|\n|\r)/gm," ")
+										.replace(/(&nbsp;)/g," ")
+										.replace(/  +/g, " ")
+										.replace("&nbsp;"," ")
+										.replace(/^[\s(&nbsp;)]+/g,"")
+										.replace(/[\s(&nbsp;)]+$/g,"");
 		var pCount = stripText.split(" ").length
 		if (pCount > 150) {
 			return false;
@@ -52,7 +71,15 @@ jQuery.validator.addMethod("maxwords500", function(value, element, params) {
 	if (value == "") {
 		return true;
 	} else {
-		var stripText = value.replace(/(<([^>]+)>)/ig,"").replace(/<\/?[^>]+>/g, "").replace(/(\r\n|\n|\r)/gm," ").replace(/(&nbsp;)/g," ").replace(/  +/g, " ").replace("&nbsp;"," ").replace(/^[\s(&nbsp;)]+/g,"").replace(/[\s(&nbsp;)]+$/g,"");
+		var stripText = value
+										.replace(/(<([^>]+)>)/ig,"")
+										.replace(/<\/?[^>]+>/g, "")
+										.replace(/(\r\n|\n|\r)/gm," ")
+										.replace(/(&nbsp;)/g," ")
+										.replace(/  +/g, " ")
+										.replace("&nbsp;"," ")
+										.replace(/^[\s(&nbsp;)]+/g,"")
+										.replace(/[\s(&nbsp;)]+$/g,"");
 		var pCount = stripText.split(" ").length
 		if (pCount > 500) {
 			return false;
@@ -61,3 +88,46 @@ jQuery.validator.addMethod("maxwords500", function(value, element, params) {
 		}
 	}
 }, "This field cannot exceed 500 words");
+
+jQuery.validator.addMethod("required_on_click", 
+	function(value, element, params) {
+	console.log(value);
+	if (value) {
+		return true;
+	} else {
+		var check = $(element)
+								.closest('tr').children('td:first')
+															.children('input[type=radio]');
+		if ($(check).prop('checked')) {
+			if (value == '') {
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return true;
+		}
+	}
+}, "This field is required");
+
+jQuery.validator.addMethod("valid_between", function(value, element, params) {
+	if (value) {
+		if ($(element).data('range') == 'start') {
+			if ($(element).next('input').val() < value) {
+				return false;
+			} else {
+				return true;
+			}
+		} else if ($(element).data('range') == 'end') {
+			if ($(element).prev('input').val() > value) {
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			//nothing
+		}
+	} else {
+		//nothing
+	}
+}, "This field is required");
