@@ -101,6 +101,107 @@ $.widget( "orchestrate.fotf_questions", {
 		});
 	}, 
 	
+	_bindDropdownToggle: function() {
+		var self = this,
+				cached = this.cached,
+				opts = this.options;
+		$('input.question-field-toggle').each(function(index, el) {
+			var value = $(el).val();
+			var parent = $(el).parent('tr');
+			var next_1   = parent.next('tr');
+			var next_2   = next_1.next('tr');
+			var field_toggle_text = next_2.children('.question-field-toggle-text');
+			if (value == -1) {
+				field_toggle_text.show();
+			} else {
+				field_toggle_text.hide();
+			}
+		});
+
+		$('input.question-field-toggle').change(function(event) {
+			var value = $(this).val();
+			var parent = $(this).parent('tr');
+			var next_1   = parent.next('tr');
+			var next_2   = next_1.next('tr');
+			var field_toggle_text = next_2.children('.question-field-toggle-text');
+			if (value == -1) {
+				field_toggle_text.show();
+			} else {
+				field_toggle_text.hide();
+			}
+		});
+
+	}, 
+
+	_bindTextAreaWordCount: function() {
+		var self = this,
+				cached = this.cached,
+				opts = this.options;
+		$('textarea.word-count').each(function(index, el) {
+				//console.log($(el).attr('id'));
+				var pTempContent = $('#' + $(el).attr('id') + '_count');
+				if (pTempContent) pTempContent.html("0");
+				// start counting
+				var pText = trim($(el).val());
+				var stripText = pText.replace(/(<([^>]+)>)/ig,"")
+															.replace(/<\/?[^>]+>/g, "")
+															.replace(/(\r\n|\n|\r)/gm," ")
+															.replace(/(&nbsp;)/g," ")
+															.replace(/  +/g, " ")
+															.replace("&nbsp;"," ")
+															.replace(/^[\s(&nbsp;)]+/g,"")
+															.replace(/[\s(&nbsp;)]+$/g,"");
+				var pCount = stripText.split(" ").length
+				if ((trim(stripText) == "") || (trim(stripText) == "<p><sub></sub></p>")) {
+					if (pTempContent) pTempContent.html("0");
+				} else {
+					if (pTempContent) pTempContent.html(pCount);
+				}
+		});
+		
+		$('textarea.word-count').keyup(function(event) {
+				var pTempContent = $('#' + $(this).attr('id') + '_count');
+				if (pTempContent) pTempContent.html("0");
+				// start counting
+				var pText = trim($(this).val());
+				var stripText = pText.replace(/(<([^>]+)>)/ig,"")
+															.replace(/<\/?[^>]+>/g, "")
+															.replace(/(\r\n|\n|\r)/gm," ")
+															.replace(/(&nbsp;)/g," ")
+															.replace(/  +/g, " ")
+															.replace("&nbsp;"," ")
+															.replace(/^[\s(&nbsp;)]+/g,"")
+															.replace(/[\s(&nbsp;)]+$/g,"");
+				var pCount = stripText.split(" ").length
+				if ((trim(stripText) == "") || (trim(stripText) == "<p><sub></sub></p>")) {
+					if (pTempContent) pTempContent.html("0");
+				} else {
+					if (pTempContent) pTempContent.html(pCount);
+				}
+		});
+		
+		$('textarea.word-count').keydown(function(event) {
+				var pTempContent = $('#' + $(this).attr('id') + '_count');
+				if (pTempContent) pTempContent.html("0");
+				// start counting
+				var pText = trim($(this).val());
+				var stripText = pText.replace(/(<([^>]+)>)/ig,"")
+															.replace(/<\/?[^>]+>/g, "")
+															.replace(/(\r\n|\n|\r)/gm," ")
+															.replace(/(&nbsp;)/g," ")
+															.replace(/  +/g, " ")
+															.replace("&nbsp;"," ")
+															.replace(/^[\s(&nbsp;)]+/g,"")
+															.replace(/[\s(&nbsp;)]+$/g,"");
+				var pCount = stripText.split(" ").length
+				if ((trim(stripText) == "") || (trim(stripText) == "<p><sub></sub></p>")) {
+					if (pTempContent) pTempContent.html("0");
+				} else {
+					if (pTempContent) pTempContent.html(pCount);
+				}
+		});
+	}, 
+
 	_bindCountryStateToggle: function() {
 		var self = this,
 				cached = this.cached,
@@ -418,6 +519,12 @@ $.widget( "orchestrate.fotf_questions", {
 		//us / international textbox and checkbox
 		this._bindPhoneUSInternationalToggle();
 		
+		//generic dropdown toggle
+		this._bindDropdownToggle();
+		
+		//text area word count
+		this._bindTextAreaWordCount();
+
 		if (opts.is_country_state_toggle) {
 			//country state toggle, there's difference on flat ui, turn this off
 			this._bindCountryStateToggle();
