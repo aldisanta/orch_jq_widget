@@ -523,6 +523,31 @@ $.widget( "orchestrate.fotf_questions", {
 			$('select.fotf_dropdown').dropdown();
 		}
 		
+		//dropdown
+		cached['.input_dropdown_addition'].each(function(index, el) {
+			var trigger = $(el).data('trigger');
+			if ($('#' + trigger).val() && $('#' + trigger).val() == -1) {
+				$(el).show();
+			} else {
+				$(el).hide();
+			}
+
+			$('#' + trigger).change(function(event) {
+				if ($(this).val() && $(this).val() == -1) {
+					$(el).show();
+					$('#' + select).hide();
+				} else {
+					$(el).hide();
+				}
+				$(el).removeClass('error');
+				$(el).next('label').html('');
+			});
+		});
+
+		if (opts.is_portal) {
+			$('select.fotf_dropdown').dropdown();
+		}
+		
 		//us / international textbox and checkbox
 		this._bindPhoneUSInternationalToggle();
 		
@@ -574,6 +599,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $fotf_radio = $table.find('.fotf_radio')
 				, $fotf_checkbox = $table.find('.fotf_checkbox')
 				, $fotf_dropdown = $table.find('select.fotf_dropdown')
+				, $input_dropdown_addition = $table.find('.input_dropdown_addition')
 				, $input_mask_year = $table.find('input.mask-year')
 				, $input_mask_zip = $table.find('input.mask-zip')
 				, $input_mask_gpa = $table.find('input.mask-gpa')
@@ -602,6 +628,7 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.fotf_radio' : $fotf_radio
 			, '.fotf_checkbox' : $fotf_checkbox
 			, '.fotf_dropdown' : $fotf_dropdown
+			, '.input_dropdown_addition' : $input_dropdown_addition
 			, '.input_mask_year' : $input_mask_year
 			, '.input_mask_zip' : $input_mask_zip
 			, '.input_mask_gpa' : $input_mask_gpa
