@@ -132,13 +132,13 @@ jQuery.validator.addMethod("valid_between", function(value, element, params) {
 	}
 }, "This field is required");
 
-jQuery.validator.addMethod("stanford_email", function(value, element, params) {
+jQuery.validator.addMethod("contain_placeholder", function(value, element, params) {
 	if (value) {
-		if (value.indexOf('@stanford.edu') < 0) {
+		if (value.indexOf($(element).prop('placeholder')) < 0) {
 			return false;
 		} else {
 			var tmp = value.split('@');
-			if (tmp[1] != 'stanford.edu') {
+			if ('@' + tmp[1] != $(element).prop('placeholder')) {
 				return false;
 			} else {
 				return true;
