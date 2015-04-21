@@ -329,7 +329,8 @@ $.widget( "orchestrate.fotf_questions", {
 
 		cached['.required']
 											.children('td :first-child')
-											.append('<span class="required-asterix">&nbsp;<font color=red>*</font></span>');
+											.append('<span class="required-asterix">&nbsp;'
+											+'<font color=red>*</font></span>');
 	},
 
 	_validation: function() {
@@ -410,27 +411,52 @@ $.widget( "orchestrate.fotf_questions", {
 
 		/* email */
 		cached['.input_email'].each(function(index, el) {
-			$(el).rules('add'
-								, {
-									email : true,
-					 				remote: {
-											url: "ajax/ajax_email_ssn_jquery_validation.asp",
-											url: "ajax/ajax_email_ssn_jquery_validation.asp",
-											type: "post",
-											data: {
-											applicantID: function() {
-												return $(el).data('applicantid');
-											}, 
-											type: function() {
-												return $(el).data('type');
+			if ($(el).prop('placeholder') != '') {
+				$(el).rules('add'
+									, {
+										email : true,
+										contain_placeholder : true,
+						 				remote: {
+												url: "ajax/ajax_email_ssn_jquery_validation.asp",
+												url: "ajax/ajax_email_ssn_jquery_validation.asp",
+												type: "post",
+												data: {
+												applicantID: function() {
+													return $(el).data('applicantid');
+												}, 
+												type: function() {
+													return $(el).data('type');
+												}
 											}
 										}
+										, messages : {
+											remote : 'Email Already Taken'
+										}
 									}
-									, messages : {
-										remote : 'Email Already Taken'
+				);
+			} else {
+				$(el).rules('add'
+									, {
+										email : true,
+						 				remote: {
+												url: "ajax/ajax_email_ssn_jquery_validation.asp",
+												url: "ajax/ajax_email_ssn_jquery_validation.asp",
+												type: "post",
+												data: {
+												applicantID: function() {
+													return $(el).data('applicantid');
+												}, 
+												type: function() {
+													return $(el).data('type');
+												}
+											}
+										}
+										, messages : {
+											remote : 'Email Already Taken'
+										}
 									}
-								}
-			);
+				);
+			}
 		});
 	
 		/* sql year */
@@ -497,6 +523,14 @@ $.widget( "orchestrate.fotf_questions", {
 	_bindUIActions: function() {
 		var cached = this.cached,
 				opts = this.options;
+		
+		//placeholder
+		cached['.input_validate_placeholder'].focusin(function(event) {
+			if (!$(this).val() || $(this).val() == '') {
+				$(this).val($(this).prop('placeholder'));
+				$(this).get(0).setSelectionRange(0,0);
+			}
+		});
 		
 		//radio
 		cached['.fotf_radio'].change(function(event) {
@@ -587,6 +621,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $required = $table.find('tr.required')
 				, $input_required = $table.find('input.required, select.required, textarea.required')
 				, $portal_input_required = $table.find('input.input_required, select.input_required')
+				, $input_validate_placeholder = $table.find('input.validate_placeholder')
 				, $input_password = $table.find('input.validate-password')
 				, $input_console_password = $table.find('input.validate-console_password')
 				, $input_sql_year = $table.find('input.validate-sql_year')
@@ -616,6 +651,7 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.required' : $required
 			, '.input_required' : $input_required
 			, '.portal_input_required' : $portal_input_required
+			, '.input_validate_placeholder' : $input_validate_placeholder
 			, '.input_password' : $input_password
 			, '.input_console_password' : $input_console_password
 			, '.input_sql_year' : $input_sql_year
