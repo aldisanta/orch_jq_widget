@@ -68,7 +68,14 @@ $.widget( "orchestrate.fotf_questions", {
 		cached['.input_mask_year'].mask('9999',{placeholder:'YYYY'});
 		cached['.input_mask_zip'].mask('00000-000');
 		cached['.input_mask_gpa'].mask('9.99');
-		cached['.input_mask_numeric'].mask('99');
+		cached['.input_mask_numeric'].each(function(index, el) {
+			var size = $(el).attr('size');
+			var mask = '';
+			for (var i = 0; i < size; i++) {
+				mask += '9';
+			};
+			$(el).mask(mask);
+		});
 		cached['.input_mask_long_numeric'].mask('999999999999');
 		cached['.input_mask_absolute_phone_us'].mask('999-999-9999');
 	},
