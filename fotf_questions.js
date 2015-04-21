@@ -344,7 +344,8 @@ $.widget( "orchestrate.fotf_questions", {
 		self._addAsterix();
 
 		self.form_elem.validate({
-			errorPlacement: function (er, el) {
+			ignore: ':hidden'
+			, errorPlacement: function (er, el) {
 				el.parent('td').append(er);
 			}
 		});
