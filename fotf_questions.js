@@ -65,6 +65,7 @@ $.widget( "orchestrate.fotf_questions", {
 	_inputMasking: function() {
 		var cached = this.cached,
 				opts = this.options;
+		cached['.input_mask_fulldate'].mask('99/99/9999',{placeholder:'MM/DD/YYYY'});
 		cached['.input_mask_year'].mask('9999',{placeholder:'YYYY'});
 		cached['.input_mask_zip'].mask('00000-000');
 		cached['.input_mask_gpa'].mask('9.99');
@@ -643,6 +644,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $fotf_checkbox = $table.find('.fotf_checkbox')
 				, $fotf_dropdown = $table.find('select.fotf_dropdown')
 				, $input_dropdown_addition = $table.find('.input_dropdown_addition')
+				, $input_mask_fulldate = $table.find('input.mask-fulldate')
 				, $input_mask_year = $table.find('input.mask-year')
 				, $input_mask_zip = $table.find('input.mask-zip')
 				, $input_mask_gpa = $table.find('input.mask-gpa')
@@ -673,6 +675,7 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.fotf_checkbox' : $fotf_checkbox
 			, '.fotf_dropdown' : $fotf_dropdown
 			, '.input_dropdown_addition' : $input_dropdown_addition
+			, '.input_mask_fulldate' : $input_mask_fulldate
 			, '.input_mask_year' : $input_mask_year
 			, '.input_mask_zip' : $input_mask_zip
 			, '.input_mask_gpa' : $input_mask_gpa
