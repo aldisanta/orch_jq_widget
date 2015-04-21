@@ -131,3 +131,20 @@ jQuery.validator.addMethod("valid_between", function(value, element, params) {
 		//nothing
 	}
 }, "This field is required");
+
+jQuery.validator.addMethod("stanford_email", function(value, element, params) {
+	if (value) {
+		if (value.indexOf('@stanford.edu') < 0) {
+			return false;
+		} else {
+			var tmp = value.split('@');
+			if (tmp[1] != 'stanford.edu') {
+				return false;
+			} else {
+				return true;
+			}
+		}
+	} else {
+		//nothing
+	}
+}, "Enter Stanford Edu Email");
