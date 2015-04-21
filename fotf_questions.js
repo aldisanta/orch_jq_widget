@@ -216,56 +216,7 @@ $.widget( "orchestrate.fotf_questions", {
 
 		var country = cached['table'].find('input[type=hidden].country-toggle');
 		if ( country.val() == 201) {
-			$('#' + country.data('select-state')).addClass('required');
-			$('#' + country.data('select-state')).parent('td').show();
-			$('#' + country.data('select-state'))
-				.closest('tr.required')
-				.find('span.required-asterix')
-				.show();
-			$('#' + country.data('textbox-state')).removeClass('required');
-			$('#' + country.data('textbox-state')).parent('td').hide();
-			
-			$('#' + country.data('select-state'))
-				.closest('tr.required')
-				.next('tr.required')
-				.find('span.required-asterix')
-				.show();
-
-			if (opts.is_validate) {
-				$('#' + country.data('select-state'))
-					.closest('tr.required')
-					.next('tr.required')
-					.find('input.mask-zip')
-					.addClass('required');
-			}
-		} else {
-			$('#' + country.data('select-state')).removeClass('required');
-			$('#' + country.data('select-state')).parent('td').hide();
-			$('#' + country.data('select-state'))
-				.closest('tr.required')
-				.find('span.required-asterix')
-				.hide();
-			$('#' + country.data('textbox-state')).removeClass('required');
-			$('#' + country.data('textbox-state')).parent('td').show();
-			
-			$('#' + country.data('select-state'))
-				.closest('tr.required')
-				.next('tr.required')
-				.find('span.required-asterix')
-				.hide();
-			if (opts.is_validate) {
-				$('#' + country.data('select-state'))
-					.closest('tr.required')
-					.next('tr.required')
-					.find('input.mask-zip')
-					.removeClass('required');
-			}
-		}
-
-		$('select.country-toggle').change(function(event) {
-			country = $('#hd_' + $(this).attr('id'));
-			//console.log(country.data('select-state'));
-			if ( country.val() == 201) {
+			if (country.data('select-state')) {
 				$('#' + country.data('select-state')).addClass('required');
 				$('#' + country.data('select-state')).parent('td').show();
 				$('#' + country.data('select-state'))
@@ -280,6 +231,7 @@ $.widget( "orchestrate.fotf_questions", {
 					.next('tr.required')
 					.find('span.required-asterix')
 					.show();
+
 				if (opts.is_validate) {
 					$('#' + country.data('select-state'))
 						.closest('tr.required')
@@ -287,7 +239,9 @@ $.widget( "orchestrate.fotf_questions", {
 						.find('input.mask-zip')
 						.addClass('required');
 				}
-			} else {
+			}
+		} else {
+			if (country.data('select-state')) {
 				$('#' + country.data('select-state')).removeClass('required');
 				$('#' + country.data('select-state')).parent('td').hide();
 				$('#' + country.data('select-state'))
@@ -308,6 +262,59 @@ $.widget( "orchestrate.fotf_questions", {
 						.next('tr.required')
 						.find('input.mask-zip')
 						.removeClass('required');
+				}
+			}
+		}
+
+		$('select.country-toggle').change(function(event) {
+			country = $('#hd_' + $(this).attr('id'));
+			if ( country.val() == 201) {
+				if (country.data('select-state')) {
+					$('#' + country.data('select-state')).addClass('required');
+					$('#' + country.data('select-state')).parent('td').show();
+					$('#' + country.data('select-state'))
+						.closest('tr.required')
+						.find('span.required-asterix')
+						.show();
+					$('#' + country.data('textbox-state')).removeClass('required');
+					$('#' + country.data('textbox-state')).parent('td').hide();
+					
+					$('#' + country.data('select-state'))
+						.closest('tr.required')
+						.next('tr.required')
+						.find('span.required-asterix')
+						.show();
+					if (opts.is_validate) {
+						$('#' + country.data('select-state'))
+							.closest('tr.required')
+							.next('tr.required')
+							.find('input.mask-zip')
+							.addClass('required');
+					}
+				}
+			} else {
+				if (country.data('select-state')) {
+					$('#' + country.data('select-state')).removeClass('required');
+					$('#' + country.data('select-state')).parent('td').hide();
+					$('#' + country.data('select-state'))
+						.closest('tr.required')
+						.find('span.required-asterix')
+						.hide();
+					$('#' + country.data('textbox-state')).removeClass('required');
+					$('#' + country.data('textbox-state')).parent('td').show();
+					
+					$('#' + country.data('select-state'))
+						.closest('tr.required')
+						.next('tr.required')
+						.find('span.required-asterix')
+						.hide();
+					if (opts.is_validate) {
+						$('#' + country.data('select-state'))
+							.closest('tr.required')
+							.next('tr.required')
+							.find('input.mask-zip')
+							.removeClass('required');
+					}
 				}
 			}
 		});
