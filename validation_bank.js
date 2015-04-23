@@ -304,12 +304,11 @@
 	
 	function validationBank_DropdownTextBoxMonthYear(pObjName, pRequired, pAction) {
 		var obj_name1 = pObjName;
-		var obj_name2 = pObjName
+		var obj_name2 = pObjName;
 		
-		if (obj_name1.indexOf('txt') > -1) {
-			obj_name1 = obj_name1.replace('txt', 'txt_input');
-		}
+		obj_name1 = 'txt_input' + obj_name1;
 		var pObj	= $("#" + obj_name1);	
+		var pObjHidden	= $("#hd" + pObjName);	
 		
 		if (obj_name2.indexOf('txt') > -1) {
 			obj_name2 = obj_name2.replace('txt', '');
@@ -326,7 +325,7 @@
 		var bValid = true;
 		if (pObj.length > 0) {
 			if (pRequired == "1") {
-				if (trim(pObj.val()) == "") {
+				if (trim(pObj.val()) == "" || parseInt(pObjHidden.val()) <= 0) {
 					if (pAction == 1) {
 						pRow.removeClass('invalid');
 						pRow.removeClass("required");
@@ -368,7 +367,7 @@
 					}
 				}
 			} else {
-				if (pObj.val() == "") {
+				if (pObj.val() == "" || parseInt(pObjHidden.val()) <= 0) {
 					if (pAction == 1) {
 						pRow.removeClass('invalid');
 						pRow.removeClass("required");
@@ -1841,15 +1840,14 @@
 		}
 	}
 	
-	function validationBank_DropDown (pObjName, pObjName2, pRequired, pAction) {
-		var pObj	= $("#" + pObjName);
+	function validationBank_DropDown (pObjName, pRequired, pAction) {
+		var pObj	= $("#hd" + pObjName);
 		var pRow	= $("#row-" + pObjName);
-		var pReqMsg	= $("#required-" + pObjName2);
 		var pFieldText = "";
 		var bValid = true;
 		if (pObj.length > 0) {
 			if (pRequired == "1") {
-				if ((trim(pObj.val()) == "") || (trim(pObj.val()) == "0")) {
+				if ((trim(pObj.val()) == "") || parseInt(pObj.val()) <= 0) {
 					if (pAction == 1) {
 						pRow.removeClass("required");
 						pRow.addClass("hint");

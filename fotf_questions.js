@@ -578,7 +578,6 @@ $.widget( "orchestrate.fotf_questions", {
 			$('#' + trigger).change(function(event) {
 				if ($(this).val() && $(this).val() == -1) {
 					$(el).show();
-					$('#' + select).hide();
 				} else {
 					$(el).hide();
 				}
