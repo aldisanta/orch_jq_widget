@@ -1,6 +1,7 @@
 var $masking = $masking || {};
 
 $masking.masking = function () {
+	$('.mask-calendar').mask('09/09/9999',{placeholder: 'MM/DD/YYYY'});
 	$('.mask-year').mask('9999');
 	$('.mask-gpa').mask('9.99');
 	var mask = 0;
