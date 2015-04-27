@@ -46,6 +46,8 @@ $.widget( "orchestrate.fotf_questions", {
 		// bind UI actions
 		this._bindUIActions();
 		
+		// bind UI actions
+		this._bindUIActions();
 		
 		// refresh
 		this._refresh();
@@ -375,6 +377,26 @@ $.widget( "orchestrate.fotf_questions", {
 		});
 		
 		/* file upload */
+		cached['.input_upload'].each(function(index, el) {
+			$(el).rules('add'
+					, {
+						extension : $(el).data('ext')
+						, messages : {
+							extension : 'Valid file format ' + $(el).data('ext')
+						}
+					}
+			);
+		});
+		
+		/* fulldate */
+		cached['.input_validate_fulldate'].each(function(index, el) {
+			$(el).rules('add'
+					, {
+						dateITA : true
+					}
+			);
+		});
+		
 		cached['.input_transcript'].each(function(index, el) {
 			$(el).rules('add'
 					, {
@@ -485,7 +507,7 @@ $.widget( "orchestrate.fotf_questions", {
 									, {
 										minlength : 6,
 										orch_password : true,
-										equalTo : '#txt' + confirm
+										equalTo : '#' + confirm
 									}
 				);
 			} else {
@@ -495,7 +517,7 @@ $.widget( "orchestrate.fotf_questions", {
 									, {
 										minlength : 6,
 										orch_password : true,
-										equalTo : '#txt' + origin
+										equalTo : '#' + origin
 									}
 				);
 			}
@@ -509,7 +531,7 @@ $.widget( "orchestrate.fotf_questions", {
 				$(el).rules('add'
 									, {
 										required : true,
-										equalTo : '#txt' + confirm
+										equalTo : '#' + confirm
 									}
 				);
 			} else {
@@ -518,7 +540,7 @@ $.widget( "orchestrate.fotf_questions", {
 				$(el).rules('add'
 									, {
 										required : true,
-										equalTo : '#txt' + origin
+										equalTo : '#' + origin
 									}
 				);
 			}
@@ -542,13 +564,13 @@ $.widget( "orchestrate.fotf_questions", {
 		
 		//radio
 		cached['.fotf_radio'].change(function(event) {
-			var id = 'hd_' + $(this).attr('name')
+			var id = 'hd_rad' + $(this).attr('name')
 			$('#' + id).val($(this).val()).trigger('change');;
 		});
 		
 		//checkbox
 		cached['.fotf_checkbox'].change(function(event) {
-			var id = 'hd_' + $(this).attr('name');
+			var id = 'hd_chk' + $(this).attr('name');
 			if ($(this).prop('checked')) {
 				$('#' + id).val(true).trigger('change');;
 			} else {
@@ -558,7 +580,7 @@ $.widget( "orchestrate.fotf_questions", {
 		
 		//dropdown
 		cached['.fotf_dropdown'].change(function(event) {
-			var id = 'hd_' + $(this).attr('name')
+			var id = 'hd_sel' + $(this).attr('name')
 			$('#' + id).val($(this).val()).trigger('change');
 		});
 
@@ -637,8 +659,10 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_gpa = $table.find('input.validate-gpa')
 				, $input_numeric = $table.find('input.validate-numeric')
 				, $input_long_numeric = $table.find('input.validate-long_numeric')
+				, $input_upload = $table.find('input.validate-upload')
 				, $input_transcript = $table.find('input.validate-transcript')
 				, $input_resume = $table.find('input.validate-resume')
+				, $input_validate_fulldate = $table.find('input.validate-fulldate')
 				, $fotf_radio = $table.find('.fotf_radio')
 				, $fotf_checkbox = $table.find('.fotf_checkbox')
 				, $fotf_dropdown = $table.find('select.fotf_dropdown')
@@ -668,8 +692,10 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.input_gpa' : $input_gpa
 			, '.input_numeric' : $input_numeric
 			, '.input_long_numeric' : $input_long_numeric
+			, '.input_upload' : $input_upload
 			, '.input_transcript' : $input_transcript
 			, '.input_resume' : $input_resume
+			, '.input_validate_fulldate' : $input_validate_fulldate
 			, '.fotf_radio' : $fotf_radio
 			, '.fotf_checkbox' : $fotf_checkbox
 			, '.fotf_dropdown' : $fotf_dropdown
