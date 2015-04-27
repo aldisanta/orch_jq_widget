@@ -36,7 +36,6 @@ $.widget( "orchestrate.fotf_questions", {
 				this._validation();
 			} else {
 				//remove required class
-				//TODO : cached element missing ?
 				this.cached['.input_required'].removeClass('required');
 				//but retain asterix
 				this._addAsterix();
@@ -44,7 +43,7 @@ $.widget( "orchestrate.fotf_questions", {
 		}
 		
 		// bind UI actions
-		this._bindUIActions();
+		//this._bindUIActions();
 		
 		// bind UI actions
 		this._bindUIActions();
