@@ -14,10 +14,10 @@ $.validator.addMethod(
 	function(value, element) {
 		var check = false;
 		var year = parseInt(value);
-		if (year > 1900) {
-			check = true;
-		} else {
+		if (year < 1900 || year > 2079) {
 			check = false;
+		} else {
+			check = true;
 		}
 		return check;
 	}, 
