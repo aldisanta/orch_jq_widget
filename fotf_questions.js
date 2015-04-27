@@ -42,8 +42,8 @@ $.widget( "orchestrate.fotf_questions", {
 			}
 		}
 		
-		// bind UI actions
-		//this._bindUIActions();
+		// init-type for dropdown
+		this._preInitDropdown();
 		
 		// bind UI actions
 		this._bindUIActions();
@@ -269,7 +269,7 @@ $.widget( "orchestrate.fotf_questions", {
 		}
 
 		$('select.country-toggle').change(function(event) {
-			country = $('#hd_' + $(this).attr('id'));
+			country = $('#hd_sel' + $(this).attr('id'));
 			if ( country.val() == 201) {
 				if (country.data('select-state')) {
 					$('#' + country.data('select-state')).addClass('required');
@@ -391,7 +391,7 @@ $.widget( "orchestrate.fotf_questions", {
 		cached['.input_validate_fulldate'].each(function(index, el) {
 			$(el).rules('add'
 					, {
-						dateITA : true
+						dateExt : true
 					}
 			);
 		});
@@ -542,6 +542,29 @@ $.widget( "orchestrate.fotf_questions", {
 										equalTo : '#' + origin
 									}
 				);
+			}
+		});
+	},
+	
+	/**
+	 * _preInitDropdown : add pre init value for dropdown
+	 */
+	_preInitDropdown: function() {
+		var cached = this.cached,
+				opts = this.options;
+		
+		//dropdown pre-init
+		cached['.fotf_dropdown'].each(function(index, el) {
+			var id = 'hd_sel' + $(this).attr('name');
+			var pre_label_value = 'Please Select';
+			if ($(el).data('pre-label-value') != '') {
+				pre_label_value = $(el).data('pre-label-value');
+			}
+			var pre_init_dropdown = '<option value="" selected="selected">' +
+															pre_label_value + '</option>';
+			
+			if ($(el).data('pre-init')) {
+				$(el).prepend(pre_init_dropdown);
 			}
 		});
 	},
