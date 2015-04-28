@@ -555,7 +555,10 @@ $.widget( "orchestrate.fotf_questions", {
 		
 		//dropdown pre-init
 		cached['.fotf_dropdown'].each(function(index, el) {
-			var id = 'hd_sel' + $(this).attr('name');
+			console.log($(el).attr('name'));
+			console.log($(el).data('pre-label-value'));
+			console.log($(el).data('pre-init'));
+			var id = 'hd_sel' + $(el).attr('name');
 			var pre_label_value = 'Please Select';
 			if ($(el).data('pre-label-value') != '') {
 				pre_label_value = $(el).data('pre-label-value');
@@ -587,16 +590,16 @@ $.widget( "orchestrate.fotf_questions", {
 		//radio
 		cached['.fotf_radio'].change(function(event) {
 			var id = 'hd_rad' + $(this).attr('name')
-			$('#' + id).val($(this).val()).trigger('change');;
+			$('#' + id).val($(this).val()).trigger('change');
 		});
 		
 		//checkbox
 		cached['.fotf_checkbox'].change(function(event) {
 			var id = 'hd_chk' + $(this).attr('name');
 			if ($(this).prop('checked')) {
-				$('#' + id).val(true).trigger('change');;
+				$('#' + id).val(true).trigger('change');
 			} else {
-				$('#' + id).val(false).trigger('change');;
+				$('#' + id).val(false).trigger('change');
 			}
 		});
 		
