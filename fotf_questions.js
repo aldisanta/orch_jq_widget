@@ -734,6 +734,8 @@ $.widget( "orchestrate.fotf_questions", {
 	}
 });
 
+/** extension **/
+
 $.widget( "orchestrate.fotf_adv_query_questions", $.orchestrate.fotf_questions, {
 	
 	_addCountry: function(pObjName) {
