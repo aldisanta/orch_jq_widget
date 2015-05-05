@@ -60,6 +60,7 @@ $.widget( "orchestrate.fotf_questions", {
 		var cached = this.cached,
 				opts = this.options;
 		cached['field_all'].attr('disabled', 'disabled');
+		cached['.link_action'].remove();
 		cached['.button_action'].attr('disabled', false);
 	},
 
@@ -70,12 +71,9 @@ $.widget( "orchestrate.fotf_questions", {
 		cached['.input_mask_year'].mask('9999',{placeholder:'YYYY'});
 		cached['.input_mask_zip'].mask('00000-000');
 		cached['.input_mask_gpa'].mask('9.99');
+		var mask = 0;
 		cached['.input_mask_numeric'].each(function(index, el) {
-			var size = $(el).attr('size');
-			var mask = '';
-			for (var i = 0; i < size; i++) {
-				mask += '9';
-			};
+			mask = Array($(el).prop('maxlength') + 1).join('0');
 			$(el).mask(mask);
 		});
 		cached['.input_mask_long_numeric'].mask('999999999999');
@@ -217,56 +215,59 @@ $.widget( "orchestrate.fotf_questions", {
 				opts = this.options;
 
 		var country = cached['table'].find('input[type=hidden].country-toggle');
-		if ( country.val() == 201) {
-			if (country.data('select-state')) {
-				$('#' + country.data('select-state')).addClass('required');
-				$('#' + country.data('select-state')).parent('td').show();
-				$('#' + country.data('select-state'))
-					.closest('tr.required')
-					.find('span.required-asterix')
-					.show();
-				$('#' + country.data('textbox-state')).removeClass('required');
-				$('#' + country.data('textbox-state')).parent('td').hide();
-				
-				$('#' + country.data('select-state'))
-					.closest('tr.required')
-					.next('tr.required')
-					.find('span.required-asterix')
-					.show();
+		country.each(function(index, el) {
+			country = $(el);
+			if ( country.val() == 201) {
+				if (country.data('select-state')) {
+					$('#' + country.data('select-state')).addClass('required');
+					$('#' + country.data('select-state')).parent('td').show();
+					$('#' + country.data('select-state'))
+						.closest('tr.required')
+						.find('span.required-asterix')
+						.show();
+					$('#' + country.data('textbox-state')).removeClass('required');
+					$('#' + country.data('textbox-state')).parent('td').hide();
+					
+					$('#' + country.data('select-state'))
+						.closest('tr.required')
+						.next('tr.required')
+						.find('span.required-asterix')
+						.show();
 
-				if (opts.is_validate) {
+					if (opts.is_validate) {
+						$('#' + country.data('select-state'))
+							.closest('tr.required')
+							.next('tr.required')
+							.find('input.mask-zip')
+							.addClass('required');
+					}
+				}
+			} else {
+				if (country.data('select-state').length > 0) {
+					$('#' + country.data('select-state')).removeClass('required');
+					$('#' + country.data('select-state')).parent('td').hide();
+					$('#' + country.data('select-state'))
+						.closest('tr.required')
+						.find('span.required-asterix')
+						.hide();
+					$('#' + country.data('textbox-state')).removeClass('required');
+					$('#' + country.data('textbox-state')).parent('td').show();
+					
 					$('#' + country.data('select-state'))
 						.closest('tr.required')
 						.next('tr.required')
-						.find('input.mask-zip')
-						.addClass('required');
+						.find('span.required-asterix')
+						.hide();
+					if (opts.is_validate) {
+						$('#' + country.data('select-state'))
+							.closest('tr.required')
+							.next('tr.required')
+							.find('input.mask-zip')
+							.removeClass('required');
+					}
 				}
 			}
-		} else {
-			if (country.data('select-state')) {
-				$('#' + country.data('select-state')).removeClass('required');
-				$('#' + country.data('select-state')).parent('td').hide();
-				$('#' + country.data('select-state'))
-					.closest('tr.required')
-					.find('span.required-asterix')
-					.hide();
-				$('#' + country.data('textbox-state')).removeClass('required');
-				$('#' + country.data('textbox-state')).parent('td').show();
-				
-				$('#' + country.data('select-state'))
-					.closest('tr.required')
-					.next('tr.required')
-					.find('span.required-asterix')
-					.hide();
-				if (opts.is_validate) {
-					$('#' + country.data('select-state'))
-						.closest('tr.required')
-						.next('tr.required')
-						.find('input.mask-zip')
-						.removeClass('required');
-				}
-			}
-		}
+		});
 
 		$('select.country-toggle').change(function(event) {
 			country = $('#hd_sel' + $(this).attr('id'));
@@ -326,9 +327,9 @@ $.widget( "orchestrate.fotf_questions", {
 		var cached = this.cached,
 				opts = this.options;
 		//this.element.find('input.mask-phone_us').mask('(999) 999-9999? x99999');
-		this.element.find('input.mask-phone_us').mask('999-999-9999');
+		this.element.find('input.mask-phone_us').mask('(000) 000-0000');
 		//this.element.find('input.mask-phone_international').mask('+99 99 9999 9999');
-		this.element.find('input.mask-phone_international').unmask('999-999-9999');
+		this.element.find('input.mask-phone_international').mask('(00) 0000-0000');
 	},
 
 	_addAsterix: function() {
@@ -394,6 +395,36 @@ $.widget( "orchestrate.fotf_questions", {
 						dateExt : true
 					}
 			);
+		});
+		
+		/* rangedate */
+		cached['.input_validate_rangedate'].each(function(index, el) {
+			if ($(el).data('greater') != '') {
+				var label = $('#' + $(el).data('greater'))
+										.parent('td')
+										.prev('td')
+										.children('label')
+										.html();
+				
+				$(el).rules('add'
+						, {
+							greaterThan : ['#' + $(el).data('greater'), label]
+						}
+				);
+			}
+			else if ($(el).data('less') != '') {
+				var label = $('#' + $(el).data('less'))
+										.parent('td')
+										.prev('td')
+										.children('label')
+										.html();
+				
+				$(el).rules('add'
+						, {
+							lesserThan : ['#' + $(el).data('less'), label]
+						}
+				);
+			}
 		});
 		
 		cached['.input_transcript'].each(function(index, el) {
@@ -555,9 +586,6 @@ $.widget( "orchestrate.fotf_questions", {
 		
 		//dropdown pre-init
 		cached['.fotf_dropdown'].each(function(index, el) {
-			console.log($(el).attr('name'));
-			console.log($(el).data('pre-label-value'));
-			console.log($(el).data('pre-init'));
 			var id = 'hd_sel' + $(el).attr('name');
 			var pre_label_value = 'Please Select';
 			if ($(el).data('pre-label-value') != '') {
@@ -597,9 +625,9 @@ $.widget( "orchestrate.fotf_questions", {
 		cached['.fotf_checkbox'].change(function(event) {
 			var id = 'hd_chk' + $(this).attr('name');
 			if ($(this).prop('checked')) {
-				$('#' + id).val(true).trigger('change');
+				$('#' + id).val(1).trigger('change');
 			} else {
-				$('#' + id).val(false).trigger('change');
+				$('#' + id).val(0).trigger('change');
 			}
 		});
 		
@@ -672,6 +700,7 @@ $.widget( "orchestrate.fotf_questions", {
 		var $table = this.form_elem.children('table')
 				, $field_all = $table.find('input, select, textarea')
 				, $button_action = $table.find('.button-action')
+				, $link_action = $table.find('.link-action')
 				, $required = $table.find('tr.required')
 				, $input_required = $table.find('input.required, select.required, textarea.required')
 				, $portal_input_required = $table.find('input.input_required, select.input_required')
@@ -688,6 +717,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_transcript = $table.find('input.validate-transcript')
 				, $input_resume = $table.find('input.validate-resume')
 				, $input_validate_fulldate = $table.find('input.validate-fulldate')
+				, $input_validate_rangedate = $table.find('input.validate-rangedate')
 				, $fotf_radio = $table.find('.fotf_radio')
 				, $fotf_checkbox = $table.find('.fotf_checkbox')
 				, $fotf_dropdown = $table.find('select.fotf_dropdown')
@@ -704,6 +734,7 @@ $.widget( "orchestrate.fotf_questions", {
 		this.cached = {
 			'table' : $table
 			, 'field_all' : $field_all
+			, '.link_action' : $link_action
 			, '.button_action' : $button_action
 			, '.required' : $required
 			, '.input_required' : $input_required
@@ -721,6 +752,7 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.input_transcript' : $input_transcript
 			, '.input_resume' : $input_resume
 			, '.input_validate_fulldate' : $input_validate_fulldate
+			, '.input_validate_rangedate' : $input_validate_rangedate
 			, '.fotf_radio' : $fotf_radio
 			, '.fotf_checkbox' : $fotf_checkbox
 			, '.fotf_dropdown' : $fotf_dropdown

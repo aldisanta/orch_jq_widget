@@ -175,3 +175,26 @@ jQuery.validator.addMethod("contain_placeholder", function(value, element, param
 		//nothing
 	}
 }, "Enter Stanford Edu Email");
+
+jQuery.validator.addMethod("greaterThan", 
+function(value, element, params) {
+	if (!/Invalid|NaN/.test(new Date(value))) {
+			return new Date(value) > new Date($(params[0]).val());
+	}
+
+	return isNaN(value) && isNaN($(params[0]).val()) 
+			|| (Number(value) > Number($(params[0]).val())); 
+	
+},'Must be greater than {1}');
+
+jQuery.validator.addMethod("lesserThan", 
+function(value, element, params) {
+	if (!/Invalid|NaN/.test(new Date(value))) {
+			return new Date(value) < new Date($(params[0]).val());
+	}
+
+	return isNaN(value) && isNaN($(params[0]).val()) 
+			|| (Number(value) < Number($(params[0]).val())); 
+	
+},'Must be lesser than {1}');
+
