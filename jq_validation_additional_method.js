@@ -178,17 +178,26 @@ jQuery.validator.addMethod("contain_placeholder", function(value, element, param
 
 jQuery.validator.addMethod("greaterThan", 
 function(value, element, params) {
-	if (!/Invalid|NaN/.test(new Date(value))) {
-			return new Date(value) > new Date($(params[0]).val());
+	if (/Invalid/.test(new Date(value))) {
+		return false;
 	}
 
+	if (!/Invalid|NaN/.test(new Date(value))) {
+			console.log(new Date(value) > new Date($(params[0]).val()));
+			return new Date(value) > new Date($(params[0]).val());
+	}
+	
 	return isNaN(value) && isNaN($(params[0]).val()) 
 			|| (Number(value) > Number($(params[0]).val())); 
 	
-},'Must be greater than {1}');
+},'Date is Invalid or Must be greater than {1}');
 
 jQuery.validator.addMethod("lesserThan", 
 function(value, element, params) {
+	if (/Invalid/.test(new Date(value))) {
+		return false;
+	}
+
 	if (!/Invalid|NaN/.test(new Date(value))) {
 			return new Date(value) < new Date($(params[0]).val());
 	}
@@ -196,5 +205,5 @@ function(value, element, params) {
 	return isNaN(value) && isNaN($(params[0]).val()) 
 			|| (Number(value) < Number($(params[0]).val())); 
 	
-},'Must be lesser than {1}');
+},'Date is Invalid or Must be lesser than {1}');
 
