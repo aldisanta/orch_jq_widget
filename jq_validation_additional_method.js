@@ -178,6 +178,10 @@ jQuery.validator.addMethod("contain_placeholder", function(value, element, param
 
 jQuery.validator.addMethod("greaterThan", 
 function(value, element, params) {
+	if (!validateUSSmallDate(value)) {
+		return false;
+	}
+	
 	if (/Invalid/.test(new Date(value))) {
 		return false;
 	}
@@ -194,6 +198,10 @@ function(value, element, params) {
 
 jQuery.validator.addMethod("lesserThan", 
 function(value, element, params) {
+	if (!validateUSSmallDate(value)) {
+		return false;
+	}
+
 	if (/Invalid/.test(new Date(value))) {
 		return false;
 	}
