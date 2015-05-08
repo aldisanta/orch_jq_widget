@@ -21,6 +21,13 @@ $.widget( "orchestrate.fotf_questions", {
 		// cache commonly used elements
 		this.form_elem = $(this.element);
 
+		// transfer identifier to input
+		if (this.form_elem.data('id') > 0) {
+			var elem = '<input type="hidden" name="id" value="' 
+									+ parseInt(this.form_elem.data('id')) + '" />';
+			this.form_elem.append(elem);
+		}
+
 		// cache commonly used elements
 		this._cacheElements();
 
@@ -359,6 +366,39 @@ $.widget( "orchestrate.fotf_questions", {
 			, errorPlacement: function (er, el) {
 				el.parent('td').append(er);
 			}
+			, submitHandler: function (form) {
+				if ($(form).data('submit') == 'ajax') {
+					var url = $(form).data('action');
+					var data = new FormData($(form)[0]);
+					$.ajax({
+						url: url,
+						cache: false,
+						contentType: false,
+						processData: false,
+						type: 'POST',
+						data: data,
+						beforeSend : function () {
+							$(form).parent().block({message:null});
+						}
+					})
+					.done(function (data, textStatus, jqXHR) {
+						$(form).parent().unblock();
+						var json = $.parseJSON(data);
+						if (parseInt(json.status) == 1) {
+							$(form).parent().block({message:json.message, timeout: 500});
+						} else {
+							$(form).parent().block({message:textStatus + '.., but ' 
+								+ json.message, timeout: 500});
+						}
+					})
+					.fail(function (jqXHR, textStatus, errorThrown) {
+						$(form).parent().unblock();
+						$(form).parent().block({message:textStatus, timeout: 500});
+					});
+				} else {
+					form.submit();
+				}
+			}
 		});
 		
 		if (opts.is_portal) {
@@ -422,6 +462,36 @@ $.widget( "orchestrate.fotf_questions", {
 				$(el).rules('add'
 						, {
 							lesserThan : ['#' + $(el).data('less'), label]
+						}
+				);
+			}
+		});
+		
+		/* rangedate - with time */
+		cached['.input_validate_rangedate_time'].each(function(index, el) {
+			if ($(el).data('greater') != '') {
+				var label = $('#' + $(el).data('greater'))
+										.parent('td')
+										.prev('td')
+										.children('label')
+										.html();
+				
+				$(el).rules('add'
+						, {
+							greaterThanWithTime : ['#' + $(el).data('greater'), label]
+						}
+				);
+			}
+			else if ($(el).data('less') != '') {
+				var label = $('#' + $(el).data('less'))
+										.parent('td')
+										.prev('td')
+										.children('label')
+										.html();
+				
+				$(el).rules('add'
+						, {
+							lesserThanWithTime : ['#' + $(el).data('less'), label]
 						}
 				);
 			}
@@ -517,6 +587,15 @@ $.widget( "orchestrate.fotf_questions", {
 									}
 				);
 			}
+		});
+
+		/* email no remote */
+		cached['.input_email_no_remote'].each(function(index, el) {
+			$(el).rules('add'
+								, {
+									email : true
+								}
+			);
 		});
 	
 		/* sql year */
@@ -709,6 +788,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_console_password = $table.find('input.validate-console_password')
 				, $input_sql_year = $table.find('input.validate-sql_year')
 				, $input_email = $table.find('input.validate-email')
+				, $input_email_no_remote = $table.find('input.validate-email-no-remote')
 				, $input_common_email = $table.find('input.validate-common_email')
 				, $input_gpa = $table.find('input.validate-gpa')
 				, $input_numeric = $table.find('input.validate-numeric')
@@ -718,6 +798,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_resume = $table.find('input.validate-resume')
 				, $input_validate_fulldate = $table.find('input.validate-fulldate')
 				, $input_validate_rangedate = $table.find('input.validate-rangedate')
+				, $input_validate_rangedate_time = $table.find('input.validate-rangedate-time')
 				, $fotf_radio = $table.find('.fotf_radio')
 				, $fotf_checkbox = $table.find('.fotf_checkbox')
 				, $fotf_dropdown = $table.find('select.fotf_dropdown')
@@ -744,6 +825,7 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.input_console_password' : $input_console_password
 			, '.input_sql_year' : $input_sql_year
 			, '.input_email' : $input_email
+			, '.input_email_no_remote' : $input_email_no_remote
 			, '.input_common_email' : $input_common_email
 			, '.input_gpa' : $input_gpa
 			, '.input_numeric' : $input_numeric
@@ -753,6 +835,7 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.input_resume' : $input_resume
 			, '.input_validate_fulldate' : $input_validate_fulldate
 			, '.input_validate_rangedate' : $input_validate_rangedate
+			, '.input_validate_rangedate_time' : $input_validate_rangedate_time
 			, '.fotf_radio' : $fotf_radio
 			, '.fotf_checkbox' : $fotf_checkbox
 			, '.fotf_dropdown' : $fotf_dropdown

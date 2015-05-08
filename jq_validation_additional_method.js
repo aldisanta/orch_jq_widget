@@ -214,3 +214,96 @@ function(value, element, params) {
 	
 },'Date is Invalid or Must be lesser than {1}');
 
+
+jQuery.validator.addMethod("greaterThanWithTime", 
+function(value, element, params) {
+	var hour = $('#' + element.id + '_hour').val();
+	var minute = $('#' + element.id + '_minute').val();
+	
+	if (!validateUSSmallDate(value)) {
+		return false;
+	}
+	
+	if (/Invalid/.test(new Date(value))) {
+		return false;
+	}
+
+	if (!/Invalid|NaN/.test(new Date(value))) {
+		var comp_date = $(params[0]).val();	
+		var comp_hour = parseInt($(params[0] + '_hour').val());	
+		var comp_minute = parseInt($(params[0] + '_minute').val());	
+		//split into year month day
+		var regex = /^\d{1,2}(\-|\/|\.)\d{1,2}\1\d{4}$/
+		if (!regex.test(value)) {
+			return false;
+		} else {
+			var array_date = value.split(RegExp.$1);
+			var day = parseInt(array_date[1],10);
+			var month = parseInt(array_date[0],10);
+			var year = parseInt(array_date[2],10);
+		}
+
+		if (!regex.test(comp_date)) {
+			return false;
+		} else {
+			var array_date = comp_date.split(RegExp.$1);
+			var comp_day = parseInt(array_date[1],10);
+			var comp_month = parseInt(array_date[0],10);
+			var comp_year = parseInt(array_date[2],10);
+		}
+		return new Date(year, month, day, 
+										+ hour, minute) > new Date(comp_year, comp_month, comp_day,+
+										comp_hour, comp_minute);
+	}
+	
+	return isNaN(value) && isNaN($(params[0]).val()) 
+			|| (Number(value) > Number($(params[0]).val())); 
+	
+},'Date is Invalid or Must be greater than {1}');
+
+jQuery.validator.addMethod("lesserThanWithTime", 
+function(value, element, params) {
+	var hour = $('#' + element.id + '_hour').val();
+	var minute = $('#' + element.id + '_minute').val();
+
+	if (!validateUSSmallDate(value)) {
+		return false;
+	}
+
+	if (/Invalid/.test(new Date(value))) {
+		return false;
+	}
+
+	if (!/Invalid|NaN/.test(new Date(value))) {
+		var comp_date = $(params[0]).val();	
+		var comp_hour = parseInt($(params[0] + '_hour').val());	
+		var comp_minute = parseInt($(params[0] + '_minute').val());	
+		//split into year month day
+		var regex = /^\d{1,2}(\-|\/|\.)\d{1,2}\1\d{4}$/
+		if (!regex.test(value)) {
+			return false;
+		} else {
+			var array_date = value.split(RegExp.$1);
+			var day = parseInt(array_date[1],10);
+			var month = parseInt(array_date[0],10);
+			var year = parseInt(array_date[2],10);
+		}
+
+		if (!regex.test(comp_date)) {
+			return false;
+		} else {
+			var array_date = comp_date.split(RegExp.$1);
+			var comp_day = parseInt(array_date[1],10);
+			var comp_month = parseInt(array_date[0],10);
+			var comp_year = parseInt(array_date[2],10);
+		}
+		return new Date(year, month, day, 
+										+ hour, minute) < new Date(comp_year, comp_month, comp_day,+
+										comp_hour, comp_minute);
+	}
+
+	return isNaN(value) && isNaN($(params[0]).val()) 
+			|| (Number(value) < Number($(params[0]).val())); 
+	
+},'Date is Invalid or Must be lesser than {1}');
+
