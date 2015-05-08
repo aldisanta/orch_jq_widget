@@ -187,7 +187,6 @@ function(value, element, params) {
 	}
 
 	if (!/Invalid|NaN/.test(new Date(value))) {
-			console.log(new Date(value) > new Date($(params[0]).val()));
 			return new Date(value) > new Date($(params[0]).val());
 	}
 	
