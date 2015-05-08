@@ -9,6 +9,7 @@ $.widget( "orchestrate.fotf_questions", {
 		, disabled : false
 		, is_portal : false
 		, is_validate : true
+		, single_error_place : false
 	},
 
 	/**
@@ -21,6 +22,12 @@ $.widget( "orchestrate.fotf_questions", {
 		// cache commonly used elements
 		this.form_elem = $(this.element);
 
+		// adds error-placement layer if using single error placement
+		if (opts.single_error_place) {
+			this.form_elem.prepend('<div class="error-placement" id="error-placement_' +
+															this.form_elem.attr('id') 
+															+'" style="display:none"><ul></ul></div>');
+		}
 		// transfer identifier to input
 		if (this.form_elem.data('id') > 0) {
 			var elem = '<input type="hidden" name="id" value="' 
@@ -360,46 +367,90 @@ $.widget( "orchestrate.fotf_questions", {
 		cached['table'].find('label.error').css('color', 'red');
 		
 		self._addAsterix();
-
-		self.form_elem.validate({
-			ignore: ':hidden'
-			, errorPlacement: function (er, el) {
-				el.parent('td').append(er);
-			}
-			, submitHandler: function (form) {
-				if ($(form).data('submit') == 'ajax') {
-					var url = $(form).data('action');
-					var data = new FormData($(form)[0]);
-					$.ajax({
-						url: url,
-						cache: false,
-						contentType: false,
-						processData: false,
-						type: 'POST',
-						data: data,
-						beforeSend : function () {
-							$(form).parent().block({message:null});
-						}
-					})
-					.done(function (data, textStatus, jqXHR) {
-						$(form).parent().unblock();
-						var json = $.parseJSON(data);
-						if (parseInt(json.status) == 1) {
-							$(form).parent().block({message:json.message, timeout: 500});
-						} else {
-							$(form).parent().block({message:textStatus + '.., but ' 
-								+ json.message, timeout: 500});
-						}
-					})
-					.fail(function (jqXHR, textStatus, errorThrown) {
-						$(form).parent().unblock();
-						$(form).parent().block({message:textStatus, timeout: 500});
-					});
-				} else {
-					form.submit();
+		//validate setup differs from single container
+		if (!opts.single_error_place) {
+			self.form_elem.validate({
+				ignore: ':hidden'
+				, errorPlacement: function (er, el) {
+					el.parent('td').append(er);
 				}
-			}
-		});
+				, submitHandler: function (form) {
+					if ($(form).data('submit') == 'ajax') {
+						var url = $(form).data('action');
+						var data = new FormData($(form)[0]);
+						$.ajax({
+							url: url,
+							cache: false,
+							contentType: false,
+							processData: false,
+							type: 'POST',
+							data: data,
+							beforeSend : function () {
+								$(form).parent().block({message:null});
+							}
+						})
+						.done(function (data, textStatus, jqXHR) {
+							$(form).parent().unblock();
+							var json = $.parseJSON(data);
+							if (parseInt(json.status) == 1) {
+								$(form).parent().block({message:json.message, timeout: 500});
+							} else {
+								$(form).parent().block({message:textStatus + '.., but ' 
+									+ json.message, timeout: 500});
+							}
+						})
+						.fail(function (jqXHR, textStatus, errorThrown) {
+							$(form).parent().unblock();
+							$(form).parent().block({message:textStatus, timeout: 500});
+						});
+					} else {
+						form.submit();
+					}
+				}
+			});
+		} else {
+			self.form_elem.validate({
+				ignore: ':hidden'
+				, errorContainer: '#error-placement' + '_' + self.form_elem.attr('id')
+				, errorLabelContainer: '#error-placement' 
+																+ '_' + self.form_elem.attr('id') + ' ul'
+				, wrapper: 'li'
+				, submitHandler: function (form) {
+					self.form_elem.find('.error-placement').removeClass('error');
+					if ($(form).data('submit') == 'ajax') {
+						var url = $(form).data('action');
+						var data = new FormData($(form)[0]);
+						$.ajax({
+							url: url,
+							cache: false,
+							contentType: false,
+							processData: false,
+							type: 'POST',
+							data: data,
+							beforeSend : function () {
+								$(form).parent().block({message:null});
+							}
+						})
+						.done(function (data, textStatus, jqXHR) {
+							$(form).parent().unblock();
+							var json = $.parseJSON(data);
+							if (parseInt(json.status) == 1) {
+								$(form).parent().block({message:json.message, timeout: 500});
+							} else {
+								$(form).parent().block({message:textStatus + '.., but ' 
+									+ json.message, timeout: 500});
+							}
+						})
+						.fail(function (jqXHR, textStatus, errorThrown) {
+							$(form).parent().unblock();
+							$(form).parent().block({message:textStatus, timeout: 500});
+						});
+					} else {
+						form.submit();
+					}
+				}
+			});
+		}
 		
 		if (opts.is_portal) {
 			cached['.portal_input_required'].each(function(index, el) {
