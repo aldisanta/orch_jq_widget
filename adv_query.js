@@ -603,7 +603,7 @@ $.widget( "orchestrate.adv_query", {
 
 		_splitAppData: function(data) {
 			if (data && data.indexOf('|||~~|||') > -1) {
-				var all = data.split('|||~~|||');
+				var all = data.split('|||~~|f||');
 			
 				var app_string = all[0];
 				$('#sel_application').html('');
