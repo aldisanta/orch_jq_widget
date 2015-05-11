@@ -151,7 +151,6 @@ $.widget( "orchestrate.fotf_questions", {
 				field_toggle_text.hide();
 			}
 		});
-
 	}, 
 
 	_bindTextAreaWordCount: function() {
@@ -790,6 +789,12 @@ $.widget( "orchestrate.fotf_questions", {
 				$(el).next('label').html('');
 			});
 		});
+		
+		//dropdown alternate multiple
+		//adv_query.js required
+		if(cached['.group_dropdown_multiple_alternate'].length > 0) {
+			cached['.group_dropdown_multiple_alternate'].adv_query();
+		}
 
 		if (opts.is_portal) {
 			$('select.fotf_dropdown').dropdown();
@@ -861,7 +866,8 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_mask_numeric = $table.find('input.mask-numeric')
 				, $input_mask_long_numeric = $table.find('input.mask-long_numeric')
 				, $input_mask_absolute_phone_us = $table.find('input.mask-absolute_phone_us')
-				, $input_checkbox_phone_international = $table.find('input.checkbox-phone_international');
+				, $input_checkbox_phone_international = $table.find('input.checkbox-phone_international')
+				, $group_dropdown_multiple_alternate = $table.find('tbody.dropdown-multiple-alternate');
 		
 		this.cached = {
 			'table' : $table
@@ -899,6 +905,7 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.input_mask_long_numeric' : $input_mask_long_numeric
 			, '.input_mask_absolute_phone_us' : $input_mask_absolute_phone_us
 			, '.input_checkbox_phone_international' : $input_checkbox_phone_international
+			, '.group_dropdown_multiple_alternate' : $group_dropdown_multiple_alternate
 		};
 	}
 });
