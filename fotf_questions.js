@@ -2,7 +2,7 @@
 // the widget definition, where "orchestrate" is the namespace,
 // "fotf_questions" the widget name
 // bind on form containing the record list table
-$.widget( "orchestrate.fotf_questions", {
+$.widget( "ford_orchestrate.fotf_questions", {
 	// default options
 	options: {
 		is_country_state_toggle : false
@@ -912,7 +912,7 @@ $.widget( "orchestrate.fotf_questions", {
 
 /** extension **/
 
-$.widget( "orchestrate.fotf_adv_query_questions", $.orchestrate.fotf_questions, {
+$.widget( "ford_orchestrate.fotf_adv_query_questions", $.orchestrate.fotf_questions, {
 	
 	_addCountry: function(pObjName) {
 		popup('/console/include/country_list.asp?objName='+pObjName, 600, 250) 
