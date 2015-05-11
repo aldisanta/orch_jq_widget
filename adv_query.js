@@ -739,3 +739,152 @@ $.widget( "orchestrate.adv_query", {
 		};
 	}
 });
+
+/** extension **/
+$.widget( "orchestrate.adv_query_questions", $.orchestrate.adv_query, {
+	
+	/**
+		* _multipleOptionsToggleListener : multiple options toggle listener
+	*/
+	_multipleOptionsToggleListener: function() {
+		var self = this,
+				cached = self.cached,
+				opts = self.options;
+		
+		$.each(cached['.multiple_filter_select'], function(index, val) {
+			$(val).change(function(event) {
+				var options = $(this).children('option');
+				var values = [];
+				$.each(options, function(index, val) {
+					values.push($(val).val());
+				});
+				var query_filter = $(this).closest('.filter')
+																	.prevAll('.query_filter:first');
+				if (values) {
+					values = values.join(',');
+					self.elem
+									.find('.hd_multiple_filter')
+									.val(values)
+									.trigger('change');
+				} else {
+					self.elem
+									.find('.hd_multiple_filter')
+									.trigger('change');
+				}
+				//reset trigger back to false
+				query_filter.data('change-trigger', false);
+			});
+		});
+	},
+
+	/**
+	 * _buttonMultipleOptionsRemove : button multiple options
+	 */
+	_buttonMultipleOptionsRemove: function() {
+		var self = this,
+				cached = this.cached,
+				opts = this.options;
+
+		$.each(cached['.btn-remove'], function(index, val) {
+			$(val).click(function(event) {
+				var lyr = $(this).closest('.multiple_filter');
+				var select = lyr.find('.multiple_filter_select');
+				//gets hidden value
+				var hd_value = self.elem.find('.hd_multiple_filter').val();
+				if (hd_value) {
+					if (hd_value.indexOf(',') > -1) {
+						hd_value = hd_value.split(',');
+					} else {
+						hd_value = [hd_value];
+					}
+				} else {
+					hd_value = [0];
+				}
+
+				//alter value
+				if (select.val()) {
+					var value = select.val();
+					var diff_hd_value = [];
+					$.each(value, function(index, val) {
+						select.find('option[value=' + val + ']').remove();
+						if ($.inArray(val, hd_value) > -1 ) {
+							diff_hd_value.push(val);
+						} else {
+							//do nothing
+						}
+					});
+
+					new_hd_value = hd_value.diff(diff_hd_value);
+					//settings filter change flag
+					$(val).closest('.filter').prevAll('.query_filter:first')
+																		.data('change-trigger', true);
+					//setting new hidden value
+					select.trigger('change');
+					/*
+					overlapping
+					lyr.find('.hd_multiple_filter').val(new_hd_value.join(','))
+																				 .trigger('change');
+					 */
+				} else {
+					//nothing
+				}
+			});
+		});
+	},
+	
+	/**
+	 * _filterHideAll : filter hide all filter, shown if multiple filter not empty
+	 */
+	_filterHideAll: function() {
+		var self = this,
+				cached = self.cached,
+				opts = self.options;
+		$.each(cached['.multiple_filter'], function(index, val) {
+			var values = self.elem.find('.hd_multiple_filter').val();
+			if (values.indexOf(',') > -1) {
+				$(this).show();
+				$(this).prev('tr').hide();
+			} else {
+				$(this).hide();
+				$(this).prev('tr').show();
+			}
+		});
+	},
+
+	/**
+	 * _popupAdvancedFilter : popup advanced filter
+	 */
+	_popupAdvancedFilter: function() {
+		var self = this,
+				cached = self.cached,
+				opts = self.options;
+				win_filter = self.options;
+		
+		$.each(cached['.btn_popup-filter'], function(index, val) {
+			$(val).click(function(event) {
+				var r = $(this).closest('tbody.dropdown-multiple-alternate')
+												.find('input.hd_multiple_filter').val();
+				var popup_name = $(this).data('popup');
+				var url = $(this).data('popup-url');
+				var data = {} || data;
+				data.url = url;
+				data.param1 = $(this).data('param1');
+				data.param2 = $(this).data('param2');
+				data.param3 = $(this).data('param3');
+				
+				//call popup filter
+				var iHandle = window.open(data.url + '?r=' + r
+																	+ '&param1=' + data.param1 
+																	+ '&param2=' + data.param2
+																	+ '&param3=' + data.param3
+																	,'_blank'
+																	,'width=650,height=350,toolbar=no,top=100' +
+																	',left=100,location=no,directories=no' +
+																	',status=yes,menubar=no,scrollbars=yes' +
+																	',copyhistory=no,resizable=yes');
+				popupHandle[ iTotalPopup++ ] = iHandle;
+				return true;
+			});
+		});
+	}
+});

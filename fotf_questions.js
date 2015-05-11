@@ -53,6 +53,8 @@ $.widget( "orchestrate.fotf_questions", {
 				this.cached['.input_required'].removeClass('required');
 				//but retain asterix
 				this._addAsterix();
+				//TODO :
+				//no validation running, but will retain ajax submit
 			}
 		}
 		
@@ -793,7 +795,7 @@ $.widget( "orchestrate.fotf_questions", {
 		//dropdown alternate multiple
 		//adv_query.js required
 		if(cached['.group_dropdown_multiple_alternate'].length > 0) {
-			cached['.group_dropdown_multiple_alternate'].adv_query();
+			cached['.group_dropdown_multiple_alternate'].adv_query_questions();
 		}
 
 		if (opts.is_portal) {
@@ -867,7 +869,8 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_mask_long_numeric = $table.find('input.mask-long_numeric')
 				, $input_mask_absolute_phone_us = $table.find('input.mask-absolute_phone_us')
 				, $input_checkbox_phone_international = $table.find('input.checkbox-phone_international')
-				, $group_dropdown_multiple_alternate = $table.find('tbody.dropdown-multiple-alternate');
+				, $group_dropdown_multiple_alternate = $table.find('tbody.dropdown-multiple-alternate')
+				, $multiple_filter_select = $table.find('.multiple_filter_select');
 		
 		this.cached = {
 			'table' : $table
@@ -906,6 +909,7 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.input_mask_absolute_phone_us' : $input_mask_absolute_phone_us
 			, '.input_checkbox_phone_international' : $input_checkbox_phone_international
 			, '.group_dropdown_multiple_alternate' : $group_dropdown_multiple_alternate
+			, '.multiple_filter_select' : $multiple_filter_select
 		};
 	}
 });
