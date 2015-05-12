@@ -649,6 +649,15 @@ $.widget( "orchestrate.fotf_questions", {
 								}
 			);
 		});
+		
+		/* email text area no remote */
+		cached['.textarea_email_textarea_no_remote'].each(function(index, el) {
+			$(el).rules('add'
+								, {
+									email_textarea : true
+								}
+			);
+		});
 	
 		/* sql year */
 		cached['.input_sql_year'].each(function(index, el) {
@@ -797,6 +806,12 @@ $.widget( "orchestrate.fotf_questions", {
 		if(cached['.group_dropdown_multiple_alternate'].length > 0) {
 			cached['.group_dropdown_multiple_alternate'].adv_query_questions();
 		}
+		
+		//multiple select
+		//adv_query.js required
+		if(cached['.group_multiple_select'].length > 0) {
+			cached['.group_multiple_select'].multiple_select();
+		}
 
 		if (opts.is_portal) {
 			$('select.fotf_dropdown').dropdown();
@@ -834,7 +849,7 @@ $.widget( "orchestrate.fotf_questions", {
 	 * _cacheElements : cached DOM Elements
 	 */
 	_cacheElements: function() {
-		var $table = this.form_elem.children('table')
+		var $table = this.form_elem
 				, $field_all = $table.find('input, select, textarea')
 				, $button_action = $table.find('.button-action')
 				, $link_action = $table.find('.link-action')
@@ -847,6 +862,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_sql_year = $table.find('input.validate-sql_year')
 				, $input_email = $table.find('input.validate-email')
 				, $input_email_no_remote = $table.find('input.validate-email-no-remote')
+				, $textarea_email_textarea_no_remote = $table.find('textarea.validate-email-textarea-no-remote')
 				, $input_common_email = $table.find('input.validate-common_email')
 				, $input_gpa = $table.find('input.validate-gpa')
 				, $input_numeric = $table.find('input.validate-numeric')
@@ -870,7 +886,8 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_mask_absolute_phone_us = $table.find('input.mask-absolute_phone_us')
 				, $input_checkbox_phone_international = $table.find('input.checkbox-phone_international')
 				, $group_dropdown_multiple_alternate = $table.find('tbody.dropdown-multiple-alternate')
-				, $multiple_filter_select = $table.find('.multiple_filter_select');
+				, $multiple_filter_select = $table.find('.multiple_filter_select')
+				, $group_multiple_select = $table.find('tbody.group-multiple-select');
 		
 		this.cached = {
 			'table' : $table
@@ -910,6 +927,8 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.input_checkbox_phone_international' : $input_checkbox_phone_international
 			, '.group_dropdown_multiple_alternate' : $group_dropdown_multiple_alternate
 			, '.multiple_filter_select' : $multiple_filter_select
+			, '.group_multiple_select' : $group_multiple_select
+			, '.textarea_email_textarea_no_remote' : $textarea_email_textarea_no_remote
 		};
 	}
 });

@@ -888,3 +888,46 @@ $.widget( "orchestrate.adv_query_questions", $.orchestrate.adv_query, {
 		});
 	}
 });
+
+$.widget( "orchestrate.multiple_select", $.orchestrate.adv_query_questions, {
+	
+	/**
+	 * _bindUIActions : bind UI Event on record_list
+	 */
+	_bindUIActions: function() {
+		var cached = this.cached,
+				opts = this.options;
+		
+		// event listener on multiple changed value
+		this._multipleOptionsToggleListener();
+		//button popup
+		this._popupAdvancedFilter();
+		//button remove
+		this._buttonMultipleOptionsRemove();
+	},
+
+	/**
+	 * _create : constructor
+	 */
+	_create: function() {
+		// get the select element
+		var opts = this.options;
+		
+		// cache commonly used elements
+		this.elem = $(this.element);
+
+		// cache commonly used elements
+		this._cacheElements();
+		
+		// sets up popup object
+		this.popup = {} || this.popup;
+		// sets up object callback for popup filter
+		this._windowPopupFilterCallback();
+
+		// bind UI actions
+		this._bindUIActions();
+		
+		// refresh
+		this._refresh();
+	}
+});
