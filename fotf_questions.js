@@ -395,6 +395,10 @@ $.widget( "orchestrate.fotf_questions", {
 							var json = $.parseJSON(data);
 							if (parseInt(json.status) == 1) {
 								$(form).parent().block({message:json.message, timeout: 500});
+								//added toggle flag on dialog if exists
+								if ($('#dialog-flag').length > 0) {
+									$('#dialog-flag').val('finish').trigger('change');
+								}
 							} else {
 								$(form).parent().block({message:textStatus + '.., but ' 
 									+ json.message, timeout: 500});
@@ -437,6 +441,10 @@ $.widget( "orchestrate.fotf_questions", {
 							var json = $.parseJSON(data);
 							if (parseInt(json.status) == 1) {
 								$(form).parent().block({message:json.message, timeout: 500});
+								//added toggle flag on dialog if exists
+								if ($('#dialog-flag').length > 0) {
+									$('#dialog-flag').val('finish').trigger('change');
+								}
 							} else {
 								$(form).parent().block({message:textStatus + '.., but ' 
 									+ json.message, timeout: 500});
