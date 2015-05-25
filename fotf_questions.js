@@ -397,6 +397,18 @@ $.widget( "orchestrate.fotf_questions", {
 								$(form).parent().block({message:json.message, timeout: 500});
 								//added toggle flag on dialog if exists
 								if ($('#dialog-flag').length > 0) {
+									if (json.row && json.row.length > 0) {
+										$('#dialog-flag').data('row', json.row);
+									}
+									if (json.label && json.label.length > 0) {
+										$('#dialog-flag').data('label', json.label);
+									}
+									if (json.fields && json.fields.length > 0) {
+										$('#dialog-flag').data('fields', json.fields);
+									}
+									if (json.action && json.action.length > 0) {
+										$('#dialog-flag').data('action', json.action);
+									}
 									$('#dialog-flag').val('finish').trigger('change');
 								}
 							} else {
@@ -443,6 +455,18 @@ $.widget( "orchestrate.fotf_questions", {
 								$(form).parent().block({message:json.message, timeout: 500});
 								//added toggle flag on dialog if exists
 								if ($('#dialog-flag').length > 0) {
+									if (json.row && json.row.length > 0) {
+										$('#dialog-flag').data('row', json.row);
+									}
+									if (json.label && json.label.length > 0) {
+										$('#dialog-flag').data('label', json.label);
+									}
+									if (json.fields && json.fields.length > 0) {
+										$('#dialog-flag').data('fields', json.fields);
+									}
+									if (json.action && json.action.length > 0) {
+										$('#dialog-flag').data('action', json.action);
+									}
 									$('#dialog-flag').val('finish').trigger('change');
 								}
 							} else {
