@@ -3,9 +3,82 @@
 // "fotf_questions" the widget name
 // bind on form containing the record list table
 $.widget( "orchestrate.fotf_questions", {
+
+	/**
+	 * [public_bindTextAreaWordCount description]
+	 */
+	public_bindTextAreaWordCount: function() {
+		var self = this,
+				cached = this.cached,
+				opts = this.options;
+		$('textarea.word-count').each(function(index, el) {
+				//console.log($(el).attr('id'));
+				var pTempContent = $('#' + $(el).attr('id') + '_count');
+				if (pTempContent) pTempContent.html("0");
+				// start counting
+				var pText = trim($(el).val());
+				var stripText = pText.replace(/(<([^>]+)>)/ig,"")
+															.replace(/<\/?[^>]+>/g, "")
+															.replace(/(\r\n|\n|\r)/gm," ")
+															.replace(/(&nbsp;)/g," ")
+															.replace(/  +/g, " ")
+															.replace("&nbsp;"," ")
+															.replace(/^[\s(&nbsp;)]+/g,"")
+															.replace(/[\s(&nbsp;)]+$/g,"");
+				var pCount = stripText.split(" ").length
+				if ((trim(stripText) == "") || (trim(stripText) == "<p><sub></sub></p>")) {
+					if (pTempContent) pTempContent.html("0");
+				} else {
+					if (pTempContent) pTempContent.html(pCount);
+				}
+		});
+		
+		$('textarea.word-count').keyup(function(event) {
+				var pTempContent = $('#' + $(this).attr('id') + '_count');
+				if (pTempContent) pTempContent.html("0");
+				// start counting
+				var pText = trim($(this).val());
+				var stripText = pText.replace(/(<([^>]+)>)/ig,"")
+															.replace(/<\/?[^>]+>/g, "")
+															.replace(/(\r\n|\n|\r)/gm," ")
+															.replace(/(&nbsp;)/g," ")
+															.replace(/  +/g, " ")
+															.replace("&nbsp;"," ")
+															.replace(/^[\s(&nbsp;)]+/g,"")
+															.replace(/[\s(&nbsp;)]+$/g,"");
+				var pCount = stripText.split(" ").length
+				if ((trim(stripText) == "") || (trim(stripText) == "<p><sub></sub></p>")) {
+					if (pTempContent) pTempContent.html("0");
+				} else {
+					if (pTempContent) pTempContent.html(pCount);
+				}
+		});
+		
+		$('textarea.word-count').keydown(function(event) {
+				var pTempContent = $('#' + $(this).attr('id') + '_count');
+				if (pTempContent) pTempContent.html("0");
+				// start counting
+				var pText = trim($(this).val());
+				var stripText = pText.replace(/(<([^>]+)>)/ig,"")
+															.replace(/<\/?[^>]+>/g, "")
+															.replace(/(\r\n|\n|\r)/gm," ")
+															.replace(/(&nbsp;)/g," ")
+															.replace(/  +/g, " ")
+															.replace("&nbsp;"," ")
+															.replace(/^[\s(&nbsp;)]+/g,"")
+															.replace(/[\s(&nbsp;)]+$/g,"");
+				var pCount = stripText.split(" ").length
+				if ((trim(stripText) == "") || (trim(stripText) == "<p><sub></sub></p>")) {
+					if (pTempContent) pTempContent.html("0");
+				} else {
+					if (pTempContent) pTempContent.html(pCount);
+				}
+		});
+	}, 
 	// default options
 	options: {
-		is_country_state_toggle : false
+		is_ignore_hidden : true
+		, is_country_state_toggle : false
 		, disabled : false
 		, is_portal : false
 		, is_validate : true
@@ -351,11 +424,12 @@ $.widget( "orchestrate.fotf_questions", {
 		var self = this
 				, opts = self.options
 				, cached = self.cached;	
-
-		cached['.required']
-											.children('td :first-child')
-											.append('<span class="required-asterix">&nbsp;'
-											+'<font color=red>*</font></span>');
+		cached['.required'].each(function(index, el) {
+			$(el).children('td').first()
+						.append('<span class="required-asterix">&nbsp;'
+						+'<font color=red>*</font></span>');
+			
+		});
 	},
 
 	_validation: function() {
@@ -485,6 +559,11 @@ $.widget( "orchestrate.fotf_questions", {
 			});
 		}
 		
+		if(!opts.is_ignore_hidden) {
+			//change ignore rule
+			self.form_elem.validate().settings.ignore = '';
+		}
+
 		if (opts.is_portal) {
 			cached['.portal_input_required'].each(function(index, el) {
 				$(el).rules("add", { 
@@ -505,6 +584,7 @@ $.widget( "orchestrate.fotf_questions", {
 			$(el).rules('add'
 					, {
 						extension : $(el).data('ext')
+						, windows_compliance : true
 						, messages : {
 							extension : 'Valid file format ' + $(el).data('ext')
 						}
