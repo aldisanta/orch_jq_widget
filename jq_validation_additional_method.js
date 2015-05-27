@@ -120,7 +120,6 @@ jQuery.validator.addMethod("maxwords500", function(value, element, params) {
 
 jQuery.validator.addMethod("required_on_click", 
 	function(value, element, params) {
-	console.log(value);
 	if (value) {
 		return true;
 	} else {
@@ -332,17 +331,20 @@ function(value, element, params) {
 
 jQuery.validator.addMethod("windows_compliance", 
 function(value, element, params) {
-	var rg1=/^[^\\/:\*\?"<>\|]+$/; // forbidden characters \ / : * ? " < > |
-	var rg2=/^\./; // cannot start with dot (.)
-	var rg3=/^(nul|prn|con|lpt[0-9]|com[0-9])(\.|$)/i; // forbidden file names
-	var check = pFileName;
-	
-	
-	if (check.indexOf("fakepath") != -1) {
-		// Chrome adds "c:\fakepath"
-		check = check.replace(/C:\\fakepath\\/i, '');
+	if (value.length > 0) {
+		var rg1=/^[^\\/:\*\?"<>\|]+$/; // forbidden characters \ / : * ? " < > |
+		var rg2=/^\./; // cannot start with dot (.)
+		var rg3=/^(nul|prn|con|lpt[0-9]|com[0-9])(\.|$)/i; // forbidden file names
+		var check = value;
+		
+		
+		if (check.indexOf("fakepath") != -1) {
+			// Chrome adds "c:\fakepath"
+			check = check.replace(/C:\\fakepath\\/i, '');
+		}
+		
+		return rg1.test(check) && !rg2.test(check) &&!rg3.test(check);
+	} else {
+		return true;
 	}
-	
-	return rg1.test(check) && !rg2.test(check) &&!rg3.test(check);
 },'Please remove invalid characters from your filename before upload (e.g. no slashes, colons, semi-colons or other special characters)');
-
