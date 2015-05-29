@@ -83,6 +83,7 @@ $.widget( "orchestrate.fotf_questions", {
 		, is_portal : false
 		, is_validate : true
 		, single_error_place : false
+		, notification_block : 'default'
 	},
 
 	/**
@@ -432,6 +433,148 @@ $.widget( "orchestrate.fotf_questions", {
 		});
 	},
 
+	_updateDialogFlagData: function(json) {
+		var self = this
+				, opts = self.options
+				, cached = self.cached;	
+
+		if (json.row && json.row.length > 0) {
+			$('#dialog-flag').data('row', json.row);
+		}
+		if (json.label && json.label.length > 0) {
+			$('#dialog-flag').data('label', json.label);
+		}
+		if (json.fields && json.fields.length > 0) {
+			$('#dialog-flag').data('fields', json.fields);
+		}
+		if (json.action && json.action.length > 0) {
+			$('#dialog-flag').data('action', json.action);
+		}
+		$('#dialog-flag').val('finish').trigger('change');
+	},
+
+	/**
+	 * _formSubmitHandler_Ajax: 
+	 */
+	_formSubmitHandler_Ajax: function(form) {
+		var self = this
+				, opts = self.options
+				, cached = self.cached;	
+		
+		var url = $(form).data('action');
+		var data = new FormData($(form)[0]);
+		var ajax_options = 
+		{
+			url: url,
+			cache: false,
+			contentType: false,
+			processData: false,
+			type: 'POST',
+			data: data,
+		};
+
+		if (opts.notification_block == 'default') {
+			ajax_options.beforeSend = function () {
+				$(form).parent().block({message:null});
+			}
+		} else if (opts.notification_block == 'growl') {
+			ajax_options.beforeSend = function () {
+				$(form).parent().block({
+					message: 'updating ....', 
+					fadeIn: 700, 
+					fadeOut: 700, 
+					timeout: 2000, 
+					showOverlay: false, 
+					centerY: false, 
+					css: { 
+							width: '350px', 
+							top: '10px', 
+							left: '', 
+							right: '10px', 
+							border: 'none', 
+							padding: '5px', 
+							backgroundColor: '#000', 
+							'-webkit-border-radius': '10px', 
+							'-moz-border-radius': '10px', 
+							opacity: .6, 
+							color: '#fff' 
+					} 
+				});
+			}
+		} else {
+			ajax_options.beforeSend = function () {
+				$(form).parent().block({message:null});
+			}
+		}
+
+		var ajax = $.ajax(ajax_options);
+
+		if (opts.notification_block == 'default') {
+			//done ajax request
+			ajax.done(function (data, textStatus, jqXHR) {
+				$(form).parent().unblock();
+				var json = $.parseJSON(data);
+				if (parseInt(json.status) == 1) {
+					$(form).parent().block({message:json.message, timeout: 500});
+					
+					//added toggle flag on dialog if exists
+					if ($('#dialog-flag').length > 0) {
+						self._updateDialogFlagData(json);
+					}
+				} else {
+					$(form).parent().block({message:textStatus + '.., but ' 
+						+ json.message, timeout: 500});
+				}
+			});
+
+			//fail ajax request
+			ajax.fail(function (jqXHR, textStatus, errorThrown) {
+				$(form).parent().unblock();
+				$(form).parent().block({message:textStatus, timeout: 500});
+			});
+		} else if (opts.notification_block == 'growl') {
+			//done ajax request
+			ajax.done(function (data, textStatus, jqXHR) {
+				var json = $.parseJSON(data);
+				if (parseInt(json.status) == 1) {
+					//added toggle flag on dialog if exists
+					if ($('#dialog-flag').length > 0) {
+						self._updateDialogFlagData(json);
+					}
+				} else {
+				}
+			});
+
+			//fail ajax request
+			ajax.fail(function (jqXHR, textStatus, errorThrown) {
+			});
+		} else {
+			//done ajax request
+			ajax.done(function (data, textStatus, jqXHR) {
+				$(form).parent().unblock();
+				var json = $.parseJSON(data);
+				if (parseInt(json.status) == 1) {
+					$(form).parent().block({message:json.message, timeout: 500});
+					
+					//added toggle flag on dialog if exists
+					if ($('#dialog-flag').length > 0) {
+						self._updateDialogFlagData(json);
+					}
+				} else {
+					$(form).parent().block({message:textStatus + '.., but ' 
+						+ json.message, timeout: 500});
+				}
+			});
+
+			//fail ajax request
+			ajax.fail(function (jqXHR, textStatus, errorThrown) {
+				$(form).parent().unblock();
+				$(form).parent().block({message:textStatus, timeout: 500});
+			});
+		}
+
+	},
+
 	_validation: function() {
 		var self = this
 				, opts = self.options
@@ -441,128 +584,47 @@ $.widget( "orchestrate.fotf_questions", {
 		/* style */
 		cached['table'].find('label.error').css('color', 'red');
 		
+		//adding asterix on required field
 		self._addAsterix();
-		//validate setup differs from single container
+		
+		//validation default options
 		if (!opts.single_error_place) {
-			self.form_elem.validate({
-				ignore: ':hidden'
-				, errorPlacement: function (er, el) {
+			$.validator.setDefaults({
+				errorPlacement: function (er, el) {
 					el.parent('td').append(er);
 				}
-				, submitHandler: function (form) {
-					if ($(form).data('submit') == 'ajax') {
-						var url = $(form).data('action');
-						var data = new FormData($(form)[0]);
-						$.ajax({
-							url: url,
-							cache: false,
-							contentType: false,
-							processData: false,
-							type: 'POST',
-							data: data,
-							beforeSend : function () {
-								$(form).parent().block({message:null});
-							}
-						})
-						.done(function (data, textStatus, jqXHR) {
-							$(form).parent().unblock();
-							var json = $.parseJSON(data);
-							if (parseInt(json.status) == 1) {
-								$(form).parent().block({message:json.message, timeout: 500});
-								//added toggle flag on dialog if exists
-								if ($('#dialog-flag').length > 0) {
-									if (json.row && json.row.length > 0) {
-										$('#dialog-flag').data('row', json.row);
-									}
-									if (json.label && json.label.length > 0) {
-										$('#dialog-flag').data('label', json.label);
-									}
-									if (json.fields && json.fields.length > 0) {
-										$('#dialog-flag').data('fields', json.fields);
-									}
-									if (json.action && json.action.length > 0) {
-										$('#dialog-flag').data('action', json.action);
-									}
-									$('#dialog-flag').val('finish').trigger('change');
-								}
-							} else {
-								$(form).parent().block({message:textStatus + '.., but ' 
-									+ json.message, timeout: 500});
-							}
-						})
-						.fail(function (jqXHR, textStatus, errorThrown) {
-							$(form).parent().unblock();
-							$(form).parent().block({message:textStatus, timeout: 500});
-						});
-					} else {
-						form.submit();
-					}
-				}
-			});
+			})
 		} else {
-			self.form_elem.validate({
-				ignore: ':hidden'
-				, errorContainer: '#error-placement' + '_' + self.form_elem.attr('id')
-				, errorLabelContainer: '#error-placement' 
-																+ '_' + self.form_elem.attr('id') + ' ul'
+			$.validator.setDefaults({
+				errorContainer: '#error-placement_' + self.form_elem.attr('id')
+				, errorLabelContainer: '#error-placement_' + self.form_elem.attr('id') + ' ul'
 				, wrapper: 'li'
-				, submitHandler: function (form) {
-					self.form_elem.find('.error-placement').removeClass('error');
-					if ($(form).data('submit') == 'ajax') {
-						var url = $(form).data('action');
-						var data = new FormData($(form)[0]);
-						$.ajax({
-							url: url,
-							cache: false,
-							contentType: false,
-							processData: false,
-							type: 'POST',
-							data: data,
-							beforeSend : function () {
-								$(form).parent().block({message:null});
-							}
-						})
-						.done(function (data, textStatus, jqXHR) {
-							$(form).parent().unblock();
-							var json = $.parseJSON(data);
-							if (parseInt(json.status) == 1) {
-								$(form).parent().block({message:json.message, timeout: 500});
-								//added toggle flag on dialog if exists
-								if ($('#dialog-flag').length > 0) {
-									if (json.row && json.row.length > 0) {
-										$('#dialog-flag').data('row', json.row);
-									}
-									if (json.label && json.label.length > 0) {
-										$('#dialog-flag').data('label', json.label);
-									}
-									if (json.fields && json.fields.length > 0) {
-										$('#dialog-flag').data('fields', json.fields);
-									}
-									if (json.action && json.action.length > 0) {
-										$('#dialog-flag').data('action', json.action);
-									}
-									$('#dialog-flag').val('finish').trigger('change');
-								}
-							} else {
-								$(form).parent().block({message:textStatus + '.., but ' 
-									+ json.message, timeout: 500});
-							}
-						})
-						.fail(function (jqXHR, textStatus, errorThrown) {
-							$(form).parent().unblock();
-							$(form).parent().block({message:textStatus, timeout: 500});
-						});
-					} else {
-						form.submit();
-					}
-				}
-			});
+			})
 		}
 		
+		//ignore hidden field for ckeditor
 		if(!opts.is_ignore_hidden) {
-			//change ignore rule
-			self.form_elem.validate().settings.ignore = '';
+			$.validator.setDefaults({
+				ignore: ''
+			})
+		} else {
+			$.validator.setDefaults({
+				ignore: ':hidden'
+			})
 		}
+		
+		//validation initialization
+		self.form_elem.validate({
+			submitHandler: function (form) {
+				if ($(form).data('submit') == 'ajax') {
+					//ajax submit
+					self._formSubmitHandler_Ajax(form);
+				} else {
+					//reqular submit
+					form.submit();
+				}
+			}
+		});
 
 		if (opts.is_portal) {
 			cached['.portal_input_required'].each(function(index, el) {
