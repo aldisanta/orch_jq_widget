@@ -774,7 +774,6 @@ $.widget( "orchestrate.fotf_questions", {
 										contain_placeholder : true,
 						 				remote: {
 												url: "ajax/ajax_email_ssn_jquery_validation.asp",
-												url: "ajax/ajax_email_ssn_jquery_validation.asp",
 												type: "post",
 												data: {
 												applicantID: function() {
@@ -795,7 +794,6 @@ $.widget( "orchestrate.fotf_questions", {
 									, {
 										email : true,
 						 				remote: {
-												url: "ajax/ajax_email_ssn_jquery_validation.asp",
 												url: "ajax/ajax_email_ssn_jquery_validation.asp",
 												type: "post",
 												data: {
