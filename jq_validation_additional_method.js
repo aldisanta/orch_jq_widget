@@ -22,7 +22,7 @@ jQuery.validator.addMethod(
 			var mm = parseInt(adata[0],10);
 			var aaaa = parseInt(adata[2],10);
 			var xdata = new Date(aaaa,mm-1,gg);
-			if ( ( xdata.getFullYear() < 1900 || xdata.getFullYear() > 2079 ) ) {
+			if ( ( xdata.getFullYear() < 1901 || xdata.getFullYear() > 2078 ) ) {
 				check = false;
 			}
 			else if ( ( xdata.getFullYear() == aaaa ) && ( xdata.getMonth () == mm - 1 ) && ( xdata.getDate() == gg ) ) {
@@ -43,7 +43,7 @@ $.validator.addMethod(
 	function(value, element) {
 		var check = false;
 		var year = parseInt(value);
-		if (year < 1900 || year > 2079) {
+		if (year < 1901 || year > 2078) {
 			check = false;
 		} else {
 			check = true;
