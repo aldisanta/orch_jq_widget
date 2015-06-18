@@ -16,24 +16,28 @@ jQuery.validator.addMethod(
 	function(value, element) {
 		var check = false;
 		var re = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
-		if( re.test(value)){
-			var adata = value.split('/');
-			var gg = parseInt(adata[1],10);
-			var mm = parseInt(adata[0],10);
-			var aaaa = parseInt(adata[2],10);
-			var xdata = new Date(aaaa,mm-1,gg);
-			if ( ( xdata.getFullYear() < 1901 || xdata.getFullYear() > 2078 ) ) {
+		if (value) {
+			if( re.test(value)){
+				var adata = value.split('/');
+				var gg = parseInt(adata[1],10);
+				var mm = parseInt(adata[0],10);
+				var aaaa = parseInt(adata[2],10);
+				var xdata = new Date(aaaa,mm-1,gg);
+				if ( ( xdata.getFullYear() < 1901 || xdata.getFullYear() > 2078 ) ) {
+					check = false;
+				}
+				else if ( ( xdata.getFullYear() == aaaa ) && ( xdata.getMonth () == mm - 1 ) && ( xdata.getDate() == gg ) ) {
+					check = true;
+				}
+				else {
+					check = false;
+				}
+			} else
 				check = false;
-			}
-			else if ( ( xdata.getFullYear() == aaaa ) && ( xdata.getMonth () == mm - 1 ) && ( xdata.getDate() == gg ) ) {
-				check = true;
-			}
-			else {
-				check = false;
-			}
-		} else
-			check = false;
-		return this.optional(element) || check;
+			return this.optional(element) || check;
+		} else {
+			return true;
+		}
 	}, 
 	"Please enter a correct date"
 );
@@ -118,6 +122,28 @@ jQuery.validator.addMethod("maxwords500", function(value, element, params) {
 	}
 }, "This field cannot exceed 500 words");
 
+jQuery.validator.addMethod("max_wordcount", function(value, element, params) {
+	if (value == "") {
+		return true;
+	} else {
+		var stripText = value
+										.replace(/(<([^>]+)>)/ig,"")
+										.replace(/<\/?[^>]+>/g, "")
+										.replace(/(\r\n|\n|\r)/gm," ")
+										.replace(/(&nbsp;)/g," ")
+										.replace(/  +/g, " ")
+										.replace("&nbsp;"," ")
+										.replace(/^[\s(&nbsp;)]+/g,"")
+										.replace(/[\s(&nbsp;)]+$/g,"");
+		var pCount = stripText.split(" ").length
+		if (pCount > parseInt(params)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+}, "This field cannot exceed {0} words");
+
 jQuery.validator.addMethod("required_on_click", 
 	function(value, element, params) {
 	if (value) {
@@ -193,7 +219,6 @@ function(value, element, params) {
 	
 	return isNaN(value) && isNaN($(params[0]).val()) 
 			|| (Number(value) > Number($(params[0]).val())); 
-	
 },'Date is Invalid or Must be greater than {1}');
 
 jQuery.validator.addMethod("lesserThan", 
@@ -212,9 +237,7 @@ function(value, element, params) {
 
 	return isNaN(value) && isNaN($(params[0]).val()) 
 			|| (Number(value) < Number($(params[0]).val())); 
-	
 },'Date is Invalid or Must be lesser than {1}');
-
 
 jQuery.validator.addMethod("greaterThanWithTime", 
 function(value, element, params) {
@@ -259,7 +282,6 @@ function(value, element, params) {
 	
 	return isNaN(value) && isNaN($(params[0]).val()) 
 			|| (Number(value) > Number($(params[0]).val())); 
-	
 },'Date is Invalid or Must be greater than {1}');
 
 jQuery.validator.addMethod("lesserThanWithTime", 
