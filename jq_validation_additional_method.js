@@ -47,8 +47,12 @@ $.validator.addMethod(
 	function(value, element) {
 		var check = false;
 		var year = parseInt(value);
-		if (year < 1901 || year > 2078) {
-			check = false;
+		if (value) {
+			if (year < 1901 || year > 2078) {
+				check = false;
+			} else {
+				check = true;
+			}
 		} else {
 			check = true;
 		}
