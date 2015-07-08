@@ -32,7 +32,7 @@ $.widget( "orchestrate.fotf_questions", {
 					if (pTempContent) pTempContent.html(pCount);
 				}
 		});
-		
+
 		$('textarea.word-count').keyup(function(event) {
 				var pTempContent = $('#' + $(this).attr('id') + '_count');
 				if (pTempContent) pTempContent.html("0");
@@ -53,7 +53,7 @@ $.widget( "orchestrate.fotf_questions", {
 					if (pTempContent) pTempContent.html(pCount);
 				}
 		});
-		
+
 		$('textarea.word-count').keydown(function(event) {
 				var pTempContent = $('#' + $(this).attr('id') + '_count');
 				if (pTempContent) pTempContent.html("0");
@@ -74,7 +74,7 @@ $.widget( "orchestrate.fotf_questions", {
 					if (pTempContent) pTempContent.html(pCount);
 				}
 		});
-	}, 
+	},
 	// default options
 	options: {
 		is_ignore_hidden : true
@@ -92,19 +92,19 @@ $.widget( "orchestrate.fotf_questions", {
 	_create: function() {
 		// get the select element
 		var opts = this.options;
-		
+
 		// cache commonly used elements
 		this.form_elem = $(this.element);
 
 		// adds error-placement layer if using single error placement
 		if (opts.single_error_place) {
 			this.form_elem.prepend('<div class="error-placement" id="error-placement_' +
-															this.form_elem.attr('id') 
+															this.form_elem.attr('id')
 															+'" style="display:none"><ul></ul></div>');
 		}
 		// transfer identifier to input
 		if (this.form_elem.data('id') > 0) {
-			var elem = '<input type="hidden" name="id" value="' 
+			var elem = '<input type="hidden" name="id" value="'
 									+ parseInt(this.form_elem.data('id')) + '" />';
 			this.form_elem.append(elem);
 		}
@@ -131,13 +131,13 @@ $.widget( "orchestrate.fotf_questions", {
 				//no validation running, but will retain ajax submit
 			}
 		}
-		
+
 		// init-type for dropdown
 		this._preInitDropdown();
-		
+
 		// bind UI actions
 		this._bindUIActions();
-		
+
 		// refresh
 		this._refresh();
 	},
@@ -169,7 +169,7 @@ $.widget( "orchestrate.fotf_questions", {
 		cached['.input_mask_long_numeric'].mask('999999999999');
 		cached['.input_mask_absolute_phone_us'].mask('999-999-9999');
 	},
-	
+
 	_bindPhoneUSInternationalToggle: function() {
 		var self = this,
 				cached = this.cached,
@@ -196,8 +196,8 @@ $.widget( "orchestrate.fotf_questions", {
 			}
 			self._phoneMasking();
 		});
-	}, 
-	
+	},
+
 	_bindDropdownToggle: function() {
 		var self = this,
 				cached = this.cached,
@@ -227,7 +227,7 @@ $.widget( "orchestrate.fotf_questions", {
 				field_toggle_text.hide();
 			}
 		});
-	}, 
+	},
 
 	_bindTextAreaWordCount: function() {
 		var self = this,
@@ -254,7 +254,7 @@ $.widget( "orchestrate.fotf_questions", {
 					if (pTempContent) pTempContent.html(pCount);
 				}
 		});
-		
+
 		$('textarea.word-count').keyup(function(event) {
 				var pTempContent = $('#' + $(this).attr('id') + '_count');
 				if (pTempContent) pTempContent.html("0");
@@ -275,7 +275,7 @@ $.widget( "orchestrate.fotf_questions", {
 					if (pTempContent) pTempContent.html(pCount);
 				}
 		});
-		
+
 		$('textarea.word-count').keydown(function(event) {
 				var pTempContent = $('#' + $(this).attr('id') + '_count');
 				if (pTempContent) pTempContent.html("0");
@@ -296,7 +296,7 @@ $.widget( "orchestrate.fotf_questions", {
 					if (pTempContent) pTempContent.html(pCount);
 				}
 		});
-	}, 
+	},
 
 	_bindCountryStateToggle: function() {
 		var self = this,
@@ -316,7 +316,7 @@ $.widget( "orchestrate.fotf_questions", {
 						.show();
 					$('#' + country.data('textbox-state')).removeClass('required');
 					$('#' + country.data('textbox-state')).parent('td').hide();
-					
+
 					$('#' + country.data('select-state'))
 						.closest('tr.required')
 						.next('tr.required')
@@ -341,7 +341,7 @@ $.widget( "orchestrate.fotf_questions", {
 						.hide();
 					$('#' + country.data('textbox-state')).removeClass('required');
 					$('#' + country.data('textbox-state')).parent('td').show();
-					
+
 					$('#' + country.data('select-state'))
 						.closest('tr.required')
 						.next('tr.required')
@@ -370,7 +370,7 @@ $.widget( "orchestrate.fotf_questions", {
 						.show();
 					$('#' + country.data('textbox-state')).removeClass('required');
 					$('#' + country.data('textbox-state')).parent('td').hide();
-					
+
 					$('#' + country.data('select-state'))
 						.closest('tr.required')
 						.next('tr.required')
@@ -394,7 +394,7 @@ $.widget( "orchestrate.fotf_questions", {
 						.hide();
 					$('#' + country.data('textbox-state')).removeClass('required');
 					$('#' + country.data('textbox-state')).parent('td').show();
-					
+
 					$('#' + country.data('select-state'))
 						.closest('tr.required')
 						.next('tr.required')
@@ -410,7 +410,7 @@ $.widget( "orchestrate.fotf_questions", {
 				}
 			}
 		});
-	}, 
+	},
 
 	_phoneMasking: function(el) {
 		var cached = this.cached,
@@ -424,19 +424,19 @@ $.widget( "orchestrate.fotf_questions", {
 	_addAsterix: function() {
 		var self = this
 				, opts = self.options
-				, cached = self.cached;	
+				, cached = self.cached;
 		cached['.required'].each(function(index, el) {
 			$(el).children('td').first()
 						.append('<span class="required-asterix">&nbsp;'
 						+'<font color=red>*</font></span>');
-			
+
 		});
 	},
 
 	_updateDialogFlagData: function(json) {
 		var self = this
 				, opts = self.options
-				, cached = self.cached;	
+				, cached = self.cached;
 
 		if (json.row && json.row.length > 0) {
 			$('#dialog-flag').data('row', json.row);
@@ -454,16 +454,16 @@ $.widget( "orchestrate.fotf_questions", {
 	},
 
 	/**
-	 * _formSubmitHandler_Ajax: 
+	 * _formSubmitHandler_Ajax:
 	 */
 	_formSubmitHandler_Ajax: function(form) {
 		var self = this
 				, opts = self.options
-				, cached = self.cached;	
-		
+				, cached = self.cached;
+
 		var url = $(form).data('action');
 		var data = new FormData($(form)[0]);
-		var ajax_options = 
+		var ajax_options =
 		{
 			url: url,
 			cache: false,
@@ -480,25 +480,25 @@ $.widget( "orchestrate.fotf_questions", {
 		} else if (opts.notification_block == 'growl') {
 			ajax_options.beforeSend = function () {
 				$(form).parent().block({
-					message: 'updating ....', 
-					fadeIn: 700, 
-					fadeOut: 700, 
-					timeout: 2000, 
-					showOverlay: false, 
-					centerY: false, 
-					css: { 
-							width: '350px', 
-							top: '10px', 
-							left: '', 
-							right: '10px', 
-							border: 'none', 
-							padding: '5px', 
-							backgroundColor: '#000', 
-							'-webkit-border-radius': '10px', 
-							'-moz-border-radius': '10px', 
-							opacity: .6, 
-							color: '#fff' 
-					} 
+					message: 'updating ....',
+					fadeIn: 700,
+					fadeOut: 700,
+					timeout: 2000,
+					showOverlay: false,
+					centerY: false,
+					css: {
+							width: '350px',
+							top: '10px',
+							left: '',
+							right: '10px',
+							border: 'none',
+							padding: '5px',
+							backgroundColor: '#000',
+							'-webkit-border-radius': '10px',
+							'-moz-border-radius': '10px',
+							opacity: .6,
+							color: '#fff'
+					}
 				});
 			}
 		} else {
@@ -516,13 +516,13 @@ $.widget( "orchestrate.fotf_questions", {
 				var json = $.parseJSON(data);
 				if (parseInt(json.status) == 1) {
 					$(form).parent().block({message:json.message, timeout: 500});
-					
+
 					//added toggle flag on dialog if exists
 					if ($('#dialog-flag').length > 0) {
 						self._updateDialogFlagData(json);
 					}
 				} else {
-					$(form).parent().block({message:textStatus + '.., but ' 
+					$(form).parent().block({message:textStatus + '.., but '
 						+ json.message, timeout: 500});
 				}
 			});
@@ -555,13 +555,13 @@ $.widget( "orchestrate.fotf_questions", {
 				var json = $.parseJSON(data);
 				if (parseInt(json.status) == 1) {
 					$(form).parent().block({message:json.message, timeout: 500});
-					
+
 					//added toggle flag on dialog if exists
 					if ($('#dialog-flag').length > 0) {
 						self._updateDialogFlagData(json);
 					}
 				} else {
-					$(form).parent().block({message:textStatus + '.., but ' 
+					$(form).parent().block({message:textStatus + '.., but '
 						+ json.message, timeout: 500});
 				}
 			});
@@ -578,15 +578,15 @@ $.widget( "orchestrate.fotf_questions", {
 	_validation: function() {
 		var self = this
 				, opts = self.options
-				, cached = self.cached;	
-		
-		
+				, cached = self.cached;
+
+
 		/* style */
 		cached['table'].find('label.error').css('color', 'red');
-		
+
 		//adding asterix on required field
 		self._addAsterix();
-		
+
 		//validation default options
 		if (!opts.single_error_place) {
 			$.validator.setDefaults({
@@ -601,7 +601,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, wrapper: 'li'
 			})
 		}
-		
+
 		//ignore hidden field for ckeditor
 		if(!opts.is_ignore_hidden) {
 			$.validator.setDefaults({
@@ -612,7 +612,7 @@ $.widget( "orchestrate.fotf_questions", {
 				ignore: ':hidden'
 			})
 		}
-		
+
 		//validation initialization
 		self.form_elem.validate({
 			submitHandler: function (form) {
@@ -628,7 +628,7 @@ $.widget( "orchestrate.fotf_questions", {
 
 		if (opts.is_portal) {
 			cached['.portal_input_required'].each(function(index, el) {
-				$(el).rules("add", { 
+				$(el).rules("add", {
 				  required:true
 				});
 			});
@@ -640,7 +640,7 @@ $.widget( "orchestrate.fotf_questions", {
 					, {email : true}
 			);
 		});
-		
+
 		/* file upload */
 		cached['.input_upload'].each(function(index, el) {
 			$(el).rules('add'
@@ -653,7 +653,7 @@ $.widget( "orchestrate.fotf_questions", {
 					}
 			);
 		});
-		
+
 		/* fulldate */
 		cached['.input_validate_fulldate'].each(function(index, el) {
 			$(el).rules('add'
@@ -662,7 +662,7 @@ $.widget( "orchestrate.fotf_questions", {
 					}
 			);
 		});
-		
+
 		/* rangedate */
 		cached['.input_validate_rangedate'].each(function(index, el) {
 			if ($(el).data('greater') != '') {
@@ -671,7 +671,7 @@ $.widget( "orchestrate.fotf_questions", {
 										.prev('td')
 										.children('label')
 										.html();
-				
+
 				$(el).rules('add'
 						, {
 							greaterThan : ['#' + $(el).data('greater'), label]
@@ -684,7 +684,7 @@ $.widget( "orchestrate.fotf_questions", {
 										.prev('td')
 										.children('label')
 										.html();
-				
+
 				$(el).rules('add'
 						, {
 							lesserThan : ['#' + $(el).data('less'), label]
@@ -692,7 +692,7 @@ $.widget( "orchestrate.fotf_questions", {
 				);
 			}
 		});
-		
+
 		/* rangedate - with time */
 		cached['.input_validate_rangedate_time'].each(function(index, el) {
 			if ($(el).data('greater') != '') {
@@ -701,7 +701,7 @@ $.widget( "orchestrate.fotf_questions", {
 										.prev('td')
 										.children('label')
 										.html();
-				
+
 				$(el).rules('add'
 						, {
 							greaterThanWithTime : ['#' + $(el).data('greater'), label]
@@ -714,7 +714,7 @@ $.widget( "orchestrate.fotf_questions", {
 										.prev('td')
 										.children('label')
 										.html();
-				
+
 				$(el).rules('add'
 						, {
 							lesserThanWithTime : ['#' + $(el).data('less'), label]
@@ -722,7 +722,7 @@ $.widget( "orchestrate.fotf_questions", {
 				);
 			}
 		});
-		
+
 		cached['.input_transcript'].each(function(index, el) {
 			$(el).rules('add'
 					, {
@@ -733,7 +733,7 @@ $.widget( "orchestrate.fotf_questions", {
 					}
 			);
 		});
-		
+
 		cached['.input_resume'].each(function(index, el) {
 			$(el).rules('add'
 					, {extension : 'pdf|doc|docx'
@@ -743,21 +743,21 @@ $.widget( "orchestrate.fotf_questions", {
 					}
 			);
 		});
-		
+
 		/* gpa */
 		cached['.input_gpa'].each(function(index, el) {
 			$(el).rules('add'
 					, {gpa : true}
 			);
 		});
-		
+
 		/* numeric */
 		cached['.input_numeric'].each(function(index, el) {
 			$(el).rules('add'
 					, {number : true}
 			);
 		});
-		
+
 		/* long_numeric */
 		cached['.input_long_numeric'].each(function(index, el) {
 			$(el).rules('add'
@@ -778,7 +778,7 @@ $.widget( "orchestrate.fotf_questions", {
 												data: {
 												applicantID: function() {
 													return $(el).data('applicantid');
-												}, 
+												},
 												type: function() {
 													return $(el).data('type');
 												}
@@ -799,7 +799,7 @@ $.widget( "orchestrate.fotf_questions", {
 												data: {
 												applicantID: function() {
 													return $(el).data('applicantid');
-												}, 
+												},
 												type: function() {
 													return $(el).data('type');
 												}
@@ -821,7 +821,7 @@ $.widget( "orchestrate.fotf_questions", {
 								}
 			);
 		});
-		
+
 		/* email text area no remote */
 		cached['.textarea_email_textarea_no_remote'].each(function(index, el) {
 			$(el).rules('add'
@@ -830,7 +830,7 @@ $.widget( "orchestrate.fotf_questions", {
 								}
 			);
 		});
-	
+
 		/* sql year */
 		cached['.input_sql_year'].each(function(index, el) {
 				$(el).rules('add'
@@ -839,7 +839,7 @@ $.widget( "orchestrate.fotf_questions", {
 					}
 				);
 		});
-		
+
 		/* password */
 		cached['.input_password'].each(function(index, el) {
 			var confirm = $(el).data('match');
@@ -864,7 +864,7 @@ $.widget( "orchestrate.fotf_questions", {
 				);
 			}
 		});
-		
+
 		/* console password */
 		cached['.input_console_password'].each(function(index, el) {
 			var confirm = $(el).data('match');
@@ -888,14 +888,14 @@ $.widget( "orchestrate.fotf_questions", {
 			}
 		});
 	},
-	
+
 	/**
 	 * _preInitDropdown : add pre init value for dropdown
 	 */
 	_preInitDropdown: function() {
 		var cached = this.cached,
 				opts = this.options;
-		
+
 		//dropdown pre-init
 		cached['.fotf_dropdown'].each(function(index, el) {
 			var id = 'hd_sel' + $(el).attr('name');
@@ -905,20 +905,20 @@ $.widget( "orchestrate.fotf_questions", {
 			}
 			var pre_init_dropdown = '<option value="" selected="selected">' +
 															pre_label_value + '</option>';
-			
+
 			if ($(el).data('pre-init')) {
 				$(el).prepend(pre_init_dropdown);
 			}
 		});
 	},
-	
+
 	/**
 	 * _bindUIActions : bind UI Event on record_list
 	 */
 	_bindUIActions: function() {
 		var cached = this.cached,
 				opts = this.options;
-		
+
 		//placeholder
 		cached['.input_validate_placeholder'].focusin(function(event) {
 			if (!$(this).val() || $(this).val() == '') {
@@ -926,13 +926,13 @@ $.widget( "orchestrate.fotf_questions", {
 				$(this).get(0).setSelectionRange(0,0);
 			}
 		});
-		
+
 		//radio
 		cached['.fotf_radio'].change(function(event) {
 			var id = 'hd_rad' + $(this).attr('name')
 			$('#' + id).val($(this).val()).trigger('change');
 		});
-		
+
 		//checkbox
 		cached['.fotf_checkbox'].change(function(event) {
 			var id = 'hd_chk' + $(this).attr('name');
@@ -942,7 +942,7 @@ $.widget( "orchestrate.fotf_questions", {
 				$('#' + id).val(0).trigger('change');
 			}
 		});
-		
+
 		//dropdown
 		cached['.fotf_dropdown'].change(function(event) {
 			var id = 'hd_sel' + $(this).attr('name')
@@ -952,7 +952,7 @@ $.widget( "orchestrate.fotf_questions", {
 		if (opts.is_portal) {
 			$('select.fotf_dropdown').dropdown();
 		}
-		
+
 		//dropdown
 		cached['.input_dropdown_addition'].each(function(index, el) {
 			var trigger = $(el).data('trigger');
@@ -972,13 +972,13 @@ $.widget( "orchestrate.fotf_questions", {
 				$(el).next('label').html('');
 			});
 		});
-		
+
 		//dropdown alternate multiple
 		//adv_query.js required
 		if(cached['.group_dropdown_multiple_alternate'].length > 0) {
 			cached['.group_dropdown_multiple_alternate'].adv_query_questions();
 		}
-		
+
 		//multiple select
 		//adv_query.js required
 		if(cached['.group_multiple_select'].length > 0) {
@@ -988,13 +988,13 @@ $.widget( "orchestrate.fotf_questions", {
 		if (opts.is_portal) {
 			$('select.fotf_dropdown').dropdown();
 		}
-		
+
 		//us / international textbox and checkbox
 		this._bindPhoneUSInternationalToggle();
-		
+
 		//generic dropdown toggle
 		this._bindDropdownToggle();
-		
+
 		//text area word count
 		this._bindTextAreaWordCount();
 
@@ -1060,7 +1060,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $group_dropdown_multiple_alternate = $table.find('tbody.dropdown-multiple-alternate')
 				, $multiple_filter_select = $table.find('.multiple_filter_select')
 				, $group_multiple_select = $table.find('tbody.group-multiple-select');
-		
+
 		this.cached = {
 			'table' : $table
 			, 'field_all' : $field_all
@@ -1108,19 +1108,19 @@ $.widget( "orchestrate.fotf_questions", {
 /** extension **/
 
 $.widget( "orchestrate.fotf_adv_query_questions", $.orchestrate.fotf_questions, {
-	
+
 	_addCountry: function(pObjName) {
-		popup('/console/include/country_list.asp?objName='+pObjName, 600, 250) 
+		popup('/console/include/country_list.asp?objName='+pObjName, 600, 250)
 	},
 
 	_addState : function(pObjName)
 	{
-		popup('/console/include/state_list.asp?objName='+pObjName, 600, 250) 
+		popup('/console/include/state_list.asp?objName='+pObjName, 600, 250)
 	},
-	
+
 	_addClassLevels : function(pObjName)
 	{
-		popup('/console/include/classlevels_list.asp?objName='+pObjName, 600, 250) 
+		popup('/console/include/classlevels_list.asp?objName='+pObjName, 600, 250)
 	},
 
 	_removeOptions : function(pObjName)
@@ -1142,17 +1142,17 @@ $.widget( "orchestrate.fotf_adv_query_questions", $.orchestrate.fotf_questions, 
 	_validation: function() {
 		var self = this
 				, opts = self.options
-				, cached = self.cached;	
-		
-		
+				, cached = self.cached;
+
+
 		/* style */
 		cached['table'].find('label.error').css('color', 'red');
-		
+
 		self.form_elem.validate({
 
 		});
-		
-		$('.input_greater_less').rules("add", { 
+
+		$('.input_greater_less').rules("add", {
 			required_on_click:true
 		});
 	},
@@ -1164,13 +1164,13 @@ $.widget( "orchestrate.fotf_adv_query_questions", $.orchestrate.fotf_questions, 
 		var self = this,
 				cached = this.cached,
 				opts = this.options;
-		
+
 		//radio
 		cached['.fotf_radio'].change(function(event) {
 			var id = 'hd_' + $(this).attr('name')
 			$('#' + id).val($(this).val());
 		});
-		
+
 		//checkbox
 		cached['.fotf_checkbox'].change(function(event) {
 			var id = 'hd_' + $(this).attr('name');
@@ -1180,7 +1180,7 @@ $.widget( "orchestrate.fotf_adv_query_questions", $.orchestrate.fotf_questions, 
 				$('#' + id).val(false);
 			}
 		});
-		
+
 		//dropdown
 		cached['.fotf_dropdown'].change(function(event) {
 			var id = 'hd_' + $(this).attr('name')
@@ -1189,7 +1189,7 @@ $.widget( "orchestrate.fotf_adv_query_questions", $.orchestrate.fotf_questions, 
 
 		//us / international textbox and checkbox
 		this._bindPhoneUSInternationalToggle();
-		
+
 		if (opts.is_country_state_toggle) {
 			//country state toggle, there's difference on flat ui, turn this off
 			this._bindCountryStateToggle();
@@ -1211,7 +1211,7 @@ $.widget( "orchestrate.fotf_adv_query_questions", $.orchestrate.fotf_questions, 
 				self._addState(elem);
 			});
 		});
-		
+
 		//class levels
 		this.form_elem.find('.btn-add_classlevels').each(function(index, el) {
 			$(el).click(function(event) {
@@ -1219,7 +1219,7 @@ $.widget( "orchestrate.fotf_adv_query_questions", $.orchestrate.fotf_questions, 
 				self._addClassLevels(elem);
 			});
 		});
-		
+
 		//remove
 		this.form_elem.find('.btn-remove').each(function(index, el) {
 			$(el).click(function(event) {
