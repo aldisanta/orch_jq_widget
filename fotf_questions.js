@@ -93,8 +93,13 @@ $.widget( "orchestrate.fotf_questions", {
 		// get the select element
 		var opts = this.options;
 
-		// cache commonly used elements
+
 		this.form_elem = $(this.element);
+
+		// change validation option based from no validate attribute
+		if (this.form_elem.attr('novalidate') == 'novalidate') {
+			opts.is_validate = false;
+		}
 
 		// adds error-placement layer if using single error placement
 		if (opts.single_error_place) {
