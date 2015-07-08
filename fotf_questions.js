@@ -577,7 +577,6 @@ $.widget( "orchestrate.fotf_questions", {
 				$(form).parent().block({message:textStatus, timeout: 500});
 			});
 		}
-
 	},
 
 	_validation: function() {
@@ -948,6 +947,22 @@ $.widget( "orchestrate.fotf_questions", {
 			}
 		});
 
+		//multiple-checkbox
+		cached['.fotf_multiple_checkbox'].change(function(event) {
+			var value = '';
+			var array = [];
+			$('#hd_chk' + $(this).attr('name')).val(value);
+			var elem = $(this).parent('td')
+										.children('input.fotf_multiple_checkbox');
+			elem.each(function(index, el) {
+				if ($(el).prop('checked')) {
+					array.push(parseInt($(el).val()))
+				}
+			});
+			value = array.join(',');
+			$('#hd_chk' + $(this).attr('name')).val(value).trigger('change');
+		});
+
 		//dropdown
 		cached['.fotf_dropdown'].change(function(event) {
 			var id = 'hd_sel' + $(this).attr('name')
@@ -1052,6 +1067,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_validate_rangedate_time = $table.find('input.validate-rangedate-time')
 				, $fotf_radio = $table.find('.fotf_radio')
 				, $fotf_checkbox = $table.find('.fotf_checkbox')
+				, $fotf_multiple_checkbox = $table.find('.fotf_multiple_checkbox')
 				, $fotf_dropdown = $table.find('select.fotf_dropdown')
 				, $input_dropdown_addition = $table.find('.input_dropdown_addition')
 				, $input_mask_fulldate = $table.find('input.mask-fulldate')
@@ -1092,6 +1108,7 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.input_validate_rangedate_time' : $input_validate_rangedate_time
 			, '.fotf_radio' : $fotf_radio
 			, '.fotf_checkbox' : $fotf_checkbox
+			, '.fotf_multiple_checkbox' : $fotf_multiple_checkbox
 			, '.fotf_dropdown' : $fotf_dropdown
 			, '.input_dropdown_addition' : $input_dropdown_addition
 			, '.input_mask_fulldate' : $input_mask_fulldate
