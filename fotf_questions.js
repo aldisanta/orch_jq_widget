@@ -140,6 +140,9 @@ $.widget( "orchestrate.fotf_questions", {
 		// init-type for dropdown
 		this._preInitDropdown();
 
+		// init radio group visibility
+		this._radioParentOfGroupVisibility_Set();
+
 		// bind UI actions
 		this._bindUIActions();
 
@@ -916,6 +919,65 @@ $.widget( "orchestrate.fotf_questions", {
 		});
 	},
 
+	_radioParentOfGroupVisibility_Set: function () {
+		var cached = this.cached,
+				opts = this.options;
+		cached['.radio-parent-of-group'].each(function(index, el) {
+			var value = $(el).val();
+			var id = $(el).attr('id').replace('hd_rad', '');
+			var group = $('.child-of-' + $(el).attr('id').replace('hd_rad', ''));
+			group.hide();
+			var group_a = $(el).data('group-a');
+			var group_b = $(el).data('group-b');
+			var group_c = $(el).data('group-c');
+			var arr_div = [];
+			switch(parseInt(value)) {
+				case 1:
+					if (group_a.indexOf('|') > -1) {
+						arr_div.push.apply(arr_div, group_a.split('|'));
+					} else {
+						arr_div.push(group_a);
+					}
+					break;
+				case 2:
+					if (group_a.indexOf('|') > -1) {
+						arr_div.push.apply(arr_div, group_a.split('|'));
+					} else {
+						arr_div.push(group_a);
+					}
+					if (group_b.indexOf('|') > -1) {
+						arr_div.push.apply(arr_div, group_b.split('|'));
+					} else {
+						arr_div.push(group_b);
+					}
+					break;
+				case 3:
+					if (group_a.indexOf('|') > -1) {
+						arr_div.push.apply(arr_div, group_a.split('|'));
+					} else {
+						arr_div.push(group_a);
+					}
+					if (group_b.indexOf('|') > -1) {
+						arr_div.push.apply(arr_div, group_b.split('|'));
+					} else {
+						arr_div.push(group_b);
+					}
+					if (group_c.indexOf('|') > -1) {
+						arr_div.push.apply(arr_div, group_c.split('|'));
+					} else {
+						arr_div.push(group_c);
+					}
+					break;
+				default:
+					break;
+			}
+			$.each(arr_div, function(ix, id) {
+				var tbody = $('.wrap-' + id);
+				tbody.show();
+			});
+		});
+	},
+
 	/**
 	 * _bindUIActions : bind UI Event on record_list
 	 */
@@ -935,6 +997,62 @@ $.widget( "orchestrate.fotf_questions", {
 		cached['.fotf_radio'].change(function(event) {
 			var id = 'hd_rad' + $(this).attr('name')
 			$('#' + id).val($(this).val()).trigger('change');
+			//radio group
+			if ($('#' + id).hasClass('radio-parent-of-group')) {
+				var el = '#' + id;
+				var value = $(el).val();
+				var id = $(el).attr('id').replace('hd_rad', '');
+				var group = $('.child-of-' + $(el).attr('id').replace('hd_rad', ''));
+				group.hide();
+				var group_a = $(el).data('group-a');
+				var group_b = $(el).data('group-b');
+				var group_c = $(el).data('group-c');
+				var arr_div = [];
+				switch(parseInt(value)) {
+					case 1:
+						if (group_a.indexOf('|') > -1) {
+							arr_div.push.apply(arr_div, group_a.split('|'));
+						} else {
+							arr_div.push(group_a);
+						}
+						break;
+					case 2:
+						if (group_a.indexOf('|') > -1) {
+							arr_div.push.apply(arr_div, group_a.split('|'));
+						} else {
+							arr_div.push(group_a);
+						}
+						if (group_b.indexOf('|') > -1) {
+							arr_div.push.apply(arr_div, group_b.split('|'));
+						} else {
+							arr_div.push(group_b);
+						}
+						break;
+					case 3:
+						if (group_a.indexOf('|') > -1) {
+							arr_div.push.apply(arr_div, group_a.split('|'));
+						} else {
+							arr_div.push(group_a);
+						}
+						if (group_b.indexOf('|') > -1) {
+							arr_div.push.apply(arr_div, group_b.split('|'));
+						} else {
+							arr_div.push(group_b);
+						}
+						if (group_c.indexOf('|') > -1) {
+							arr_div.push.apply(arr_div, group_c.split('|'));
+						} else {
+							arr_div.push(group_c);
+						}
+						break;
+					default:
+						break;
+				}
+				$.each(arr_div, function(ix, id) {
+					var tbody = $('.wrap-' + id);
+					tbody.show();
+				});
+			}
 		});
 
 		//checkbox
@@ -975,6 +1093,26 @@ $.widget( "orchestrate.fotf_questions", {
 
 		//dropdown
 		cached['.input_dropdown_addition'].each(function(index, el) {
+			var trigger = $(el).data('trigger');
+			if ($('#' + trigger).val() && $('#' + trigger).val() == -1) {
+				$(el).show();
+			} else {
+				$(el).hide();
+			}
+
+			$('#' + trigger).change(function(event) {
+				if ($(this).val() && $(this).val() == -1) {
+					$(el).show();
+				} else {
+					$(el).hide();
+				}
+				$(el).removeClass('error');
+				$(el).next('label').html('');
+			});
+		});
+
+		//radio
+		cached['.input_radio_addition'].each(function(index, el) {
 			var trigger = $(el).data('trigger');
 			if ($('#' + trigger).val() && $('#' + trigger).val() == -1) {
 				$(el).show();
@@ -1070,6 +1208,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $fotf_multiple_checkbox = $table.find('.fotf_multiple_checkbox')
 				, $fotf_dropdown = $table.find('select.fotf_dropdown')
 				, $input_dropdown_addition = $table.find('.input_dropdown_addition')
+				, $input_radio_addition = $table.find('.input_radio_addition')
 				, $input_mask_fulldate = $table.find('input.mask-fulldate')
 				, $input_mask_year = $table.find('input.mask-year')
 				, $input_mask_zip = $table.find('input.mask-zip')
@@ -1080,7 +1219,8 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_checkbox_phone_international = $table.find('input.checkbox-phone_international')
 				, $group_dropdown_multiple_alternate = $table.find('tbody.dropdown-multiple-alternate')
 				, $multiple_filter_select = $table.find('.multiple_filter_select')
-				, $group_multiple_select = $table.find('tbody.group-multiple-select');
+				, $group_multiple_select = $table.find('tbody.group-multiple-select')
+				, $radio_parent_of_group = $table.find('.radio-parent-of-group');
 
 		this.cached = {
 			'table' : $table
@@ -1111,6 +1251,7 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.fotf_multiple_checkbox' : $fotf_multiple_checkbox
 			, '.fotf_dropdown' : $fotf_dropdown
 			, '.input_dropdown_addition' : $input_dropdown_addition
+			, '.input_radio_addition' : $input_radio_addition
 			, '.input_mask_fulldate' : $input_mask_fulldate
 			, '.input_mask_year' : $input_mask_year
 			, '.input_mask_zip' : $input_mask_zip
@@ -1122,6 +1263,7 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.group_dropdown_multiple_alternate' : $group_dropdown_multiple_alternate
 			, '.multiple_filter_select' : $multiple_filter_select
 			, '.group_multiple_select' : $group_multiple_select
+			, '.radio-parent-of-group' : $radio_parent_of_group
 			, '.textarea_email_textarea_no_remote' : $textarea_email_textarea_no_remote
 		};
 	}
