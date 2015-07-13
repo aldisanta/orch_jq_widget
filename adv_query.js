@@ -18,22 +18,22 @@ $.widget( "orchestrate.adv_query", {
 	//	remove, add,
 	//simple trigger change
 	// simple not trigger reset
-	//advanced trigger change 
-	//application dropdown 
-	
+	//advanced trigger change
+	//application dropdown
+
 	/**
 	 * _create : constructor
 	 */
 	_create: function() {
 		// get the select element
 		var opts = this.options;
-		
+
 		// cache commonly used elements
 		this.elem = $(this.element);
 
 		// cache commonly used elements
 		this._cacheElements();
-		
+
 		// sets up popup object
 		this.popup = {} || this.popup;
 		// sets up object callback for popup filter
@@ -45,11 +45,11 @@ $.widget( "orchestrate.adv_query", {
 
 		// bind UI actions
 		this._bindUIActions();
-		
+
 		// refresh
 		this._refresh();
 	},
-	
+
 	/**
 	 * _filterHideAll : filter hide all filter, shown if multiple filter not empty
 	 */
@@ -68,14 +68,14 @@ $.widget( "orchestrate.adv_query", {
 			}
 		});
 	},
-	
+
 	/**
 	 * _multipleOptionsToggle : toggle visibility on multiple options
 		_multipleOptionsToggle: function() {
 			var self = this,
 					cached = self.cached,
 					opts = self.options;
-			
+
 			$.each(cached['.multiple_filter'], function(index, val) {
 				var options = $(this).find('option');
 				var values = $(this).children('.hd_multiple_filter').val();
@@ -94,7 +94,7 @@ $.widget( "orchestrate.adv_query", {
 			});
 		},
 	*/
-	
+
 	/**
 	 * _singleOptionsToggleListener : single options toggle listener
 	 */
@@ -123,7 +123,7 @@ $.widget( "orchestrate.adv_query", {
 						case 'program':
 							if ($('#hdsel_SessionMultiple').val() != '') {
 								data.session = $('#hdsel_SessionMultiple').val();
-							} else if ($('#hdsel_SessionSingle').val() != '' 
+							} else if ($('#hdsel_SessionSingle').val() != ''
 								&& $('#hdsel_SessionSingle').val() != 0
 							) {
 								data.session = $('#hdsel_SessionSingle').val();
@@ -132,7 +132,7 @@ $.widget( "orchestrate.adv_query", {
 							}
 							data.program = $(this).val();
 							break;
-						default : 
+						default :
 					}
 
 					self.ajax.filter[query_filter.data('ajax-callback')](data);
@@ -142,7 +142,7 @@ $.widget( "orchestrate.adv_query", {
 			});
 		});
 	},
-	
+
 	/**
 		* _multipleOptionsToggleListener : multiple options toggle listener
 	*/
@@ -150,7 +150,7 @@ $.widget( "orchestrate.adv_query", {
 		var self = this,
 				cached = self.cached,
 				opts = self.options;
-		
+
 		$.each(cached['.multiple_filter_select'], function(index, val) {
 			$(val).change(function(event) {
 				var options = $(this).children('option');
@@ -176,7 +176,7 @@ $.widget( "orchestrate.adv_query", {
 							case 'program':
 								if ($('#hdsel_SessionMultiple').val() != '') {
 									data.session = $('#hdsel_SessionMultiple').val();
-								} else if ($('#hdsel_SessionSingle').val() != '' 
+								} else if ($('#hdsel_SessionSingle').val() != ''
 									&& $('#hdsel_SessionSingle').val() != 0
 								) {
 									data.session = $('#hdsel_SessionSingle').val();
@@ -185,7 +185,7 @@ $.widget( "orchestrate.adv_query", {
 								}
 								data.program = values;
 								break;
-							default : 
+							default :
 						}
 
 						self.ajax.filter[query_filter.data('ajax-callback')](data);
@@ -202,7 +202,7 @@ $.widget( "orchestrate.adv_query", {
 			});
 		});
 	},
-	
+
 	/**
 	 * _removeMultipleOptions : toggle filter
 	 */
@@ -211,13 +211,13 @@ $.widget( "orchestrate.adv_query", {
 				cached = self.cached,
 				opts = self.options;
 		var select = obj.find('select');
-		
+
 		select.children('option').each(function(index, el) {
 			$(el).remove();
 		});
 		this._resetValue(obj)
 	},
-	
+
 	/**
 	 * _removeSingleOptions : toggle filter
 	 */
@@ -236,7 +236,7 @@ $.widget( "orchestrate.adv_query", {
 		var self = this,
 				cached = self.cached,
 				opts = self.options;
-		
+
 		if (obj.hasClass('single_filter')) {
 			var single = obj.find('.hd_single_filter');
 			var multiple = obj.next('.filter').find('.hd_multiple_filter');
@@ -247,7 +247,7 @@ $.widget( "orchestrate.adv_query", {
 			var single = obj.find('.hd_single_filter');
 			var multiple = obj.find('.hd_multiple_filter');
 		}
-		
+
 		if (multiple) {
 			multiple.val('').trigger('change');
 		} else {
@@ -277,8 +277,8 @@ $.widget( "orchestrate.adv_query", {
 				filter.prev('.query_filter:first').data('change-trigger', true);
 				lyr.find('.multiple_filter_select').trigger('change');
 			});
-		});	
-		
+		});
+
 		$.each(cached['.btn_toggle-simple'], function(index, val) {
 			$(this).click(function(event) {
 				var filter = $(this).closest('.filter');
@@ -290,7 +290,7 @@ $.widget( "orchestrate.adv_query", {
 				filter.prevAll('.query_filter:first').data('change-trigger', true);
 				lyr.find('.single_filter_select').trigger('change');
 			});
-		});	
+		});
 	},
 
 	/**
@@ -301,19 +301,19 @@ $.widget( "orchestrate.adv_query", {
 				cached = self.cached,
 				opts = self.options;
 				win_filter = self.options;
-		
+
 		$.each(cached['.btn_popup-filter'], function(index, val) {
 			$(val).click(function(event) {
 				var popup_name = $(this).data('popup');
 				var data = {} || data;
 				data.program = '';
 				data.session = '';
-				
+
 				switch(popup_name) {
 					case 'program':
 						if ($('#hdsel_SessionMultiple').val() != '') {
 							data.session = $('#hdsel_SessionMultiple').val();
-						} else if ($('#hdsel_SessionSingle').val() != '' 
+						} else if ($('#hdsel_SessionSingle').val() != ''
 							&& $('#hdsel_SessionSingle').val() != 0
 						) {
 							data.session = $('#hdsel_SessionSingle').val();
@@ -325,7 +325,7 @@ $.widget( "orchestrate.adv_query", {
 					case 'app_profile':
 						if ($('#hdsel_SessionMultiple').val() != '') {
 							data.session = $('#hdsel_SessionMultiple').val();
-						} else if ($('#hdsel_SessionSingle').val() != '' 
+						} else if ($('#hdsel_SessionSingle').val() != ''
 							&& $('#hdsel_SessionSingle').val() != 0
 						) {
 							data.session = $('#hdsel_SessionSingle').val();
@@ -335,7 +335,7 @@ $.widget( "orchestrate.adv_query", {
 
 						if ($('#hdsel_ProgramMultiple').val() != '') {
 							data.program = $('#hdsel_ProgramMultiple').val();
-						} else if ($('#hdsel_ProgramSingle').val() != '' 
+						} else if ($('#hdsel_ProgramSingle').val() != ''
 							&& $('#hdsel_ProgramSingle').val() != 0
 						) {
 							data.program = $('#hdsel_SessionSingle').val();
@@ -344,15 +344,15 @@ $.widget( "orchestrate.adv_query", {
 						}
 
 						break;
-					default : 
+					default :
 				}
-				
+
 				//call popup filter
 				self.popup.filter[popup_name](data);
 			});
 		});
 	},
-	
+
 	/**
 	 * _buttonMultipleOptionsRemove : button multiple options
 	 */
@@ -364,7 +364,7 @@ $.widget( "orchestrate.adv_query", {
 			$(val).click(function(event) {
 				var lyr = $(this).closest('.multiple_filter');
 				var select = lyr.find('.multiple_filter_select');
-				
+
 				//gets hidden value
 				var hd_value = lyr.find('.hd_multiple_filter').val();
 				if (hd_value) {
@@ -416,7 +416,7 @@ $.widget( "orchestrate.adv_query", {
 				opts = this.options;
 		// initial filter hide all
 		this._filterHideAll();
-		// initial options toggle : 
+		// initial options toggle :
 		//this._multipleOptionsToggle();
 		// event listener on single changed value
 		this._singleOptionsToggleListener();
@@ -433,7 +433,7 @@ $.widget( "orchestrate.adv_query", {
 	// called when created, and later when changing options
 	_refresh: function() {
 	},
-	
+
 	/**
 	 * _windowPopupFilterCallback : cached popup filter using state design
 	 */
@@ -450,10 +450,10 @@ $.widget( "orchestrate.adv_query", {
 			popupHandle[ iTotalPopup++ ] = iHandle;
 			return true;
 		}
-		
+
 		//program filter popup
 		win.program = function (data) {
-			var iHandle = window.open('popup_program_add.asp?session=' + data.session 
+			var iHandle = window.open('popup_program_add.asp?session=' + data.session
 																,'_blank'
 																,'width=650,height=350,toolbar=no,top=100' +
 																',left=100,location=no,directories=no' +
@@ -462,11 +462,11 @@ $.widget( "orchestrate.adv_query", {
 			popupHandle[ iTotalPopup++ ] = iHandle;
 			return true;
 		}
-		
+
 		//app_profile filter popup
 		win.app_profile = function (data) {
-			var iHandle = window.open('popup_application_add.asp?session=' 
-																+ data.session + '&program=' 
+			var iHandle = window.open('popup_application_add.asp?session='
+																+ data.session + '&program='
 																+ data.program,'_blank'
 																,'width=650,height=350,toolbar=no,top=100' +
 																',left=100,location=no,directories=no' +
@@ -475,7 +475,7 @@ $.widget( "orchestrate.adv_query", {
 			popupHandle[ iTotalPopup++ ] = iHandle;
 			return true;
 		}
-		
+
 		//status filter popup
 		win.status = function (data) {
 			var iHandle = window.open('popup_status_add.asp','_blank'
@@ -489,7 +489,7 @@ $.widget( "orchestrate.adv_query", {
 
 		this.popup.filter = win;
 	},
-	
+
 	/**
 	 * [_splitData description]
 	 * @param  {[type]} data [description]
@@ -499,10 +499,10 @@ $.widget( "orchestrate.adv_query", {
 		var self = this,
 				cached = self.cached,
 				opts = self.options;
-		
+
 		if (data && data.indexOf('|||~~|||') > -1) {
 			var all = data.split('|||~~|||');
-		
+
 			var app_string = all[0];
 			$('#' + objName).html('');
 			$('#' + objName).append('<option value="0">All</option>');
@@ -512,8 +512,8 @@ $.widget( "orchestrate.adv_query", {
 					if (val && val.indexOf('~~~') > -1) {
 						var array = val.split('~~~');
 						$('#' + objName)
-							.append('<option value="' + 
-							array[0] + '">' + 
+							.append('<option value="' +
+							array[0] + '">' +
 							decodeURIComponent(array[1]) + '</option>');
 					} else {
 						//nothing
@@ -524,8 +524,8 @@ $.widget( "orchestrate.adv_query", {
 				if (val && val.indexOf('~~~') > -1) {
 					var array = val.split('~~~');
 					$('#' + objName)
-						.append('<option value="' + 
-						array[0] + '">' + 
+						.append('<option value="' +
+						array[0] + '">' +
 						decodeURIComponent(array[1]) + '</option>');
 				} else {
 					//nothing
@@ -555,8 +555,8 @@ $.widget( "orchestrate.adv_query", {
 						if (val && val.indexOf('~~~') > -1) {
 							var array = val.split('~~~');
 							$('#sel_program')
-								.append('<option value="' + 
-								array[0] + '">' + 
+								.append('<option value="' +
+								array[0] + '">' +
 								decodeURI(array[1]) + '</option>');
 						} else {
 							//nothing
@@ -567,8 +567,8 @@ $.widget( "orchestrate.adv_query", {
 					if (val && val.indexOf('~~~') > -1) {
 						var array = val.split('~~~');
 						$('#sel_program')
-							.append('<option value="' + 
-							array[0] + '">' + 
+							.append('<option value="' +
+							array[0] + '">' +
 							decodeURI(array[1]) + '</option>');
 					} else {
 						//nothing
@@ -576,7 +576,7 @@ $.widget( "orchestrate.adv_query", {
 				} else {
 					//nothing
 				}
-				
+
 				var app_string = all[1];
 				$('#sel_application').html('');
 				$('#sel_application').append('<option value="0">All</option>');
@@ -586,8 +586,8 @@ $.widget( "orchestrate.adv_query", {
 						if (val && val.indexOf('~~~') > -1) {
 							var array = val.split('~~~');
 							$('#sel_application')
-								.append('<option value="' + 
-								array[0] + '">' + 
+								.append('<option value="' +
+								array[0] + '">' +
 								decodeURI(array[1]) + '</option>');
 						} else {
 							//nothing
@@ -604,7 +604,7 @@ $.widget( "orchestrate.adv_query", {
 		_splitAppData: function(data) {
 			if (data && data.indexOf('|||~~|||') > -1) {
 				var all = data.split('|||~~|f||');
-			
+
 				var app_string = all[0];
 				$('#sel_application').html('');
 				$('#sel_application').append('<option value="0">All</option>');
@@ -614,8 +614,8 @@ $.widget( "orchestrate.adv_query", {
 						if (val && val.indexOf('~~~') > -1) {
 							var array = val.split('~~~');
 							$('#sel_application')
-								.append('<option value="' + 
-								array[0] + '">' + 
+								.append('<option value="' +
+								array[0] + '">' +
 								decodeURIComponent(array[1]) + '</option>');
 						} else {
 							//nothing
@@ -626,8 +626,8 @@ $.widget( "orchestrate.adv_query", {
 					if (val && val.indexOf('~~~') > -1) {
 						var array = val.split('~~~');
 						$('#sel_application')
-							.append('<option value="' + 
-							array[0] + '">' + 
+							.append('<option value="' +
+							array[0] + '">' +
 							decodeURIComponent(array[1]) + '</option>');
 					} else {
 						//nothing
@@ -672,7 +672,7 @@ $.widget( "orchestrate.adv_query", {
 			});
 			return true;
 		}
-		
+
 		//program ajax filter
 		ajaxXHR.program = function (data) {
 			$.ajax({
@@ -693,12 +693,12 @@ $.widget( "orchestrate.adv_query", {
 			});
 			return true;
 		}
-		
+
 		//app_profile ajax filter
 		ajaxXHR.app_profile = function (data) {
 			return true;
 		}
-		
+
 		//status ajax filter
 		ajaxXHR.status = function (data) {
 			return true;
@@ -723,7 +723,7 @@ $.widget( "orchestrate.adv_query", {
 				, $btn_toggle_simple = $div.find('.btn_toggle-simple')
 				, $btn_popup_filter = $div.find('.btn_popup-filter')
 				, $btn_remove = $div.find('.btn-remove');
-		
+
 		this.cached = {
 			'div' : $div
 			, '.filter' : $filter
@@ -742,7 +742,7 @@ $.widget( "orchestrate.adv_query", {
 
 /** extension **/
 $.widget( "orchestrate.adv_query_questions", $.orchestrate.adv_query, {
-	
+
 	/**
 		* _multipleOptionsToggleListener : multiple options toggle listener
 	*/
@@ -750,7 +750,7 @@ $.widget( "orchestrate.adv_query_questions", $.orchestrate.adv_query, {
 		var self = this,
 				cached = self.cached,
 				opts = self.options;
-		
+
 		$.each(cached['.multiple_filter_select'], function(index, val) {
 			$(val).change(function(event) {
 				var options = $(this).children('option');
@@ -831,7 +831,7 @@ $.widget( "orchestrate.adv_query_questions", $.orchestrate.adv_query, {
 			});
 		});
 	},
-	
+
 	/**
 	 * _filterHideAll : filter hide all filter, shown if multiple filter not empty
 	 */
@@ -859,7 +859,7 @@ $.widget( "orchestrate.adv_query_questions", $.orchestrate.adv_query, {
 				cached = self.cached,
 				opts = self.options;
 				win_filter = self.options;
-		
+
 		$.each(cached['.btn_popup-filter'], function(index, val) {
 			$(val).click(function(event) {
 				var r = $(this).closest('tbody.dropdown-multiple-alternate')
@@ -871,10 +871,10 @@ $.widget( "orchestrate.adv_query_questions", $.orchestrate.adv_query, {
 				data.param1 = $(this).data('param1');
 				data.param2 = $(this).data('param2');
 				data.param3 = $(this).data('param3');
-				
+
 				//call popup filter
 				var iHandle = window.open(data.url + '?r=' + r
-																	+ '&param1=' + data.param1 
+																	+ '&param1=' + data.param1
 																	+ '&param2=' + data.param2
 																	+ '&param3=' + data.param3
 																	,'_blank'
@@ -890,14 +890,14 @@ $.widget( "orchestrate.adv_query_questions", $.orchestrate.adv_query, {
 });
 
 $.widget( "orchestrate.multiple_select", $.orchestrate.adv_query_questions, {
-	
+
 	/**
 	 * _bindUIActions : bind UI Event on record_list
 	 */
 	_bindUIActions: function() {
 		var cached = this.cached,
 				opts = this.options;
-		
+
 		// event listener on multiple changed value
 		this._multipleOptionsToggleListener();
 		//button popup
@@ -912,13 +912,13 @@ $.widget( "orchestrate.multiple_select", $.orchestrate.adv_query_questions, {
 	_create: function() {
 		// get the select element
 		var opts = this.options;
-		
+
 		// cache commonly used elements
 		this.elem = $(this.element);
 
 		// cache commonly used elements
 		this._cacheElements();
-		
+
 		// sets up popup object
 		this.popup = {} || this.popup;
 		// sets up object callback for popup filter
@@ -926,7 +926,7 @@ $.widget( "orchestrate.multiple_select", $.orchestrate.adv_query_questions, {
 
 		// bind UI actions
 		this._bindUIActions();
-		
+
 		// refresh
 		this._refresh();
 	}
