@@ -75,6 +75,7 @@ $.widget( "orchestrate.fotf_questions", {
 				}
 		});
 	},
+
 	// default options
 	options: {
 		is_ignore_hidden : true
@@ -176,6 +177,7 @@ $.widget( "orchestrate.fotf_questions", {
 		});
 		cached['.input_mask_long_numeric'].mask('999999999999');
 		cached['.input_mask_absolute_phone_us'].mask('999-999-9999');
+		cached['.input_mask_color'].mask('\#');
 	},
 
 	_bindPhoneUSInternationalToggle: function() {
@@ -715,6 +717,19 @@ $.widget( "orchestrate.fotf_questions", {
 						}
 				);
 			}
+			else if ($(el).data('greater-equal-to') != '') {
+				var label = $('#' + $(el).data('greater-equal-to'))
+										.parent('td')
+										.prev('td')
+										.children('label')
+										.html();
+
+				$(el).rules('add'
+						, {
+							greaterThanEqualToWithTime : ['#' + $(el).data('greater-equal-to'), label]
+						}
+				);
+			}
 			else if ($(el).data('less') != '') {
 				var label = $('#' + $(el).data('less'))
 										.parent('td')
@@ -725,6 +740,19 @@ $.widget( "orchestrate.fotf_questions", {
 				$(el).rules('add'
 						, {
 							lesserThanWithTime : ['#' + $(el).data('less'), label]
+						}
+				);
+			}
+			else if ($(el).data('less-equal-to') != '') {
+				var label = $('#' + $(el).data('less-equal-to'))
+										.parent('td')
+										.prev('td')
+										.children('label')
+										.html();
+
+				$(el).rules('add'
+						, {
+							lesserThanEqualToWithTime : ['#' + $(el).data('less-equal-to'), label]
 						}
 				);
 			}
@@ -893,6 +921,16 @@ $.widget( "orchestrate.fotf_questions", {
 									}
 				);
 			}
+		});
+
+		/* hex value */
+		cached['.input_validate_hex_value'].each(function(index, el) {
+			console.log(el);
+			$(el).rules('add'
+								, {
+									hex_value : true
+								}
+			);
 		});
 	},
 
@@ -1203,6 +1241,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_validate_fulldate = $table.find('input.validate-fulldate')
 				, $input_validate_rangedate = $table.find('input.validate-rangedate')
 				, $input_validate_rangedate_time = $table.find('input.validate-rangedate-time')
+				, $input_validate_hex_value = $table.find('input.validate-hex-value')
 				, $fotf_radio = $table.find('.fotf_radio')
 				, $fotf_checkbox = $table.find('.fotf_checkbox')
 				, $fotf_multiple_checkbox = $table.find('.fotf_multiple_checkbox')
@@ -1216,6 +1255,7 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_mask_numeric = $table.find('input.mask-numeric')
 				, $input_mask_long_numeric = $table.find('input.mask-long_numeric')
 				, $input_mask_absolute_phone_us = $table.find('input.mask-absolute_phone_us')
+				, $input_mask_color = $table.find('input.mask-color')
 				, $input_checkbox_phone_international = $table.find('input.checkbox-phone_international')
 				, $group_dropdown_multiple_alternate = $table.find('tbody.dropdown-multiple-alternate')
 				, $multiple_filter_select = $table.find('.multiple_filter_select')
@@ -1246,6 +1286,7 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.input_validate_fulldate' : $input_validate_fulldate
 			, '.input_validate_rangedate' : $input_validate_rangedate
 			, '.input_validate_rangedate_time' : $input_validate_rangedate_time
+			, '.input_validate_hex_value' : $input_validate_hex_value
 			, '.fotf_radio' : $fotf_radio
 			, '.fotf_checkbox' : $fotf_checkbox
 			, '.fotf_multiple_checkbox' : $fotf_multiple_checkbox
@@ -1259,6 +1300,7 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.input_mask_numeric' : $input_mask_numeric
 			, '.input_mask_long_numeric' : $input_mask_long_numeric
 			, '.input_mask_absolute_phone_us' : $input_mask_absolute_phone_us
+			, '.input_mask_color' : $input_mask_color
 			, '.input_checkbox_phone_international' : $input_checkbox_phone_international
 			, '.group_dropdown_multiple_alternate' : $group_dropdown_multiple_alternate
 			, '.multiple_filter_select' : $multiple_filter_select
