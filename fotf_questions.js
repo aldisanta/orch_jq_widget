@@ -652,12 +652,16 @@ $.widget( "orchestrate.fotf_questions", {
 
 		/* file upload */
 		cached['.input_upload'].each(function(index, el) {
+			var warn_ext = $(el).data('ext');
+			if (warn_ext.indexOf('|') > -1) {
+				warn_ext = warn_ext.replace(/\|/g, ',');
+			}
 			$(el).rules('add'
 					, {
 						extension : $(el).data('ext')
 						, windows_compliance : true
 						, messages : {
-							extension : 'Valid file format ' + $(el).data('ext')
+							extension : 'Valid file format ' + warn_ext
 						}
 					}
 			);
