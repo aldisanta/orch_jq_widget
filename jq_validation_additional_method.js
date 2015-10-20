@@ -489,7 +489,6 @@ function(value, element, params) {
 		var rg3=/^(nul|prn|con|lpt[0-9]|com[0-9])(\.|$)/i; // forbidden file names
 		var check = value;
 
-
 		if (check.indexOf("fakepath") != -1) {
 			// Chrome adds "c:\fakepath"
 			check = check.replace(/C:\\fakepath\\/i, '');
@@ -512,3 +511,42 @@ function(value, element, params) {
 	}
 },'Please enter valid color value');
 
+jQuery.validator.addMethod("file_size_mb",
+function(value, element, params) {
+	var component = element;
+	var maxSize = params * 1048576;
+	if(navigator.appName=="Microsoft Internet Explorer")
+	{
+		if(component.value)
+		{
+			var	oas=new	ActiveXObject("Scripting.FileSystemObject");
+			var	e=oas.getFile(component.value);
+			var	size=e.size;
+		}
+	}
+	else
+	{
+		if((component).files[0]!=undefined)
+		{
+			size = (component).files[0].size;
+		}
+	}
+	if(size!=undefined && size>maxSize)
+	{
+		return	false;
+	}
+	else
+	{
+		return	true;
+	}
+},'Please upload file max {0} MB');
+
+jQuery.validator.addMethod("phoneUS_Custom", function(phone_number, element) {
+		phone_number = phone_number.replace(/\s+/g, "");
+	if ($(element).hasClass('input-phone')) {
+		return this.optional(element) || phone_number.length > 9 &&
+			phone_number.match(/^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
+	} else {
+		return true;
+	}
+}, "Please specify a valid phone number");

@@ -11,6 +11,6 @@ $masking.masking = function () {
 	});
 	$('.mask-zip').mask('00000-000');
 	$('.mask-phone-input').mask('(000) 000-0000');
-	$('.mask-international-phone-input').mask('(00) 0000-0000');
+	$('.mask-international-phone-input').mask('(00) 00000000000000');
 	$('.phone-input').unmask('999-999-9999');
 }

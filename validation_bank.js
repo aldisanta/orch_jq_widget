@@ -8,13 +8,13 @@
 	function showQuestionHelp(pLyr){
 		$("#" + pLyr).toggle("slow");
 	}
-	
+
 	function validationBank_TextBox(pObjName, pRequired, pAction) {
 		/*
 			Function: Validate ordinary textbox / textarea
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var bValid = true;
 		if (pObj.length > 0) {
@@ -25,7 +25,7 @@
 						//pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
-						if (pRow.attr('class') != "form-row required") 
+						if (pRow.attr('class') != "form-row required")
 							pRow.removeClass('required')
 							pRow.removeClass('hint')
 							//p+Row.attr('class', 'form-row');
@@ -71,13 +71,13 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_TextBoxToggle(pObjName, pRequired, pAction) {
 		/*
 			Function: Validate ordinary textbox / textarea
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName + 'text');	
+		var pObj	= $("#" + pObjName + 'text');
 		var pRow	= $("#row-" + pObjName);
 		var bValid = true;
 		if (pObj.length > 0) {
@@ -88,7 +88,7 @@
 						//pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
-						if (pRow.attr('class') != "form-row required") 
+						if (pRow.attr('class') != "form-row required")
 							pRow.removeClass('required')
 							pRow.removeClass('hint')
 							//p+Row.attr('class', 'form-row');
@@ -134,13 +134,13 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_TextBoxYear(pObjName, pRequired, pAction) {
 		/*
 			Function: Validate ordinary textbox / textarea
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var bValid = true;
 		if (trim(pObj.val()) == 'YYYY') {
@@ -231,16 +231,16 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_DropdownTextBox(pObjName, pRequired, pAction) {
 		var obj_name1 = pObjName;
 		var obj_name2 = pObjName
-		
+
 		if (obj_name1.indexOf('txt') > -1) {
 			obj_name1 = obj_name1.replace('txt', 'txt_input');
 		}
-		var pObj	= $("#" + obj_name1);	
-		
+		var pObj	= $("#" + obj_name1);
+
 		if (obj_name2.indexOf('txt') > -1) {
 			obj_name2 = obj_name2.replace('txt', '');
 		}
@@ -255,7 +255,7 @@
 						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
-						if (pRow.attr('class') != "form-row required") 
+						if (pRow.attr('class') != "form-row required")
 							pRow.removeClass('required')
 							pRow.removeClass('hint');
 							//p+Row.attr('class', 'form-row');
@@ -301,15 +301,15 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_DropdownTextBoxMonthYear(pObjName, pRequired, pAction) {
 		var obj_name1 = pObjName;
 		var obj_name2 = pObjName;
-		
+
 		obj_name1 = 'txt_input' + obj_name1;
-		var pObj	= $("#" + obj_name1);	
-		var pObjHidden	= $("#hd" + pObjName);	
-		
+		var pObj	= $("#" + obj_name1);
+		var pObjHidden	= $("#hd" + pObjName);
+
 		if (obj_name2.indexOf('txt') > -1) {
 			obj_name2 = obj_name2.replace('txt', '');
 		}
@@ -406,13 +406,13 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_Email(pObjName, pRequired, pAction) {
 		/*
 			Function: Validate ordinary email text box
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var bValid = true;
 		if (pRequired == "1") {
@@ -423,7 +423,7 @@
 					//pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('invalid');
 						pRow.removeClass('hint');
 						pRow.removeClass('required');
@@ -500,7 +500,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -510,13 +510,13 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_AlphaNumericTextBox(pObjName, pRequired, pAction) {
 		/*
 			Function: Validate ordinary textbox / textarea
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var bValid = true;
 		if (pRequired == "1") {
@@ -527,7 +527,7 @@
 					pRow.addClass("hint");
 					//p+Row.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('invalid')
 						pRow.removeClass('hint')
 						pRow.removeClass('required')
@@ -604,7 +604,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -614,12 +614,12 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_NumericTextBox(pObjName, pRequired, pAction) {
 		/*
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var bValid = true;
 		if (pRequired == "1") {
@@ -630,7 +630,7 @@
 					pRow.addClass("hint");
 					//p+Row.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('hint')
 						pRow.removeClass('invalid')
 						pRow.removeClass('required')
@@ -707,7 +707,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -717,12 +717,12 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_NumericNoZero(pObjName, pRequired, pAction) {
 		/*
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var bValid = true;
 		if (pRequired == "1") {
@@ -732,7 +732,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('required')
 						//p+Row.attr('class', 'form-row');
 				} else if (pAction == 3) {
@@ -793,7 +793,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -803,13 +803,13 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_URLTextBox(pObjName, pRequired, pAction) {
 		/*
 			Function: Validate ordinary textbox / textarea
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var bValid = true;
 		if (pRequired == "1") {
@@ -819,7 +819,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('required')
 						//p+Row.attr('class', 'form-row');
 				} else if (pAction == 3) {
@@ -868,7 +868,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -878,13 +878,13 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_ApplicantEmail(pObjName, pObjIDName, pRequired, pAction) {
 		/*
 			Function: Validate Email & check it with existing email (for register and update email)
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pObjID  = $("#" + pObjIDName);
 		var pRow	= $("#row-" + pObjName);
 		var pInvMsg	= $("#invalid-" + pObjName);
@@ -899,7 +899,7 @@
 					//pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('invalid');
 						pRow.removeClass('hint');
 						pRow.removeClass('required');
@@ -927,9 +927,9 @@
 					//pRow.attr('class', 'form-row invalid');
 				} else {
 					$.ajax({
-					  type: "POST",
-					  url: "/include/validate_applicantEmail2.asp",
-					  data: { id: trim(pObjID.val()), email: trim(pObj.val()) }
+						type: "POST",
+						url: "/include/validate_applicantEmail2.asp",
+						data: { id: trim(pObjID.val()), email: trim(pObj.val()) }
 					}).done(function( msg ) {
 						if (msg == "1") {
 							pRow.removeClass('invalid');
@@ -1001,9 +1001,9 @@
 					//pRow.attr('class', 'form-row invalid');
 				} else {
 					$.ajax({
-					  type: "POST",
-					  url: "/include/validate_applicantEmail2.asp",
-					  data: { id: trim(pObjID.val()), email: trim(pObj.val()) }
+						type: "POST",
+						url: "/include/validate_applicantEmail2.asp",
+						data: { id: trim(pObjID.val()), email: trim(pObj.val()) }
 					}).done(function( msg ) {
 						if (msg == "1") {
 							pRow.removeClass('invalid');
@@ -1051,7 +1051,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -1061,13 +1061,13 @@
 			return bValid;
 		}
 	}
-	
-	function validationBank_Password(pObjName, pRequired, pAction) { 
+
+	function validationBank_Password(pObjName, pRequired, pAction) {
 		/*
 			Function: Validate ordinary textbox / textarea
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		pInvMsg	= $("#invalid-" + pObjName);
 		var bValid = true;
@@ -1079,7 +1079,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('invalid');
 						pRow.removeClass('required')
 						pRow.removeClass('hint')
@@ -1111,7 +1111,7 @@
 					//p+Row.attr('class', 'form-row invalid');
 					if (pAction == 4) {
 						bValid = false;
-					}		
+					}
 				} else {
 					pRow.removeClass('invalid');
 					pRow.removeClass('hint');
@@ -1147,7 +1147,7 @@
 					//pRow.attr('class', 'form-row invalid');
 					if (pAction == 4) {
 						bValid = false;
-					}	
+					}
 				} else {
 					pRow.removeClass('invalid');
 					pRow.removeClass('hint');
@@ -1156,7 +1156,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -1166,13 +1166,13 @@
 			return bValid;
 		}
 	}
-	
-	function validationBank_RevPassword(pObjName, pRequired, pAction) { 
+
+	function validationBank_RevPassword(pObjName, pRequired, pAction) {
 		/*
 			Function: Validate ordinary textbox / textarea
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		pInvMsg	= $("#invalid-" + pObjName);
 		var bValid = true;
@@ -1184,7 +1184,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('hint')
 						pRow.removeClass('invalid')
 						pRow.removeClass('required')
@@ -1206,7 +1206,7 @@
 				if (vPass.length < 6) {
 					if (pAction == 3) {
 						bValid = false;
-					}					
+					}
 					pRow.attr('class', 'form-row invalid');
 				} else {
 					pRow.removeClass('hint');
@@ -1230,7 +1230,7 @@
 				if (vPass.length < 6) {
 					if (pAction == 3) {
 						bValid = false;
-					}					
+					}
 					pRow.attr('class', 'form-row invalid');
 				} else {
 					pRow.removeClass('hint');
@@ -1239,7 +1239,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -1249,13 +1249,13 @@
 			return bValid;
 		}
 	}
-	
-	function validationBank_RefPassword(pObjName, pRequired, pAction) { 
+
+	function validationBank_RefPassword(pObjName, pRequired, pAction) {
 		/*
 			Function: Validate ordinary textbox / textarea
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		pInvMsg	= $("#invalid-" + pObjName);
 		var bValid = true;
@@ -1266,7 +1266,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('required')
 						//p+Row.attr('class', 'form-row');
 				} else if (pAction == 3) {
@@ -1284,7 +1284,7 @@
 				if (vPass.length < 6) {
 					if (pAction == 3) {
 						bValid = false;
-					}					
+					}
 					pRow.attr('class', 'form-row invalid');
 				} else {
 					pRow.removeClass('hint');
@@ -1308,7 +1308,7 @@
 				if (vPass.length < 6) {
 					if (pAction == 3) {
 						bValid = false;
-					}					
+					}
 					pRow.attr('class', 'form-row invalid');
 				} else {
 					pRow.removeClass('hint');
@@ -1317,7 +1317,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -1327,7 +1327,7 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_PasswordConfirmation(pObjName, pObjName2, pRequired, pAction) {
 		pObj	= $("#" + pObjName);
 		pVal	= trim($("#" + pObjName).val());
@@ -1370,7 +1370,7 @@
 					//p+Row.attr('class', 'form-row invalid');
 					if (pAction == 4) {
 						bValid = false;
-					}	
+					}
 				} else {
 					pRow.removeClass('invalid');
 					pRow.removeClass('hint');
@@ -1399,7 +1399,7 @@
 					//p+Row.attr('class', 'form-row invalid');
 					if (pAction == 4) {
 						bValid = false;
-					}	
+					}
 				} else {
 					pRow.removeClass('invalid');
 					pRow.removeClass('hint');
@@ -1408,7 +1408,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -1418,12 +1418,12 @@
 			return bValid;
 		}
 	}
-	
-	function validationBank_OldPassword(pObjName, pID, pRequired, pAction) { 
+
+	function validationBank_OldPassword(pObjName, pID, pRequired, pAction) {
 		/*
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);		
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		pInvMsg	= $("#invalid-" + pObjName);
 		var bValid = true;
@@ -1435,7 +1435,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('invalid');
 						pRow.removeClass('hint');
 						pRow.removeClass('required');
@@ -1454,9 +1454,9 @@
 				}
 			} else {
 				$.ajax({
-				  type: "POST",
-				  url: "/include/validate_currentPass.asp",
-				  data: { id: pID, pass: trim(pObj.val()) }
+					type: "POST",
+					url: "/include/validate_currentPass.asp",
+					data: { id: pID, pass: trim(pObj.val()) }
 				}).done(function( msg ) {
 					if (msg == "1") {
 						pRow.removeClass('invalid');
@@ -1497,9 +1497,9 @@
 				}
 			} else {
 				$.ajax({
-				  type: "POST",
-				  url: "/include/validate_currentPass.asp",
-				  data: { id: pID, pass: trim(pObj.val()) }
+					type: "POST",
+					url: "/include/validate_currentPass.asp",
+					data: { id: pID, pass: trim(pObj.val()) }
 				}).done(function( msg ) {
 					if (msg == "1") {
 						pRow.removeClass('invalid');
@@ -1526,7 +1526,7 @@
 				});
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -1536,12 +1536,12 @@
 			return bValid;
 		}
 	}
-	
-	function validationBank_OldRevPassword(pObjName, pID, pRequired, pAction) { 
+
+	function validationBank_OldRevPassword(pObjName, pID, pRequired, pAction) {
 		/*
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);		
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		pInvMsg	= $("#invalid-" + pObjName);
 		var bValid = true;
@@ -1553,7 +1553,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('invalid');
 						pRow.removeClass("required");
 						pRow.removeClass("hint");
@@ -1572,9 +1572,9 @@
 				}
 			} else {
 				$.ajax({
-				  type: "POST",
-				  url: "/include/validate_currentRevPass.asp",
-				  data: { id: pID, pass: trim(pObj.val()) }
+					type: "POST",
+					url: "/include/validate_currentRevPass.asp",
+					data: { id: pID, pass: trim(pObj.val()) }
 				}).done(function( data ) {
 					if (data == "1") {
 						pRow.removeClass('hint');
@@ -1616,9 +1616,9 @@
 				}
 			} else {
 				$.ajax({
-				  type: "POST",
-				  url: "/include/validate_currentRevPass.asp",
-				  data: { id: pID, pass: trim(pObj.val()) }
+					type: "POST",
+					url: "/include/validate_currentRevPass.asp",
+					data: { id: pID, pass: trim(pObj.val()) }
 				}).done(function( data ) {
 					if (data == "1") {
 						pRow.removeClass('invalid');
@@ -1645,8 +1645,8 @@
 				});
 			}
 		}
-		
-		
+
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -1656,12 +1656,12 @@
 			return bValid;
 		}
 	}
-	
-	function validationBank_OldRefPassword(pObjName, pID, pRequired, pAction) { 
+
+	function validationBank_OldRefPassword(pObjName, pID, pRequired, pAction) {
 		/*
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);		
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		pInvMsg	= $("#invalid-" + pObjName);
 		var bValid = true;
@@ -1673,7 +1673,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('invalid');
 						pRow.removeClass("required");
 						pRow.removeClass("hint");
@@ -1692,9 +1692,9 @@
 				}
 			} else {
 				$.ajax({
-				  type: "POST",
-				  url: "/include/validate_currentRefPass.asp",
-				  data: { id: pID, pass: trim(pObj.val()) }
+					type: "POST",
+					url: "/include/validate_currentRefPass.asp",
+					data: { id: pID, pass: trim(pObj.val()) }
 				}).done(function( data ) {
 					if (data == "1") {
 						pRow.removeClass('invalid');
@@ -1732,9 +1732,9 @@
 				}
 			} else {
 				$.ajax({
-				  type: "POST",
-				  url: "/include/validate_currentRefPass.asp",
-				  data: { id: pID, pass: trim(pObj.val()) }
+					type: "POST",
+					url: "/include/validate_currentRefPass.asp",
+					data: { id: pID, pass: trim(pObj.val()) }
 				}).done(function( data ) {
 					if (data == "1") {
 						pRow.removeClass('invalid');
@@ -1761,8 +1761,8 @@
 				});
 			}
 		}
-		
-		
+
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -1772,13 +1772,13 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_SelectBox(pObjName, pRequired, pAction) {
 		/*
 			Function: Validate ordinary textbox / textarea
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var bValid = true;
 		if (pRequired == "1") {
@@ -1788,7 +1788,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('required')
 						//p+Row.attr('class', 'form-row');
 				} else if (pAction == 3) {
@@ -1829,7 +1829,7 @@
 				//p+Row.attr('class', 'form-row');
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -1839,7 +1839,7 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_DropDown (pObjName, pRequired, pAction) {
 		var pObj	= $("#hd" + pObjName);
 		var pRow	= $("#row-" + pObjName);
@@ -1853,7 +1853,7 @@
 						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
-						if (pRow.attr('class') != "form-row required") 
+						if (pRow.attr('class') != "form-row required")
 							pRow.removeClass("hint");
 							pRow.removeClass('required');
 							//p+Row.attr('class', 'form-row');
@@ -1878,7 +1878,7 @@
 				//p+Row.attr('class', 'form-row');
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 			console.log(pObjName);
@@ -1891,7 +1891,7 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_DropDownMessageCenterApplicant (pObjName, pObjName2, pRequired, pAction) {
 		var pObj	= $("#" + pObjName);
 		var pObjNameNew = pObjName.charAt(0).toUpperCase() + pObjName.slice(1);
@@ -1909,7 +1909,7 @@
 						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
-						if (pRow.attr('class') != "form-row required") 
+						if (pRow.attr('class') != "form-row required")
 							pRow.removeClass("hint");
 							pRow.removeClass('required');
 							//p+Row.attr('class', 'form-row');
@@ -1934,7 +1934,7 @@
 				//p+Row.attr('class', 'form-row');
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 			console.log(pObjName);
@@ -1947,7 +1947,7 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_StateDropDown (pObjName, pObjName2, pObjCountry, pRequired, pAction) {
 		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
@@ -1962,7 +1962,7 @@
 						pRow.addClass("hint");
 						//p+Row.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
-						if (pRow.attr('class') != "form-row required") 
+						if (pRow.attr('class') != "form-row required")
 							pRow.removeClass('hint')
 							pRow.removeClass('required')
 							//p+Row.attr('class', 'form-row');
@@ -1991,7 +1991,7 @@
 			pRow.removeClass('required');
 			//p+Row.attr('class', 'form-row');
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 				console.log('validationBank_StateDropDown');
@@ -2000,13 +2000,13 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_SelectState(pObjName, pObjCountry, pRequired, pAction) {
 		/*
 			Function: Validate ordinary textbox / textarea
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName + "dropdown");	
+		var pObj	= $("#" + pObjName + "dropdown");
 		var pObj2	= $("#" + pObjName);
 		var pObjCountry	= $("#" + pObjCountry);
 		var pRow	= $("#row-" + pObjName);
@@ -2019,7 +2019,7 @@
 						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
-						if (pRow.attr('class') != "form-row required") 
+						if (pRow.attr('class') != "form-row required")
 							pRow.removeClass('required')
 							//p+Row.attr('class', 'form-row');
 					} else if (pAction == 3) {
@@ -2071,7 +2071,7 @@
 				//p+Row.attr('class', 'form-row');
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -2081,7 +2081,7 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_Phone(pObjName, pIntChk, pRequired, pAction) {
 		/*
 			Function: Validate ordinary textbox / textarea
@@ -2097,7 +2097,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('required')
 						//p+Row.attr('class', 'form-row');
 				} else if (pAction == 3) {
@@ -2120,7 +2120,7 @@
 			pRow.removeClass('required');
 			//p+Row.attr('class', 'form-row');
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -2130,7 +2130,7 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_PhoneUS(pObjName, pIntChk, pRequired, pAction) {
 		/*
 			Function: Validate ordinary textbox / textarea
@@ -2274,7 +2274,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -2284,7 +2284,7 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_Phone2(pObjName, pIntChk, pRequired, pAction) {
 		/*
 			Function: Validate ordinary textbox / textarea
@@ -2300,7 +2300,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('required')
 						//p+Row.attr('class', 'form-row');
 				} else if (pAction == 3) {
@@ -2325,7 +2325,7 @@
 							pRow.attr('class', 'form-row invalid');
 							if (pAction == 4) {
 								bValid = false;
-							} 
+							}
 						} else {
 							if (!validateUSPhone(valPhone)) {
 								pRow.attr('class', 'form-row invalid');
@@ -2338,7 +2338,7 @@
 								//p+Row.attr('class', 'form-row');
 							}
 						}
-					} 
+					}
 				}
 			}
 		} else {
@@ -2353,7 +2353,7 @@
 						pRow.attr('class', 'form-row invalid');
 						if (pAction == 4) {
 							bValid = false;
-						} 
+						}
 					} else {
 						if (!validateUSPhone(valPhone)) {
 							pRow.attr('class', 'form-row invalid');
@@ -2373,7 +2373,7 @@
 				//p+Row.attr('class', 'form-row');
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -2383,13 +2383,13 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_ApplicantEmail2(pObjName, pRequired, pAction) {
 		/*
 			Function: Validate Email & check it with existing email (for register and update email)
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var pInvMsg	= $("#invalid-" + pObjName);
 		var bValid = true;
@@ -2401,7 +2401,7 @@
 					//pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('hint');
 						pRow.removeClass('invalid');
 						pRow.removeClass('required');
@@ -2430,9 +2430,9 @@
 					//pRow.attr('class', 'form-row invalid');
 				} else {
 					$.ajax({
-					  type: "POST",
-					  url: "/include/validate_applicantEmail.asp",
-					  data: { email: trim(pObj.val()) }
+						type: "POST",
+						url: "/include/validate_applicantEmail.asp",
+						data: { email: trim(pObj.val()) }
 					}).done(function( msg ) {
 						if (msg == "1") {
 							pRow.removeClass('hint');
@@ -2494,9 +2494,9 @@
 					//p+Row.attr('class', 'form-row invalid');
 				} else {
 					$.ajax({
-					  type: "POST",
-					  url: "/include/validate_applicantEmail.asp",
-					  data: { email: trim(pObj.val()) }
+						type: "POST",
+						url: "/include/validate_applicantEmail.asp",
+						data: { email: trim(pObj.val()) }
 					}).done(function( msg ) {
 						if (msg == "1") {
 							pRow.removeClass('hint');
@@ -2534,7 +2534,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -2544,7 +2544,7 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_RadioButton(pObjName, pObjName2, pValue, pRequired, pAction) {
 		/*
 			Function: Validate radio button
@@ -2560,7 +2560,7 @@
 					//pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('required')
 						//p+Row.attr('class', 'form-row');
 				} else if (pAction == 3) {
@@ -2595,7 +2595,7 @@
 				//p+Row.attr('class', 'form-row');
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 				console.log('validationBank_RadioButton');
@@ -2604,13 +2604,13 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_TextBoxValidation(pObjName, pValidText, pRequired, pAction) {
 		/*
 			Function: Validate textbox with validation text
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var bValid = true;
 		if (pRequired == "1") {
@@ -2621,7 +2621,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass("invalid");
 						pRow.removeClass('hint');
 						pRow.removeClass('required');
@@ -2646,7 +2646,7 @@
 					//pRow.attr('class', 'form-row invalid');
 					if (pAction == 4) {
 						bValid = false;
-					} 
+					}
 				} else {
 					if (pObj.val() == "") {
 						pRow.removeClass("invalid");
@@ -2670,7 +2670,7 @@
 					//pRow.attr('class', 'form-row invalid');
 					if (pAction == 4) {
 						bValid = false;
-					} 
+					}
 				} else {
 					if (pObj.val() == "") {
 						pRow.removeClass("invalid");
@@ -2686,7 +2686,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -2696,7 +2696,7 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_CheckBoxes(pObjName, pRequired, pAction) {
 		/*
 			Function: Validate Checkboxes
@@ -2717,7 +2717,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('required')
 						//p+Row.attr('class', 'form-row');
 				} else if (pAction == 3) {
@@ -2755,12 +2755,12 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_TextBoxDate(pObjName, pRequired, pAction) {
 		/*
 			pAction - 1:Focus | 2:Focusout | 3:bind | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var bValid = true;
 		if (pRequired == "1") {
@@ -2771,7 +2771,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass("invalid");
 						pRow.removeClass('hint');
 						pRow.removeClass('required');
@@ -2836,7 +2836,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -2846,25 +2846,25 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_TextBoxDateRange(pObjName, pRequired, pAction) {
 		/*
 			pAction - 1:Focus | 2:Focusout | 3:bind | 4:validation
 		*/
-		var pObj		 = $("#" + pObjName + "_FROM");	
-		var pObj2		 = $("#" + pObjName + "_TO");	
+		var pObj		 = $("#" + pObjName + "_FROM");
+		var pObj2		 = $("#" + pObjName + "_TO");
 		var pRow		 = $("#row-" + pObjName);
 		var pInvalidMsg	 = $("#invalid-" + pObjName);
 		var bValid 		= true;
 		if (pRequired == "1") {
-			if (trim(pObj.val()) == "") { 
+			if (trim(pObj.val()) == "") {
 				if (pAction == 1) {
 					pRow.removeClass("invalid");
 					pRow.removeClass("required");
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass("invalid");
 						pRow.removeClass('hint');
 						pRow.removeClass('required');
@@ -2882,7 +2882,7 @@
 					bValid = false;
 				}
 			} else {
-				if (!validateUSDate(trim(pObj.val()))) { 
+				if (!validateUSDate(trim(pObj.val()))) {
 					pRow.removeClass('hint');
 					pRow.removeClass('required');
 					pRow.addClass('invalid');
@@ -2891,14 +2891,14 @@
 						bValid = false;
 					}
 				} else {
-					if (trim(pObj2.val()) == '') { 
+					if (trim(pObj2.val()) == '') {
 						if (pAction == 1) {
 							pRow.removeClass("invalid");
 							pRow.removeClass("required");
 							pRow.addClass("hint");
 							//pRow.attr('class', 'form-row hint');
 						} else if (pAction == 2) {
-							if (pRow.attr('class') != "form-row required") 
+							if (pRow.attr('class') != "form-row required")
 								pRow.removeClass('required')
 								//p+Row.attr('class', 'form-row');
 						} else if (pAction == 3) {
@@ -2906,7 +2906,7 @@
 							pRow.removeClass('hint');
 							pRow.addClass('required');
 							//p+Row.attr('class', 'form-row required');
-						} 
+						}
 						if (pAction == 4) {
 							pRow.removeClass("invalid");
 							pRow.removeClass('hint');
@@ -2915,7 +2915,7 @@
 							bValid = false;
 						}
 					} else {
-						if (!validateUSDate(trim(pObj2.val()))) { 
+						if (!validateUSDate(trim(pObj2.val()))) {
 							pRow.removeClass('hint');
 							pRow.removeClass('required');
 							pRow.addClass('invalid');
@@ -2923,19 +2923,19 @@
 							if (pAction == 4) {
 								bValid = false;
 							}
-						} else { 
+						} else {
 							pRow.removeClass("invalid");
 							pRow.removeClass('hint');
 							pRow.removeClass('required');
 							//p+Row.attr('class', 'form-row');
-						} 
+						}
 					}
 				}
 			}
-			if (trim(pObj.val()) != '' && trim(pObj2.val()) != '' && validateUSDate(trim(pObj.val())) && validateUSDate(trim(pObj2.val()))) { 
-				var dAppStart = new Date (trim(pObj.val())); 
-				var dAppVirtual = new Date (trim(pObj2.val())); 									
-				if (dAppVirtual < dAppStart ) { 
+			if (trim(pObj.val()) != '' && trim(pObj2.val()) != '' && validateUSDate(trim(pObj.val())) && validateUSDate(trim(pObj2.val()))) {
+				var dAppStart = new Date (trim(pObj.val()));
+				var dAppVirtual = new Date (trim(pObj2.val()));
+				if (dAppVirtual < dAppStart ) {
 					pRow.removeClass('hint');
 					pRow.removeClass('required');
 					pRow.addClass('invalid');
@@ -2943,24 +2943,24 @@
 					if (pAction == 4) {
 						bValid = false;
 					}
-				} 
-				else { 
+				}
+				else {
 					pRow.removeClass("invalid");
 					pRow.removeClass('hint');
 					pRow.removeClass('required');
 					//p+Row.attr('class', 'form-row');
-				} 
+				}
 			}
 		} else {
-			if ((trim(pObj.val()) != "") || (trim(pObj2.val()) != "")) { 
-				if (trim(pObj.val()) == "") { 
+			if ((trim(pObj.val()) != "") || (trim(pObj2.val()) != "")) {
+				if (trim(pObj.val()) == "") {
 					if (pAction == 1) {
 						pRow.removeClass("invalid");
 						pRow.removeClass("required");
 						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
-						if (pRow.attr('class') != "form-row required") 
+						if (pRow.attr('class') != "form-row required")
 							pRow.removeClass('required')
 							//p+Row.attr('class', 'form-row');
 					} else if (pAction == 3) {
@@ -2968,7 +2968,7 @@
 						pRow.removeClass('hint');
 						pRow.addClass('required');
 						//p+Row.attr('class', 'form-row required');
-					} 
+					}
 					if (pAction == 4) {
 						pRow.removeClass("invalid");
 						pRow.removeClass('hint');
@@ -2977,7 +2977,7 @@
 						bValid = false;
 					}
 				} else {
-					if (!validateUSDate(trim(pObj.val()))) { 
+					if (!validateUSDate(trim(pObj.val()))) {
 						pRow.removeClass('hint');
 						pRow.removeClass('required');
 						pRow.addClass('invalid');
@@ -2986,14 +2986,14 @@
 							bValid = false;
 						}
 					} else {
-						if (trim(pObj2.val()) == '') { 
+						if (trim(pObj2.val()) == '') {
 							if (pAction == 1) {
 								pRow.removeClass("invalid");
 								pRow.removeClass("required");
 								pRow.addClass("hint");
 								//pRow.attr('class', 'form-row hint');
 							} else if (pAction == 2) {
-								if (pRow.attr('class') != "form-row required") 
+								if (pRow.attr('class') != "form-row required")
 									pRow.removeClass('required')
 									//p+Row.attr('class', 'form-row');
 							} else if (pAction == 3) {
@@ -3001,7 +3001,7 @@
 								pRow.removeClass('hint');
 								pRow.addClass('required');
 								//p+Row.attr('class', 'form-row required');
-							} 
+							}
 							if (pAction == 4) {
 								pRow.removeClass("invalid");
 								pRow.removeClass('hint');
@@ -3010,7 +3010,7 @@
 								bValid = false;
 							}
 						} else {
-							if (!validateUSDate(trim(pObj2.val()))) { 
+							if (!validateUSDate(trim(pObj2.val()))) {
 								pRow.removeClass('hint');
 								pRow.removeClass('required');
 								pRow.addClass('invalid');
@@ -3018,19 +3018,19 @@
 								if (pAction == 4) {
 									bValid = false;
 								}
-							} else { 
+							} else {
 								pRow.removeClass("invalid");
 								pRow.removeClass('hint');
 								pRow.removeClass('required');
 								//p+Row.attr('class', 'form-row');
-							} 
+							}
 						}
 					}
 				}
-				if (trim(pObj.val()) != '' && trim(pObj2.val()) != '' && validateUSDate(trim(pObj.val())) && validateUSDate(trim(pObj2.val()))) { 
-					var dAppStart = new Date (trim(pObj.val())); 
-					var dAppVirtual = new Date (trim(pObj2.val())); 									
-					if (dAppVirtual < dAppStart ) { 
+				if (trim(pObj.val()) != '' && trim(pObj2.val()) != '' && validateUSDate(trim(pObj.val())) && validateUSDate(trim(pObj2.val()))) {
+					var dAppStart = new Date (trim(pObj.val()));
+					var dAppVirtual = new Date (trim(pObj2.val()));
+					if (dAppVirtual < dAppStart ) {
 						pRow.removeClass('hint');
 						pRow.removeClass('required');
 						pRow.addClass('invalid');
@@ -3038,13 +3038,13 @@
 						if (pAction == 3) {
 							bValid = false;
 						}
-					} 
-					else { 
+					}
+					else {
 						pRow.removeClass("invalid");
 						pRow.removeClass('hint');
 						pRow.removeClass('required');
 						//p+Row.attr('class', 'form-row');
-					} 
+					}
 				}
 			} else {
 				pRow.removeClass("invalid");
@@ -3053,7 +3053,7 @@
 				//pRow.attr('class', 'form-row hint');
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -3063,7 +3063,7 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_DocumentUpload(pObjName, pRequired, pAction) {
 		/*
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
@@ -3106,7 +3106,7 @@
 						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
-						if (pRow.attr('class') != "form-row required") 
+						if (pRow.attr('class') != "form-row required")
 							pRow.removeClass('required')
 							//p+Row.attr('class', 'form-row');
 					} else if (pAction == 3) {
@@ -3119,7 +3119,7 @@
 						//p+Row.attr('class', 'form-row required');
 						bValid = false;
 					}
-				} 
+				}
 			} else {
 				if (trim(pObj.val()) != "") {
 					var sValDoc = trim(pObj2.val());
@@ -3144,7 +3144,7 @@
 							pRow.removeClass('hint');
 							pRow.removeClass('required');
 							//p+Row.attr('class', 'form-row');
-						}	
+						}
 					}
 				} else {
 					pRow.removeClass('hint');
@@ -3152,8 +3152,8 @@
 					//p+Row.attr('class', 'form-row');
 				}
 			}
-		} 
-		
+		}
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -3163,7 +3163,7 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_TranscriptUpload(pObjName, pRequired, pAction) {
 		/*
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
@@ -3173,7 +3173,7 @@
 		var pObj3			= $("#" + pObjName + "_ORI");
 		var pRow			= $("#row-" + pObjName);
 		var bValid 		= true;
-		
+
 		if (pObj.length > 0) {
 			if (pRequired == "1") {
 				if ((trim(pObj.val()) != "") || (trim(pObj2.val()) != "")) {
@@ -3201,7 +3201,7 @@
 						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
-						if (pRow.attr('class') != "form-row required") 
+						if (pRow.attr('class') != "form-row required")
 							pRow.removeClass('required')
 							//p+Row.attr('class', 'form-row');
 					} else if (pAction == 3) {
@@ -3214,7 +3214,7 @@
 						//p+Row.attr('class', 'form-row required');
 						bValid = false;
 					}
-				} 
+				}
 			} else {
 				if (trim(pObj.val()) != "") {
 					var sValDoc = trim(pObj2.val());
@@ -3233,7 +3233,7 @@
 							pRow.removeClass('hint');
 							pRow.removeClass('required');
 							//p+Row.attr('class', 'form-row');
-						}	
+						}
 					}
 				} else {
 					pRow.removeClass('hint');
@@ -3241,8 +3241,8 @@
 					//p+Row.attr('class', 'form-row');
 				}
 			}
-		} 
-		
+		}
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -3252,7 +3252,7 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_ResumeUpload(pObjName, pRequired, pAction) {
 		/*
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
@@ -3286,7 +3286,7 @@
 						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
-						if (pRow.attr('class') != "form-row required") 
+						if (pRow.attr('class') != "form-row required")
 							pRow.removeClass('required')
 							//p+Row.attr('class', 'form-row');
 					} else if (pAction == 3) {
@@ -3299,7 +3299,7 @@
 						//p+Row.attr('class', 'form-row required');
 						bValid = false;
 					}
-				} 
+				}
 			} else {
 				if (trim(pObj.val()) != "") {
 					var sValDoc = trim(pObj2.val());
@@ -3315,7 +3315,7 @@
 							pRow.removeClass('hint');
 							pRow.removeClass('required');
 							//p+Row.attr('class', 'form-row');
-						}	
+						}
 					}
 				} else {
 					pRow.removeClass('hint');
@@ -3323,8 +3323,8 @@
 					//p+Row.attr('class', 'form-row');
 				}
 			}
-		} 
-		
+		}
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -3334,12 +3334,12 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_TextAreaWithCounter(pObjName, pCounter, pMaxWord, pRequired, pAction) {
 		/*
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj			= $("#" + pObjName);	
+		var pObj			= $("#" + pObjName);
 		var pRow			= $("#row-" + pObjName);
 		var pTempContent	= $("#" + pCounter);
 		var bValid = true;
@@ -3351,7 +3351,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('invalid')
 						pRow.removeClass('required')
 						pRow.removeClass('hint')
@@ -3440,7 +3440,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -3450,12 +3450,12 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_LateCode(pObjName, pID, pRequired, pAction) {
 		/*
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var bValid = true;
 		if (pRequired == "1") {
@@ -3465,7 +3465,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('required')
 						//p+Row.attr('class', 'form-row');
 				} else if (pAction == 3) {
@@ -3480,9 +3480,9 @@
 				}
 			} else {
 				$.ajax({
-				  type: "POST",
-				  url: "/include/validate_LateCode.asp",
-				  data: { code: trim(pObj.val()), id: pID }
+					type: "POST",
+					url: "/include/validate_LateCode.asp",
+					data: { code: trim(pObj.val()), id: pID }
 				}).done(function( msg ) {
 					if (msg == "1") {
 						pRow.removeClass('hint');
@@ -3496,7 +3496,7 @@
 					}
 				});
 			}
-		} 
+		}
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -3506,13 +3506,13 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_ReviewerEmail(pObjName, pRequired, pAction) {
 		/*
 			Function: Validate Email & check it with existing email (for register and update email)
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var pInvMsg	= $("#invalid-" + pObjName);
 		var bValid = true;
@@ -3524,7 +3524,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('invalid');
 						pRow.removeClass("required");
 						pRow.removeClass("hint");
@@ -3553,9 +3553,9 @@
 					//pRow.attr('class', 'form-row invalid');
 				} else {
 					$.ajax({
-					  type: "POST",
-					  url: "/include/validate_reviewerEmail.asp",
-					  data: { email: trim(pObj.val()) }
+						type: "POST",
+						url: "/include/validate_reviewerEmail.asp",
+						data: { email: trim(pObj.val()) }
 					}).done(function( msg ) {
 						if (msg == "1") {
 							pRow.removeClass('invalid');
@@ -3617,9 +3617,9 @@
 					//pRow.attr('class', 'form-row invalid');
 				} else {
 					$.ajax({
-					  type: "POST",
-					  url: "/include/validate_reviewerEmail.asp",
-					  data: { email: trim(pObj.val()) }
+						type: "POST",
+						url: "/include/validate_reviewerEmail.asp",
+						data: { email: trim(pObj.val()) }
 					}).done(function( msg ) {
 						if (msg == "1") {
 							pRow.removeClass('invalid');
@@ -3657,7 +3657,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -3667,13 +3667,13 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_ReferenceEmail(pObjName, pMode, pRequired, pAction) {
 		/*
 			Function: Validate Email & check it with existing email (for register and update email)
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var pInvMsg	= $("#invalid-" + pObjName);
 		var bValid = true;
@@ -3685,7 +3685,7 @@
 					pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('invalid');
 						pRow.removeClass("required");
 						pRow.removeClass("hint");
@@ -3714,9 +3714,9 @@
 					//pRow.attr('class', 'form-row invalid');
 				} else {
 					$.ajax({
-					  type: "POST",
-					  url: "/include/validate_referenceEmail.asp",
-					  data: { email: trim(pObj.val()) }
+						type: "POST",
+						url: "/include/validate_referenceEmail.asp",
+						data: { email: trim(pObj.val()) }
 					}).done(function( msg ) {
 						if (msg == "1") {
 							pRow.removeClass('invalid');
@@ -3778,9 +3778,9 @@
 					//pRow.attr('class', 'form-row invalid');
 				} else {
 					$.ajax({
-					  type: "POST",
-					  url: "/include/validate_referenceEmail.asp",
-					  data: { email: trim(pObj.val()) }
+						type: "POST",
+						url: "/include/validate_referenceEmail.asp",
+						data: { email: trim(pObj.val()) }
 					}).done(function( msg ) {
 						if (msg == "1") {
 							pRow.removeClass('invalid');
@@ -3817,7 +3817,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -3827,13 +3827,13 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_ReferenceEmail2(pObjName, pObjID, pMode, pAid, pRequired, pAction) {
 		/*
 			Function: Validate Email & check it with existing email (for register and update email)
 			pAction - 1:Focus | 2:Focusout | 3:change | 4:validation
 		*/
-		var pObj	= $("#" + pObjName);	
+		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var pInvMsg	= $("#invalid-" + pObjName);
 		var pID		= $("#" + pObjID).val();
@@ -3847,7 +3847,7 @@
 					//pRow.addClass("hint");
 					//pRow.attr('class', 'form-row hint');
 				} else if (pAction == 2) {
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('invalid-associated');
 						pRow.removeClass('invalid');
 						pRow.removeClass("required");
@@ -3880,9 +3880,9 @@
 					//pRow.attr('class', 'form-row invalid');
 				} else {
 					$.ajax({
-					  type: "POST",
-					  url: "/include/validate_referenceEmail.asp",
-					  data: { id: pID, mode: pMode, aid: pAid, email: trim(pObj.val()) }
+						type: "POST",
+						url: "/include/validate_referenceEmail.asp",
+						data: { id: pID, mode: pMode, aid: pAid, email: trim(pObj.val()) }
 					}).done(function( msg ) {
 						if (msg == "1") {
 							pRow.removeClass('invalid');
@@ -3951,9 +3951,9 @@
 					//pRow.attr('class', 'form-row invalid');
 				} else {
 					$.ajax({
-					  type: "POST",
-					  url: "/include/validate_referenceEmail.asp",
-					  data: { id: pID, mode: pMode, aid: pAid, email: trim(pObj.val()) }
+						type: "POST",
+						url: "/include/validate_referenceEmail.asp",
+						data: { id: pID, mode: pMode, aid: pAid, email: trim(pObj.val()) }
 					}).done(function( msg ) {
 						if (msg == "1") {
 							pRow.removeClass('invalid-associated');
@@ -3995,7 +3995,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -4005,7 +4005,7 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_DropDownMessageCenter (pObjName, pObjName2, pRequired, pAction, pOtherObjName) {
 		var pObj	= $("#" + pObjName);
 		var pOtherObj	= $("#" + pOtherObjName);
@@ -4022,7 +4022,7 @@
 						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
 					} else if (pAction == 2) {
-						if (pRow.attr('class') != "form-row required") 
+						if (pRow.attr('class') != "form-row required")
 							pRow.removeClass('required')
 							//p+Row.attr('class', 'form-row');
 					} else if (pAction == 3) {
@@ -4044,7 +4044,7 @@
 						if (pAction == 1) {
 							pOtherRow.attr('class', 'form-row hint');
 						} else if (pAction == 2) {
-							if (pOtherRow.attr('class') != "form-row required") 
+							if (pOtherRow.attr('class') != "form-row required")
 								pOtherRow.attr('class', 'form-row');
 						} else if (pAction == 3) {
 							pOtherRow.attr('class', 'form-row');
@@ -4064,7 +4064,7 @@
 				//p+Row.attr('class', 'form-row');
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 
@@ -4074,12 +4074,12 @@
 			return bValid;
 		}
 	}
-	
+
 	function validationBank_TextBoxGPA(pObjName, pRequired, pAction) {
 		var pObj	= $("#" + pObjName);
 		var pRow	= $("#row-" + pObjName);
 		var bValid = true;
-		
+
 		if (pRequired == "1") {
 			if (pObj.val() == "" || pObj.val() == 0) {
 				if (pAction == 1) {
@@ -4090,7 +4090,7 @@
 				} else if (pAction == 2) {
 					//pRow.removeClass('hint');
 					//pRow.addClass('required');
-					if (pRow.attr('class') != "form-row required") 
+					if (pRow.attr('class') != "form-row required")
 						pRow.removeClass('invalid');
 						pRow.removeClass('hint');
 						pRow.removeClass('required');
@@ -4133,7 +4133,7 @@
 							pRow.removeClass("required");
 							pRow.addClass("hint");
 							//pRow.attr('class', 'form-row hint');
-						} 
+						}
 					} else {
 						pRow.removeClass('hint');
 						pRow.removeClass('invalid');
@@ -4145,7 +4145,7 @@
 						pRow.attr('class', 'form-row invalid');
 						if (pAction == 3) {
 							bValid = false;
-						} 
+						}
 					} else {
 					}
 					/**/
@@ -4166,7 +4166,7 @@
 						pRow.removeClass("required");
 						pRow.addClass("hint");
 						//pRow.attr('class', 'form-row hint');
-					} 
+					}
 				}
 			}
 		} else {
@@ -4180,7 +4180,7 @@
 						//p+Row.attr('class', 'form-row invalid');
 						if (pAction == 3) {
 							bValid = false;
-						} 
+						}
 					} else {
 						pRow.removeClass('invalid');
 						pRow.removeClass('hint');
@@ -4192,7 +4192,7 @@
 						pRow.attr('class', 'form-row invalid');
 						if (pAction == 3) {
 							bValid = false;
-						} 
+						}
 					} else {
 					}
 					/**/
@@ -4203,7 +4203,7 @@
 					//p+Row.attr('class', 'form-row invalid');
 					if (pAction == 3) {
 						bValid = false;
-					} 
+					}
 				}
 			} else {
 				if (pAction == 4) {
@@ -4219,7 +4219,7 @@
 				}
 			}
 		}
-		
+
 		if (pAction == 4) {
 			if ($is_debug) {
 

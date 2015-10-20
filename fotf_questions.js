@@ -428,7 +428,7 @@ $.widget( "orchestrate.fotf_questions", {
 		//this.element.find('input.mask-phone_us').mask('(999) 999-9999? x99999');
 		this.element.find('input.mask-phone_us').mask('(000) 000-0000');
 		//this.element.find('input.mask-phone_international').mask('+99 99 9999 9999');
-		this.element.find('input.mask-phone_international').mask('(00) 0000-0000');
+		this.element.find('input.mask-phone_international').mask('(00) 00000000000000');
 	},
 
 	_addAsterix: function() {
@@ -550,8 +550,18 @@ $.widget( "orchestrate.fotf_questions", {
 					//added toggle flag on dialog if exists
 					if ($('#dialog-flag').length > 0) {
 						self._updateDialogFlagData(json);
+					} else if ($('#application-extension-ajax-data-container').length > 0) {
+						var field = $('#application-extension-ajax-data-container')
+												.data('field-name');
+						if (field.indexOf(',') > -1 ) {
+							var arrTmp = field.split(',');
+							$.each(arrTmp, function(i, v) {
+								$('#application-extension-ajax-data-container').data(v, json[v]);
+							});
+							$('#application-extension-ajax-data-container')
+							.find('.toggle-form').trigger('change');
+						}
 					}
-				} else {
 				}
 			});
 
@@ -654,14 +664,15 @@ $.widget( "orchestrate.fotf_questions", {
 		cached['.input_upload'].each(function(index, el) {
 			var warn_ext = $(el).data('ext');
 			if (warn_ext.indexOf('|') > -1) {
-				warn_ext = warn_ext.replace(/\|/g, ',');
+				warn_ext = warn_ext.replace(/\|(?![\s\S]*\|)/g, ' and ');
+				warn_ext = warn_ext.replace(/\|/g, ', ');
 			}
 			$(el).rules('add'
 					, {
 						extension : $(el).data('ext')
 						, windows_compliance : true
 						, messages : {
-							extension : 'Valid file format ' + warn_ext
+							extension : 'Only ' + warn_ext + ' file formats are allowed'
 						}
 					}
 			);
@@ -804,6 +815,29 @@ $.widget( "orchestrate.fotf_questions", {
 			);
 		});
 
+		/* suid - remote */
+		cached['.input_suid'].each(function(index, el) {
+			$(el).rules('add'
+					, {
+		 				remote: {
+								url: "ajax/ajax_suid_jquery_validation.asp",
+								type: "post",
+								data: {
+								applicantID: function() {
+									return $(el).data('applicantid');
+								},
+								type: function() {
+									return $(el).data('type');
+								}
+							}
+						}
+						, messages : {
+							remote : 'SUID already taken'
+						}
+					}
+			);
+		});
+
 		/* email */
 		cached['.input_email'].each(function(index, el) {
 			if ($(el).prop('placeholder') != '') {
@@ -861,6 +895,38 @@ $.widget( "orchestrate.fotf_questions", {
 			);
 		});
 
+		/* email reference */
+		cached['.input_email_reference'].each(function(index, el) {
+			switch($(el).data('reference-type')) {
+				case 'bosp':
+					$(el).rules('add'
+							, {
+								email: true
+								, remote: {
+										url: $(el).data('validation-url'),
+										type: "post",
+										data: {
+										id: function() {
+											return $(el).data('reference-id');
+										}
+										, mode: function() {
+											return $(el).data('email-mode');
+										}
+										, aid: function() {
+											return $(el).data('aid');
+										}
+									}
+								}
+								, messages : {
+									remote : 'This email address is associated to an account. Please enter a different email address.'
+								}
+							}
+					);
+					break;
+				default:
+					break;
+			}
+		});
 		/* email text area no remote */
 		cached['.textarea_email_textarea_no_remote'].each(function(index, el) {
 			$(el).rules('add'
@@ -1024,7 +1090,8 @@ $.widget( "orchestrate.fotf_questions", {
 	 * _bindUIActions : bind UI Event on record_list
 	 */
 	_bindUIActions: function() {
-		var cached = this.cached,
+		var self = this,
+				cached = this.cached,
 				opts = this.options;
 
 		//placeholder
@@ -1101,9 +1168,9 @@ $.widget( "orchestrate.fotf_questions", {
 		cached['.fotf_checkbox'].change(function(event) {
 			var id = 'hd_chk' + $(this).attr('name');
 			if ($(this).prop('checked')) {
-				$('#' + id).val(1).trigger('change');
+				self.form_elem.find('#' + id).val(1).trigger('change');
 			} else {
-				$('#' + id).val(0).trigger('change');
+				self.form_elem.find('#' + id).val(0).trigger('change');
 			}
 		});
 
@@ -1120,13 +1187,13 @@ $.widget( "orchestrate.fotf_questions", {
 				}
 			});
 			value = array.join(',');
-			$('#hd_chk' + $(this).attr('name')).val(value).trigger('change');
+			self.form_elem.find('#hd_chk' + $(this).attr('name')).val(value).trigger('change');
 		});
 
 		//dropdown
 		cached['.fotf_dropdown'].change(function(event) {
 			var id = 'hd_sel' + $(this).attr('name')
-			$('#' + id).val($(this).val()).trigger('change');
+			self.form_elem.find('#' + id).val($(this).val()).trigger('change');
 		});
 
 		if (opts.is_portal) {
@@ -1233,7 +1300,9 @@ $.widget( "orchestrate.fotf_questions", {
 				, $input_console_password = $table.find('input.validate-console_password')
 				, $input_sql_year = $table.find('input.validate-sql_year')
 				, $input_email = $table.find('input.validate-email')
+				, $input_suid = $table.find('input.validate-suid')
 				, $input_email_no_remote = $table.find('input.validate-email-no-remote')
+				, $input_email_reference = $table.find('input.validate-email-reference')
 				, $textarea_email_textarea_no_remote = $table.find('textarea.validate-email-textarea-no-remote')
 				, $input_common_email = $table.find('input.validate-common_email')
 				, $input_gpa = $table.find('input.validate-gpa')
@@ -1279,7 +1348,9 @@ $.widget( "orchestrate.fotf_questions", {
 			, '.input_console_password' : $input_console_password
 			, '.input_sql_year' : $input_sql_year
 			, '.input_email' : $input_email
+			, '.input_suid' : $input_suid
 			, '.input_email_no_remote' : $input_email_no_remote
+			, '.input_email_reference' : $input_email_reference
 			, '.input_common_email' : $input_common_email
 			, '.input_gpa' : $input_gpa
 			, '.input_numeric' : $input_numeric

@@ -120,6 +120,9 @@ $.widget( "orchestrate.adv_query", {
 							data.session = $(this).val();
 
 							break;
+						case 'app_profile':
+							data.appid = $(this).val();
+							break;
 						case 'program':
 							if ($('#hdsel_SessionMultiple').val() != '') {
 								data.session = $('#hdsel_SessionMultiple').val();
@@ -150,7 +153,6 @@ $.widget( "orchestrate.adv_query", {
 		var self = this,
 				cached = self.cached,
 				opts = self.options;
-
 		$.each(cached['.multiple_filter_select'], function(index, val) {
 			$(val).change(function(event) {
 				var options = $(this).children('option');
@@ -173,6 +175,9 @@ $.widget( "orchestrate.adv_query", {
 							case 'session':
 								data.session = values;
 								break;
+							case 'app_profile':
+								data.appid = $(this).val();
+								break;
 							case 'program':
 								if ($('#hdsel_SessionMultiple').val() != '') {
 									data.session = $('#hdsel_SessionMultiple').val();
@@ -193,9 +198,11 @@ $.widget( "orchestrate.adv_query", {
 						//nothing
 					}
 				} else {
-					$(this).closest('.multiple_filter').val('')
-									.children('.hd_multiple_filter')
-									.trigger('change');
+					if (query_filter.data('change-trigger')) {
+						$(this).closest('.multiple_filter').val('')
+										.children('.hd_multiple_filter')
+										.trigger('change');
+					}
 				}
 				//reset trigger back to false
 				query_filter.data('change-trigger', false);
@@ -376,6 +383,9 @@ $.widget( "orchestrate.adv_query", {
 				} else {
 					hd_value = [0];
 				}
+				hd_value = hd_value.map(function (string) {
+					return $.trim(string);
+				});
 
 				//alter value
 				if (select.val()) {
@@ -453,7 +463,10 @@ $.widget( "orchestrate.adv_query", {
 
 		//program filter popup
 		win.program = function (data) {
-			var iHandle = window.open('popup_program_add.asp?session=' + data.session
+			var iHandle = window.open('popup_program_add.asp?'
+																+ 'session=' + data.session
+																+ '&program='+ data.program
+																+ '&appid='+ data.appid
 																,'_blank'
 																,'width=650,height=350,toolbar=no,top=100' +
 																',left=100,location=no,directories=no' +
@@ -487,6 +500,60 @@ $.widget( "orchestrate.adv_query", {
 			return true;
 		}
 
+		//substatus filter popup
+		win.substatus = function (data) {
+			var iHandle = window.open('popup_substatus_add.asp','_blank'
+																,'width=650,height=350,toolbar=no,top=100' +
+																',left=100,location=no,directories=no' +
+																',status=yes,menubar=no,scrollbars=yes' +
+																',copyhistory=no,resizable=yes');
+			popupHandle[ iTotalPopup++ ] = iHandle;
+			return true;
+		}
+
+		//tag filter popup
+		win.tag = function (data) {
+			var iHandle = window.open('popup_tag_add.asp','_blank'
+																,'width=650,height=350,toolbar=no,top=100' +
+																',left=100,location=no,directories=no' +
+																',status=yes,menubar=no,scrollbars=yes' +
+																',copyhistory=no,resizable=yes');
+			popupHandle[ iTotalPopup++ ] = iHandle;
+			return true;
+		}
+
+		//extension filter popup
+		win.extension = function (data) {
+			var iHandle = window.open('popup_extension_add.asp','_blank'
+																,'width=650,height=350,toolbar=no,top=100' +
+																',left=100,location=no,directories=no' +
+																',status=yes,menubar=no,scrollbars=yes' +
+																',copyhistory=no,resizable=yes');
+			popupHandle[ iTotalPopup++ ] = iHandle;
+			return true;
+		}
+
+		//orientationverification filter popup
+		win.orientationverification = function (data) {
+			var iHandle = window.open('popup_orientationverification_add.asp','_blank'
+																,'width=650,height=350,toolbar=no,top=100' +
+																',left=100,location=no,directories=no' +
+																',status=yes,menubar=no,scrollbars=yes' +
+																',copyhistory=no,resizable=yes');
+			popupHandle[ iTotalPopup++ ] = iHandle;
+			return true;
+		}
+		//passport filter popup
+		win.passport = function (data) {
+			var iHandle = window.open('popup_passport_add.asp','_blank'
+																,'width=650,height=350,toolbar=no,top=100' +
+																',left=100,location=no,directories=no' +
+																',status=yes,menubar=no,scrollbars=yes' +
+																',copyhistory=no,resizable=yes');
+			popupHandle[ iTotalPopup++ ] = iHandle;
+			return true;
+		}
+
 		this.popup.filter = win;
 	},
 
@@ -502,6 +569,7 @@ $.widget( "orchestrate.adv_query", {
 
 		if (data && data.indexOf('|||~~|||') > -1) {
 			var all = data.split('|||~~|||');
+			console.log(all);
 
 			var app_string = all[0];
 			$('#' + objName).html('');
@@ -741,6 +809,239 @@ $.widget( "orchestrate.adv_query", {
 });
 
 /** extension **/
+$.widget( "orchestrate.advanced_applications", $.orchestrate.adv_query, {
+	/**
+	 * _popupAdvancedFilter : popup advanced filter
+	 */
+	_popupAdvancedFilter: function() {
+		var self = this,
+				cached = self.cached,
+				opts = self.options;
+				win_filter = self.options;
+
+		$.each(cached['.btn_popup-filter'], function(index, val) {
+			$(val).click(function(event) {
+				var popup_name = $(this).data('popup');
+				var data = {} || data;
+				data.program = '';
+				data.session = '';
+
+				switch(popup_name) {
+					case 'program':
+						if ($('#hdsel_AppIDMultiple').val() != '') {
+							data.appid = $('#hdsel_AppIDMultiple').val();
+						} else if ($('#hdsel_AppIDSingle').val() != ''
+							&& $('#hdsel_AppIDSingle').val() != 0
+						) {
+							data.appid = $('#hdsel_AppIDSingle').val();
+						} else {
+							data.appid = '';
+						}
+
+						break;
+					default :
+				}
+
+				//call popup filter
+				self.popup.filter[popup_name](data);
+			});
+		});
+	},
+
+	/**
+	 * _buttonMultipleOptionsRemove : button multiple options
+	 */
+	_buttonMultipleOptionsRemove: function() {
+		var cached = this.cached,
+				opts = this.options;
+
+		$.each(cached['.btn-remove'], function(index, val) {
+			$(val).click(function(event) {
+				var lyr = $(this).closest('.multiple_filter');
+				var select = lyr.find('.multiple_filter_select');
+
+				//gets hidden value
+				var hd_value = lyr.find('.hd_multiple_filter').val();
+				if (hd_value) {
+					if (hd_value.indexOf(',') > -1) {
+						hd_value = hd_value.split(',');
+					} else {
+						hd_value = [hd_value];
+					}
+				} else {
+					hd_value = [0];
+				}
+				hd_value = hd_value.map(function (string) {
+					return $.trim(string);
+				});
+				//alter value
+				if (select.val()) {
+					var value = select.val();
+					var diff_hd_value = [];
+					$.each(value, function(index, val) {
+						select.find('option[value=' + val + ']').remove();
+						if ($.inArray(val, hd_value) > -1 ) {
+							diff_hd_value.push(val);
+						} else {
+							//do nothing
+						}
+					});
+
+					new_hd_value = hd_value.diff(diff_hd_value);
+					var data = data || {};
+					data.column = select.attr('id').toLowerCase().replace('sel_', '')
+												.replace('multiple', '');
+					data.value = new_hd_value.toString();
+					$.ajax({url: '/console/include/clear_cookies_applications.asp'})
+					.done(function() {
+						$.ajax({
+							url: 'ajax/ajax_updaterecordlistfilter_multiple.asp',
+							type: 'POST',
+							data: data
+						})
+						.done(function (data, textStatus, jqXHR) {
+							//settings filter change flag
+							$(val).closest('.filter').prevAll('.query_filter:first')
+																				.data('change-trigger', true);
+							//setting new hidden value
+							select.trigger('change');
+							window.location.href = "/console/scholarships/applications/";
+							clearAll(1);
+						})
+						.fail(function (jqXHR, textStatus, errorThrown) {
+						})
+						.always(function() {
+						});
+					});
+				} else {
+					//nothing
+				}
+			});
+		});
+	},
+
+	/**
+	 * _ajaxFilterCallback : cached popup filter using state design
+	 */
+	_ajaxFilterCallback: function() {
+		var self = this,
+				cached = self.cached,
+				opts = self.options;
+
+		var ajaxXHR = {} || ajaxXHR;
+
+		//app_profile ajax filter
+		ajaxXHR.app_profile = function (data) {
+			return true;
+		}
+
+		//program ajax filter
+		ajaxXHR.program = function (data) {
+			return true;
+		}
+
+		//session ajax filter
+		ajaxXHR.session = function (data) {
+			return true;
+		}
+		//status ajax filter
+		ajaxXHR.status = function (data) {
+			return true;
+		}
+
+		this.ajax.filter = ajaxXHR;
+	},
+
+	/**
+	 * _removeSingleOptions : toggle filter
+	 */
+	_removeSingleOptions: function(obj) {
+		var self = this,
+				cached = self.cached,
+				opts = self.options;
+		var select = obj.find('select');
+		if (obj.hasClass('single_filter')) {
+			var single = obj.find('.hd_single_filter');
+			var multiple = obj.next('.filter').find('.hd_multiple_filter');
+		} else if (obj.hasClass('multiple_filter')) {
+			var single = obj.prev('.filter').find('.hd_single_filter');
+			var multiple = obj.find('.hd_multiple_filter');
+		} else {
+			var single = obj.find('.hd_single_filter');
+			var multiple = obj.find('.hd_multiple_filter');
+		}
+		var ix = $(multiple).prop('id').toLowerCase().replace('hdsel_', '').replace('multiple', '')
+		var data = data || {};
+		data.column = ix;
+		$.ajax({url: '/console/include/clear_cookies_applications.asp'})
+		.done(function() {
+			$.ajax({
+				url: 'ajax/ajax_updaterecordlistfilter_multiple.asp',
+				type: 'POST',
+				data: data
+			})
+			.done(function (data, textStatus, jqXHR) {
+				self._resetValue(obj)
+			})
+			.fail(function (jqXHR, textStatus, errorThrown) {
+			})
+			.always(function() {
+			});
+		});
+	},
+
+	/**
+	 * _removeMultipleOptions : toggle filter
+	 */
+	_removeMultipleOptions: function(obj) {
+		var self = this,
+				cached = self.cached,
+				opts = self.options;
+		var select = obj.find('select');
+
+		select.children('option').each(function(index, el) {
+			$(el).remove();
+		});
+		//this._resetValue(obj)
+	},
+
+	/**
+	 * _buttonAdvancedSimpleToggle : toggle filter
+	 */
+	_buttonAdvancedSimpleToggle: function() {
+		var self = this,
+				cached = self.cached,
+				opts = self.options;
+
+		$.each(cached['.btn_toggle-advanced'], function(index, val) {
+			$(this).click(function(event) {
+				/* Act on the event */
+				var filter = $(this).closest('.filter');
+				filter.hide();
+				filter.next('.filter').show();
+				var lyr = filter.next('.filter');
+				self._removeMultipleOptions(lyr);
+				//trigger multiple change
+				//filter.prev('.query_filter:first').data('change-trigger', true);
+				//lyr.find('.multiple_filter_select').trigger('change');
+			});
+		});
+
+		$.each(cached['.btn_toggle-simple'], function(index, val) {
+			$(this).click(function(event) {
+				var filter = $(this).closest('.filter');
+				filter.hide();
+				filter.prev('.filter').show();
+				var lyr = filter.prev('.filter');
+				self._removeSingleOptions(lyr);
+				//trigger single change
+				//filter.prevAll('.query_filter:first').data('change-trigger', true);
+				//lyr.find('.single_filter_select').trigger('change');
+			});
+		});
+	}
+});
+
 $.widget( "orchestrate.adv_query_questions", $.orchestrate.adv_query, {
 
 	/**
@@ -800,6 +1101,9 @@ $.widget( "orchestrate.adv_query_questions", $.orchestrate.adv_query, {
 				} else {
 					hd_value = [0];
 				}
+				hd_value = hd_value.map(function (string) {
+					return $.trim(string);
+				});
 
 				//alter value
 				if (select.val()) {
